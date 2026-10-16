@@ -35,6 +35,50 @@ body{
   transition:background .3s,color .3s;overflow-x:hidden;
 }
 
+/* ═════════ SPLASH SCREEN ═════════ */
+#splash{
+  position:fixed;inset:0;z-index:99999;
+  background:radial-gradient(circle at 30% 20%,#f7eed9 0%,var(--bg) 55%);
+  display:grid;place-items:center;padding:24px;
+  transition:opacity .7s ease, visibility .7s;
+}
+body.dark #splash{
+  background:radial-gradient(circle at 30% 20%,#1b2334 0%,var(--bg) 55%);
+}
+#splash.hide{opacity:0;visibility:hidden;pointer-events:none}
+#splash .wrap{text-align:center;animation:rise .8s cubic-bezier(.2,.9,.3,1)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+#splash .created{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:13px;font-weight:500;letter-spacing:5px;
+  color:var(--mut);text-transform:uppercase;margin-bottom:18px;
+}
+#splash .title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:56px;font-weight:800;letter-spacing:-1.5px;line-height:1;
+  background:linear-gradient(135deg,#8b5a2b 0%,#b8860b 50%,#8b5a2b 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+body.dark #splash .title{
+  background:linear-gradient(135deg,#d4a05a,#e0b060,#d4a05a);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+#splash .sub{
+  margin-top:20px;font-size:12px;color:var(--mut2);
+  letter-spacing:2px;text-transform:uppercase;
+}
+@media(max-width:480px){
+  #splash .title{font-size:42px}
+  #splash .created{font-size:11px;letter-spacing:3px}
+}
+@media (orientation: landscape) and (max-height: 500px){
+  #splash .title{font-size:34px}
+  #splash .created{font-size:10px;letter-spacing:3px;margin-bottom:10px}
+  #splash .sub{margin-top:12px;font-size:10px}
+}
+
 /* ═════════ HEADER ═════════ */
 header{
   position:sticky;top:0;z-index:100;
@@ -113,7 +157,6 @@ main{padding:14px 12px}
   font-weight:700;display:flex;align-items:center;gap:7px}
 .card h3::before{content:'';width:3px;height:12px;background:var(--gold);border-radius:2px}
 
-/* Stats grid */
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:9px}
 .stat{background:var(--p2);border:1px solid var(--ln);border-radius:10px;padding:12px 13px;
   transition:.15s;position:relative;overflow:hidden}
@@ -128,7 +171,6 @@ main{padding:14px 12px}
 .chartbox{position:relative;height:240px}
 .chart-fallback{text-align:center;color:var(--mut);padding:70px 10px;font-size:12px}
 
-/* Class band */
 .band{display:flex;justify-content:space-between;align-items:center;
   padding:12px 16px;border-radius:10px;margin-bottom:12px;
   font-family:Georgia,serif;font-weight:700;font-size:14px;color:#fff;
@@ -138,7 +180,6 @@ main{padding:14px 12px}
 .band span:last-child{font-family:-apple-system,system-ui,sans-serif;
   font-weight:500;font-size:11.5px;opacity:.92}
 
-/* Radar grid */
 .rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:10px;margin-bottom:12px}
 .rcard{background:var(--p2);border:1px solid var(--ln);border-radius:10px;padding:10px}
@@ -150,7 +191,6 @@ main{padding:14px 12px}
 .rmsg{position:absolute;inset:0;display:none;place-items:center;color:var(--mut);
   font-size:11.5px;text-align:center;padding:20px;line-height:1.5}
 
-/* Subject progress */
 .sprog{margin-bottom:16px}
 .sprog .sh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .sprog .sh b{font-family:Georgia,serif;font-size:13.5px;font-weight:700}
@@ -160,7 +200,6 @@ main{padding:14px 12px}
 .cr .bar{flex:1;height:7px;margin:0}
 .cr .pct{width:48px;text-align:right;color:var(--mut);font-size:11px;font-weight:600}
 
-/* Legend */
 .legend{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
   gap:8px;margin-bottom:14px;padding:12px;
@@ -172,7 +211,6 @@ main{padding:14px 12px}
 .legend .item b{font-weight:700;color:var(--ink2);font-size:11px}
 .legend .item span{color:var(--mut);font-size:10.5px;display:block}
 
-/* Chapters */
 .shdr{display:flex;justify-content:space-between;align-items:center;
   margin:16px 0 8px;padding:8px 12px;border-radius:8px;
   font-family:Georgia,serif;font-weight:700;font-size:13px}
@@ -198,7 +236,6 @@ main{padding:14px 12px}
 .met[data-k="n"].on{background:var(--pnk);border-color:var(--pnk)}
 .met[data-k="t"].on{background:var(--red);border-color:var(--red)}
 
-/* Filters */
 .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 input,select,textarea{font:inherit;background:var(--p2);border:1px solid var(--ln);
   border-radius:8px;padding:8px 11px;color:var(--ink);outline:none;font-size:12.5px;
@@ -210,7 +247,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
 .pill:hover{border-color:var(--acc);color:var(--acc)}
 .pill.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:600}
 
-/* Tasks */
 .tier-tabs{display:flex;gap:4px;padding:4px;background:var(--p2);
   border:1px solid var(--ln);border-radius:11px;margin-bottom:14px}
 .tier-tabs button{flex:1;background:transparent;border:0;color:var(--ink2);
@@ -246,7 +282,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
   letter-spacing:.9px;font-weight:700;margin:14px 0 6px}
 .dh:first-child{margin-top:0}
 
-/* Months */
 .mc{background:var(--p2);border:1px solid var(--ln);border-radius:11px;
   padding:14px 16px;margin-bottom:8px;cursor:pointer;transition:.15s}
 .mc:hover{border-color:var(--acc);transform:translateX(3px)}
@@ -258,7 +293,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
   flex-wrap:wrap;margin-top:9px}
 .mc .mr b{color:var(--ink);font-family:Georgia,serif;font-weight:700}
 
-/* Back button */
 .backbtn{
   display:inline-flex;align-items:center;gap:7px;padding:8px 14px;
   background:var(--p2);border:1px solid var(--ln);border-radius:9px;
@@ -267,7 +301,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
 }
 .backbtn:hover{border-color:var(--acc);color:var(--acc)}
 
-/* Day rows */
 .dayrow{
   background:var(--p2);border:1px solid var(--ln);border-radius:10px;
   margin-bottom:6px;overflow:hidden;transition:.15s;
@@ -291,9 +324,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
 .dayhead .dpct.low{color:var(--red)}
 .dayhead .caret{font-size:10px;color:var(--mut);transition:.2s}
 .dayrow.open .caret{transform:rotate(180deg)}
-.daybody{
-  display:none;padding:0 14px 12px;border-top:1px dashed var(--ln);
-}
+.daybody{display:none;padding:0 14px 12px;border-top:1px dashed var(--ln)}
 .dayrow.open .daybody{display:block}
 .daybody .task{margin-top:8px;font-size:12.5px;background:var(--p)}
 .daybody .daybar{
@@ -304,14 +335,13 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
   display:block;height:100%;background:var(--grn);border-radius:99px;
 }
 
-/* Toast */
 #toast{position:fixed;bottom:20px;left:50%;transform:translate(-50%,120px);
   background:var(--ink);color:var(--bg);padding:11px 20px;border-radius:10px;
   font-size:12.5px;opacity:0;transition:.3s cubic-bezier(.4,0,.2,1);
   pointer-events:none;z-index:99999;font-weight:500;box-shadow:var(--shadow2)}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 
-/* ═════════ LANDSCAPE MODE ═════════ */
+/* ═════════ LANDSCAPE ═════════ */
 @media (orientation: landscape) and (max-height: 500px) {
   header{padding:6px 10px}
   header h1{font-size:15px}
@@ -332,9 +362,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
   #pg-dash .stats{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
   #drawer{width:240px}
   .mc{padding:10px 12px}
-  .mc .mh span:first-child{font-size:13px}
   .dayhead{padding:9px 11px}
-  .dayhead .dl{font-size:12px}
 }
 @media (orientation: landscape) and (max-height: 380px) {
   header h1{font-size:14px}
@@ -350,8 +378,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
   .rgrid{grid-template-columns:repeat(3,1fr)}
   .rcard .rbox{height:220px}
 }
-
-/* Responsive portrait */
 @media(max-width:520px){
   header h1{font-size:16px}
   main{padding:12px 10px}
@@ -362,6 +388,15 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
 </style>
 </head>
 <body>
+
+<!-- ═════════ SPLASH SCREEN ═════════ -->
+<div id="splash">
+  <div class="wrap">
+    <div class="created">Created by Viraj</div>
+    <div class="title">JEE Tracker</div>
+    <div class="sub">Study · Track · Conquer</div>
+  </div>
+</div>
 
 <!-- ═════════ HEADER ═════════ -->
 <header>
@@ -375,7 +410,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
   </div>
 </header>
 
-<!-- ═════════ DRAWER + OVERLAY ═════════ -->
 <div id="overlay"></div>
 <aside id="drawer">
   <div class="drawer-head">
@@ -391,10 +425,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
   <div class="drawer-foot">v15 · Professional</div>
 </aside>
 
-<!-- ═════════ MAIN ═════════ -->
 <main>
-
-  <!-- DASHBOARD -->
   <section id="pg-dash" class="page on">
     <div class="stats" id="stats" style="margin-bottom:12px"></div>
     <div class="card"><h3>This Month — Daily Completion</h3>
@@ -406,7 +437,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
     <div class="card"><h3>Subject Progress</h3><div id="subjBars"></div></div>
   </section>
 
-  <!-- CHAPTERS -->
   <section id="pg-ch" class="page">
     <div class="card">
       <h3>Legend</h3>
@@ -432,7 +462,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
     </div>
   </section>
 
-  <!-- TASKS -->
   <section id="pg-tk" class="page">
     <div class="card">
       <h3>Manage Tasks</h3>
@@ -441,7 +470,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
         <button type="button" data-tier="weekly">Weekly</button>
         <button type="button" data-tier="monthly">Monthly</button>
       </div>
-
       <div id="ctrlDaily" class="tier-ctrl on">
         <div class="row" style="margin-bottom:10px">
           <input type="date" id="tdDaily" style="flex:1;min-width:140px">
@@ -455,7 +483,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
           <button type="button" class="btn pri" id="addDaily" style="background:var(--acc);border:0;color:#fff;font-weight:600;padding:8px 16px;border-radius:8px;cursor:pointer">+ Add</button>
         </div>
       </div>
-
       <div id="ctrlWeekly" class="tier-ctrl">
         <div class="row" style="margin-bottom:10px">
           <button type="button" class="pill" id="wPrev">← Prev</button>
@@ -468,7 +495,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
           <button type="button" class="btn pri" id="addWeekly" style="background:var(--acc);border:0;color:#fff;font-weight:600;padding:8px 16px;border-radius:8px;cursor:pointer">+ Add</button>
         </div>
       </div>
-
       <div id="ctrlMonthly" class="tier-ctrl">
         <div class="row" style="margin-bottom:10px">
           <button type="button" class="pill" id="mPrev">← Prev</button>
@@ -481,13 +507,11 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
           <button type="button" class="btn pri" id="addMonthly" style="background:var(--acc);border:0;color:#fff;font-weight:600;padding:8px 16px;border-radius:8px;cursor:pointer">+ Add</button>
         </div>
       </div>
-
       <div class="tier-info" id="tierInfo">Showing: Daily tasks (per date)</div>
       <div id="tlist"></div>
     </div>
   </section>
 
-  <!-- MONTHS LIST -->
   <section id="pg-months" class="page">
     <div class="card">
       <h3>Monthly Archive</h3>
@@ -498,7 +522,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
     </div>
   </section>
 
-  <!-- MONTH DETAIL -->
   <section id="pg-month-detail" class="page">
     <button class="backbtn" id="backToMonths">← Back to Months</button>
     <div class="card">
@@ -511,15 +534,11 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
       <div id="mdDays"></div>
     </div>
   </section>
-
 </main>
 
 <div id="toast"></div>
 
 <script>
-/* ═══════════════════════════════════════════════════════════
-   SYLLABUS
-   ═══════════════════════════════════════════════════════════ */
 const SYL = {
   Physics: {
     "11": ["Units & Measurements","Kinematics 1D","Kinematics 2D & Projectile","Vectors","Laws of Motion","Friction","Work, Energy & Power","Circular Motion","Center of Mass & Collisions","Rotational Motion","Gravitation","Mechanical Properties of Solids","Mechanical Properties of Fluids","Thermal Properties of Matter","Thermodynamics","Kinetic Theory of Gases","Oscillations (SHM)","Waves"],
@@ -605,10 +624,7 @@ const prevMonth = k => { const[y,m]=k.split('-').map(Number); return mkKey(new D
 
 let S = {};
 try { S = JSON.parse(localStorage.getItem(KEY)||'null') || {}; } catch(e){ S={}; }
-S.ch = S.ch || {};
-S.tk = S.tk || {};
-S.wk = S.wk || {};
-S.mk = S.mk || {};
+S.ch = S.ch || {}; S.tk = S.tk || {}; S.wk = S.wk || {}; S.mk = S.mk || {};
 S.months = S.months || {};
 if (!S.currentMonth) S.currentMonth = todayM();
 
@@ -628,10 +644,8 @@ function migrate(){
     try {
       const old = JSON.parse(raw);
       if (!old.ch && !old.tk) continue;
-      const ns = {
-        ch: old.ch||{}, tk: old.tk||{}, wk: old.wk||{}, mk: old.mk||{},
-        months: old.months||{}, currentMonth: old.currentMonth||todayM()
-      };
+      const ns = { ch: old.ch||{}, tk: old.tk||{}, wk: old.wk||{}, mk: old.mk||{},
+        months: old.months||{}, currentMonth: old.currentMonth||todayM() };
       Object.keys(ns.ch).forEach(k=>{ if (ns.ch[k].t === undefined) ns.ch[k].t = false; });
       localStorage.setItem(KEY, JSON.stringify(ns));
       setTimeout(()=>toast("Data migrated"), 800);
@@ -663,9 +677,7 @@ function checkM(){
   if (S.currentMonth !== n){
     archM(S.currentMonth);
     S.currentMonth = n;
-    save();
-    toast("Month archived");
-    return true;
+    save(); toast("Month archived"); return true;
   }
   return false;
 }
@@ -676,8 +688,7 @@ function backfill(){
 }
 
 function cStats(sub,cls){
-  const list = SYL[sub][cls]||[];
-  const total = list.length;
+  const list = SYL[sub][cls]||[], total = list.length;
   const cnt = {c:0,r1:0,r2:0,q:0,n:0,t:0};
   list.forEach(n=>{
     const st = S.ch[ckey(sub,cls,n)];
@@ -686,22 +697,17 @@ function cStats(sub,cls){
   });
   const pct = {};
   METRICS.forEach(m=> pct[m.k] = total ? cnt[m.k]/total*100 : 0);
-  const overall = total
-    ? (cnt.c+cnt.r1+cnt.r2+cnt.q+cnt.n+cnt.t)/(total*METRICS.length)*100
-    : 0;
+  const overall = total ? (cnt.c+cnt.r1+cnt.r2+cnt.q+cnt.n+cnt.t)/(total*METRICS.length)*100 : 0;
   return { total, cnt, pct, overall };
 }
 function sStats(sub){
-  const a = cStats(sub,"11");
-  const b = cStats(sub,"12");
+  const a = cStats(sub,"11"), b = cStats(sub,"12");
   const total = a.total + b.total;
   const cnt = {c:0,r1:0,r2:0,q:0,n:0,t:0};
   METRICS.forEach(m=> cnt[m.k] = a.cnt[m.k] + b.cnt[m.k]);
   const pct = {};
   METRICS.forEach(m=> pct[m.k] = total ? cnt[m.k]/total*100 : 0);
-  const overall = total
-    ? (cnt.c+cnt.r1+cnt.r2+cnt.q+cnt.n+cnt.t)/(total*METRICS.length)*100
-    : 0;
+  const overall = total ? (cnt.c+cnt.r1+cnt.r2+cnt.q+cnt.n+cnt.t)/(total*METRICS.length)*100 : 0;
   return { total, cnt, pct, overall, s11:a, s12:b };
 }
 function cOv(cls){
@@ -714,8 +720,7 @@ function tStatsDaily(f,t){
   Object.keys(S.tk).forEach(k=>{
     if (k>=f && k<=t){
       const a = S.tk[k]||[];
-      tot += a.length;
-      dn += a.filter(x=>x.done).length;
+      tot += a.length; dn += a.filter(x=>x.done).length;
     }
   });
   return { total:tot, done:dn, pct: tot ? dn/tot*100 : 0 };
@@ -741,7 +746,6 @@ function mSummary(ym){
     tasks = S.months[ym].tasks || {};
     snap = S.months[ym].chSnap || null;
   } else return null;
-
   let tot=0, dn=0;
   Object.values(tasks).forEach(a=>{ tot += a.length; dn += a.filter(x=>x.done).length; });
   let ch = 0;
@@ -763,20 +767,16 @@ if (HAS_CHART){
   Chart.defaults.font.family = "Georgia, serif";
   Chart.defaults.font.size = 11;
 }
-const gridC = { color: "#e5d9c0", drawBorder: false };
-const tickC = { color: "#8a7a62" };
 
 function drawLineChart(id, ym){
   if (!HAS_CHART) return;
   if (charts[id]) charts[id].destroy();
   const cv = document.getElementById(id);
   if (!cv) return;
-
   const [y,m] = ym.split('-').map(Number);
   const dim = new Date(y,m,0).getDate();
   const live = ym === S.currentMonth;
   const labels = [], data = [];
-
   for (let d=1; d<=dim; d++){
     const k = ym + '-' + pad(d);
     let arr;
@@ -786,41 +786,27 @@ function drawLineChart(id, ym){
     labels.push(d);
     data.push(arr.length ? arr.filter(t=>t.done).length/arr.length*100 : null);
   }
-
   const dark = document.body.classList.contains('dark');
   const lineColor = dark ? '#7ac8c8' : '#5fb8a4';
   const gridCol = dark ? '#2a2f3a' : '#e5d9c0';
   const labelCol = dark ? '#7a7565' : '#8a7a62';
-
   charts[id] = new Chart(cv, {
     type: 'line',
-    data: {
-      labels,
-      datasets: [{
-        data,
-        borderColor: lineColor,
-        backgroundColor: 'transparent',
-        borderWidth: 2,
-        tension: 0.25,
-        pointRadius: 4,
-        pointHoverRadius: 6,
-        pointBackgroundColor: lineColor,
-        pointBorderColor: dark ? '#171a20' : '#fffdf8',
-        pointBorderWidth: 2,
-        spanGaps: false,
-        fill: false
-      }]
-    },
+    data: { labels, datasets: [{
+      data, borderColor: lineColor, backgroundColor: 'transparent', borderWidth: 2,
+      tension: 0.25, pointRadius: 4, pointHoverRadius: 6,
+      pointBackgroundColor: lineColor,
+      pointBorderColor: dark ? '#171a20' : '#fffdf8', pointBorderWidth: 2,
+      spanGaps: false, fill: false
+    }]},
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
+      responsive: true, maintainAspectRatio: false,
       interaction: { intersect: false, mode: 'index' },
       plugins: {
         legend: { display: false },
         tooltip: {
           backgroundColor: dark ? '#252a35' : '#2d2418',
-          padding: 10,
-          titleFont: { family: 'Georgia, serif' },
+          padding: 10, titleFont: { family: 'Georgia, serif' },
           callbacks: {
             title: it => 'Day ' + it[0].label,
             label: c => c.parsed.y === null ? 'No tasks' : c.parsed.y.toFixed(0) + '% completed'
@@ -828,25 +814,16 @@ function drawLineChart(id, ym){
         }
       },
       scales: {
-        y: {
-          beginAtZero: true,
-          max: 100,
+        y: { beginAtZero: true, max: 100,
           grid: { color: gridCol, drawBorder: false },
-          ticks: { color: labelCol, callback: v => v + '%', stepSize: 25 }
-        },
-        x: {
-          grid: { display: false },
-          ticks: {
-            color: labelCol,
-            maxRotation: 0,
-            autoSkipPadding: 12,
+          ticks: { color: labelCol, callback: v => v + '%', stepSize: 25 } },
+        x: { grid: { display: false },
+          ticks: { color: labelCol, maxRotation: 0, autoSkipPadding: 12,
             callback: function(v, i) {
               const d = parseInt(this.getLabelForValue(v));
               if (d === 1 || d % 3 === 0 || d === dim) return d;
               return null;
-            }
-          }
-        }
+            } } }
       }
     }
   });
@@ -859,20 +836,14 @@ function drawRadars(cls, gridId){
   const gc = dark ? '#2a2f3a' : '#e5d9c0';
   const tc = dark ? '#7a7565' : '#8a7a62';
   const lc = dark ? '#b8a890' : '#5a4a36';
-
   if (!grid.querySelector('.rcard')){
     grid.innerHTML = SUBS.map((s,i)=>
       `<div class="rcard" data-sub="${esc(s)}" data-cls="${cls}">
-        <div class="rt" style="color:${SCLR[s]}">
-          <span>${esc(s)}</span><span class="mini">0%</span>
-        </div>
-        <div class="rbox">
-          <canvas id="r-${cls}-${i}"></canvas>
-          <div class="rmsg" id="rm-${cls}-${i}">No data<br><small>Tick some chapters</small></div>
-        </div>
+        <div class="rt" style="color:${SCLR[s]}"><span>${esc(s)}</span><span class="mini">0%</span></div>
+        <div class="rbox"><canvas id="r-${cls}-${i}"></canvas>
+          <div class="rmsg" id="rm-${cls}-${i}">No data<br><small>Tick some chapters</small></div></div>
       </div>`).join('');
   }
-
   SUBS.forEach((s,i)=>{
     const cv = document.getElementById(`r-${cls}-${i}`);
     const msg = document.getElementById(`rm-${cls}-${i}`);
@@ -895,13 +866,10 @@ function drawRadars(cls, gridId){
           label: s + ' ' + cls,
           data: METRICS.map(m => st.pct[m.k]),
           backgroundColor: SCLR[s] + '33',
-          borderColor: SCLR[s],
-          borderWidth: 2,
+          borderColor: SCLR[s], borderWidth: 2,
           pointBackgroundColor: METRICS.map(m => m.color),
           pointBorderColor: dark ? '#171a20' : '#fffdf8',
-          pointBorderWidth: 1.5,
-          pointRadius: 3,
-          pointHoverRadius: 5
+          pointBorderWidth: 1.5, pointRadius: 3, pointHoverRadius: 5
         }]
       },
       options: {
@@ -909,8 +877,7 @@ function drawRadars(cls, gridId){
         plugins: {
           legend: { display: false },
           tooltip: {
-            backgroundColor: dark ? '#252a35' : '#2d2418',
-            padding: 9,
+            backgroundColor: dark ? '#252a35' : '#2d2418', padding: 9,
             callbacks: {
               title: it => METRICS[it[0].dataIndex].full,
               label: c => ' ' + c.parsed.r.toFixed(0) + '% (' + st.cnt[METRICS[c.dataIndex].k] + '/' + st.total + ')'
@@ -918,19 +885,15 @@ function drawRadars(cls, gridId){
           }
         },
         scales: {
-          r: {
-            beginAtZero: true, max: 100,
+          r: { beginAtZero: true, max: 100,
             ticks: { stepSize: 25, color: tc, backdropColor: 'transparent',
               showLabelBackdrop: false, font: { size: 8 }, callback: v => v + '%' },
-            grid: { color: gc },
-            angleLines: { color: gc },
-            pointLabels: { color: lc, font: { size: 10, weight: '700' } }
-          }
+            grid: { color: gc }, angleLines: { color: gc },
+            pointLabels: { color: lc, font: { size: 10, weight: '700' } } }
         }
       }
     });
   });
-
   grid.querySelectorAll('.rcard').forEach(card=>{
     const s = card.dataset.sub, cl = card.dataset.cls;
     const st = cStats(s,cl);
@@ -949,7 +912,6 @@ function renderDash(){
   const stk = dailyStreak();
   const wt = weekStats(currentWeekKey());
   const mt = monthStatsTasks(todayM());
-
   $("#stats").innerHTML = `
     <div class="stat"><span class="lb">Overall</span>
       <span class="vl">${ov.toFixed(1)}<small>%</small></span>
@@ -969,27 +931,18 @@ function renderDash(){
     <div class="stat"><span class="lb">This Month</span>
       <span class="vl">${mt.done}<small>/${mt.total}</small></span>
       <div class="bar"><i style="width:${mt.pct}%;background:var(--gold)"></i></div></div>`;
-
   $("#hdSub").textContent = `${dCh} chapters · ${stk}-day streak`;
-
   const a = cOv('11'), b = cOv('12');
   $("#c11Sum").textContent = `${a.pct.toFixed(1)}% · ${a.total} chapters`;
   $("#c12Sum").textContent = `${b.pct.toFixed(1)}% · ${b.total} chapters`;
-
   $("#subjBars").innerHTML = SUBS.map(s=>{
     const st = sStats(s);
-    return `<div class="sprog">
-      <div class="sh"><b style="color:${SCLR[s]}">${s}</b>
-        <span>${st.cnt.c}/${st.total} done · ${st.overall.toFixed(0)}%</span></div>
-      <div class="cr"><span class="lbl">11th</span>
-        <div class="bar"><i style="width:${st.s11.overall}%;background:var(--c11)"></i></div>
-        <span class="pct">${st.s11.overall.toFixed(0)}%</span></div>
-      <div class="cr"><span class="lbl">12th</span>
-        <div class="bar"><i style="width:${st.s12.overall}%;background:var(--c12)"></i></div>
-        <span class="pct">${st.s12.overall.toFixed(0)}%</span></div>
+    return `<div class="sprog"><div class="sh"><b style="color:${SCLR[s]}">${s}</b>
+      <span>${st.cnt.c}/${st.total} done · ${st.overall.toFixed(0)}%</span></div>
+      <div class="cr"><span class="lbl">11th</span><div class="bar"><i style="width:${st.s11.overall}%;background:var(--c11)"></i></div><span class="pct">${st.s11.overall.toFixed(0)}%</span></div>
+      <div class="cr"><span class="lbl">12th</span><div class="bar"><i style="width:${st.s12.overall}%;background:var(--c12)"></i></div><span class="pct">${st.s12.overall.toFixed(0)}%</span></div>
     </div>`;
   }).join('');
-
   drawLineChart('cMain', S.currentMonth);
   drawRadars('11','radar11');
   drawRadars('12','radar12');
@@ -999,11 +952,8 @@ let chF = 'all', clF = 'all';
 
 function renderLegend(){
   $("#legendBox").innerHTML = METRICS.map(m =>
-    `<div class="item">
-      <div class="dot" style="background:${m.color}">${m.lbl}</div>
-      <div><b>${m.full}</b><span>${m.desc}</span></div>
-    </div>`
-  ).join('');
+    `<div class="item"><div class="dot" style="background:${m.color}">${m.lbl}</div>
+      <div><b>${m.full}</b><span>${m.desc}</span></div></div>`).join('');
 }
 
 function renderCh(){
@@ -1019,18 +969,15 @@ function renderCh(){
         <span style="color:${SCLR[s]}">${esc(s)}
           <span style="font-family:-apple-system,system-ui,sans-serif;font-size:10.5px;
             background:var(--c${c});color:#fff;padding:2px 8px;border-radius:99px;margin-left:6px">
-            Class ${c}</span>
-        </span>
-        <span class="mini">${st.cnt.c}/${st.total} done · ${st.overall.toFixed(0)}%</span>
-      </div>`;
+            Class ${c}</span></span>
+        <span class="mini">${st.cnt.c}/${st.total} done · ${st.overall.toFixed(0)}%</span></div>`;
       list.forEach(n=>{
         const st2 = chState(s,c,n);
         h += `<div class="ch"><span class="nm">${esc(n)}</span>
           <div class="mets">${METRICS.map(m=>
             `<button class="met ${st2[m.k]?'on':''}"
               data-sub="${esc(s)}" data-cls="${c}" data-ch="${esc(n)}" data-k="${m.k}"
-              title="${m.full}">${m.lbl}</button>`
-          ).join('')}</div></div>`;
+              title="${m.full}">${m.lbl}</button>`).join('')}</div></div>`;
       });
     });
   });
@@ -1075,16 +1022,12 @@ $("#tdDaily").value = today();
 $$('[data-drange]').forEach(b => b.addEventListener('click', () => {
   $$('[data-drange]').forEach(x => {
     x.classList.remove('on');
-    x.style.background = '';
-    x.style.color = '';
-    x.style.borderColor = '';
-    x.style.fontWeight = '';
+    x.style.background = ''; x.style.color = '';
+    x.style.borderColor = ''; x.style.fontWeight = '';
   });
   b.classList.add('on');
-  b.style.background = 'var(--acc)';
-  b.style.color = '#fff';
-  b.style.borderColor = 'var(--acc)';
-  b.style.fontWeight = '600';
+  b.style.background = 'var(--acc)'; b.style.color = '#fff';
+  b.style.borderColor = 'var(--acc)'; b.style.fontWeight = '600';
   dRange = b.dataset.drange;
   renderTasks();
 }));
@@ -1093,10 +1036,7 @@ $("#addDaily").addEventListener('click', () => {
   if (!x){ $("#tiDaily").focus(); return; }
   const k = $("#tdDaily").value || today();
   (S.tk[k] = S.tk[k] || []).push({id: Date.now().toString(36)+Math.random().toString(36).slice(2,5), text: x, done: false});
-  save();
-  $("#tiDaily").value = '';
-  $("#tiDaily").focus();
-  renderTasks();
+  save(); $("#tiDaily").value = ''; $("#tiDaily").focus(); renderTasks();
 });
 $("#tiDaily").addEventListener('keydown', e => { if (e.key === 'Enter') $("#addDaily").click(); });
 
@@ -1107,10 +1047,7 @@ $("#addWeekly").addEventListener('click', () => {
   const x = $("#tiWeekly").value.trim();
   if (!x){ $("#tiWeekly").focus(); return; }
   (S.wk[wkSelected] = S.wk[wkSelected] || []).push({id: Date.now().toString(36)+Math.random().toString(36).slice(2,5), text: x, done: false});
-  save();
-  $("#tiWeekly").value = '';
-  $("#tiWeekly").focus();
-  renderTasks();
+  save(); $("#tiWeekly").value = ''; $("#tiWeekly").focus(); renderTasks();
 });
 $("#tiWeekly").addEventListener('keydown', e => { if (e.key === 'Enter') $("#addWeekly").click(); });
 
@@ -1121,10 +1058,7 @@ $("#addMonthly").addEventListener('click', () => {
   const x = $("#tiMonthly").value.trim();
   if (!x){ $("#tiMonthly").focus(); return; }
   (S.mk[mkSelected] = S.mk[mkSelected] || []).push({id: Date.now().toString(36)+Math.random().toString(36).slice(2,5), text: x, done: false});
-  save();
-  $("#tiMonthly").value = '';
-  $("#tiMonthly").focus();
-  renderTasks();
+  save(); $("#tiMonthly").value = ''; $("#tiMonthly").focus(); renderTasks();
 });
 $("#tiMonthly").addEventListener('keydown', e => { if (e.key === 'Enter') $("#addMonthly").click(); });
 
@@ -1153,8 +1087,7 @@ function renderDailyTasks(box){
   }
   let h = '';
   ds.forEach(k => {
-    const a = S.tk[k];
-    const dn = a.filter(t=>t.done).length;
+    const a = S.tk[k], dn = a.filter(t=>t.done).length;
     const p = a.length ? dn/a.length*100 : 0;
     const dd = new Date(k+'T00:00:00');
     const lbl = dd.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});
@@ -1164,8 +1097,7 @@ function renderDailyTasks(box){
       h += `<div class="task ${t.done?'done':''}">
         <button class="chk" data-task-tier="daily" data-k="${k}" data-id="${esc(t.id)}">✓</button>
         <span class="tx">${esc(t.text)}</span>
-        <button class="del" data-task-tier="daily" data-k="${k}" data-id="${esc(t.id)}">×</button>
-      </div>`;
+        <button class="del" data-task-tier="daily" data-k="${k}" data-id="${esc(t.id)}">×</button></div>`;
     });
   });
   box.innerHTML = h;
@@ -1187,8 +1119,7 @@ function renderWeeklyTasks(box){
     h += `<div class="task ${t.done?'done':''}">
       <button class="chk" data-task-tier="weekly" data-id="${esc(t.id)}">✓</button>
       <span class="tx">${esc(t.text)}</span>
-      <button class="del" data-task-tier="weekly" data-id="${esc(t.id)}">×</button>
-    </div>`;
+      <button class="del" data-task-tier="weekly" data-id="${esc(t.id)}">×</button></div>`;
   });
   box.innerHTML = h;
 }
@@ -1209,8 +1140,7 @@ function renderMonthlyTasks(box){
     h += `<div class="task ${t.done?'done':''}">
       <button class="chk" data-task-tier="monthly" data-id="${esc(t.id)}">✓</button>
       <span class="tx">${esc(t.text)}</span>
-      <button class="del" data-task-tier="monthly" data-id="${esc(t.id)}">×</button>
-    </div>`;
+      <button class="del" data-task-tier="monthly" data-id="${esc(t.id)}">×</button></div>`;
   });
   box.innerHTML = h;
 }
@@ -1239,7 +1169,6 @@ function renderMonths(){
   const set = new Set(Object.keys(S.months));
   set.add(S.currentMonth);
   const arr = [...set].sort().reverse();
-
   $("#monthList").innerHTML = arr.map(ym => {
     const s = mSummary(ym);
     if (!s) return '';
@@ -1248,13 +1177,9 @@ function renderMonths(){
     return `<div class="mc" data-m="${ym}">
       <div class="mh"><span>${lbl}</span><span>${s.pct.toFixed(0)}% completed</span></div>
       <div class="bar"><i style="width:${s.pct}%"></i></div>
-      <div class="mr">
-        <span>Tasks: <b>${s.done}/${s.tasks}</b></span>
-        <span>Chapters: <b>${s.chapters}</b></span>
-      </div>
-    </div>`;
+      <div class="mr"><span>Tasks: <b>${s.done}/${s.tasks}</b></span>
+        <span>Chapters: <b>${s.chapters}</b></span></div></div>`;
   }).join('');
-
   $$('.mc').forEach(c => c.onclick = () => openMonthDetail(c.dataset.m));
 }
 
@@ -1263,9 +1188,7 @@ function openMonthDetail(ym){
   currentMD = ym;
   const s = mSummary(ym);
   if (!s) return;
-
   $("#mdTitle").textContent = mLabel(ym) + (ym === S.currentMonth ? ' · Current' : ' · Archived');
-
   $("#mdStats").innerHTML = `
     <div class="stat"><span class="lb">Tasks Done</span>
       <span class="vl">${s.done}<small>/${s.tasks}</small></span>
@@ -1274,13 +1197,11 @@ function openMonthDetail(ym){
       <span class="vl">${s.pct.toFixed(1)}<small>%</small></span></div>
     <div class="stat"><span class="lb">Chapters</span>
       <span class="vl" style="color:var(--grn)">${s.chapters}</span></div>`;
-
   const [y,m] = ym.split('-').map(Number);
   const dim = new Date(y,m,0).getDate();
   const live = ym === S.currentMonth;
   let html = '';
   let anyDay = false;
-
   for (let d = 1; d <= dim; d++){
     const k = ym + '-' + pad(d);
     let arr;
@@ -1289,22 +1210,16 @@ function openMonthDetail(ym){
     else arr = [];
     if (!arr.length) continue;
     anyDay = true;
-
     const dn = arr.filter(t=>t.done).length;
     const p = arr.length ? dn/arr.length*100 : 0;
     const dd = new Date(k + 'T00:00:00');
     const lbl = dd.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});
     const cls = p >= 70 ? 'good' : p >= 40 ? 'mid' : 'low';
-
     html += `<div class="dayrow" data-day="${k}">
-      <div class="dayhead">
-        <span class="dl">${lbl}</span>
-        <span class="dstat">
-          <span>${dn}/${arr.length}</span>
+      <div class="dayhead"><span class="dl">${lbl}</span>
+        <span class="dstat"><span>${dn}/${arr.length}</span>
           <span class="dpct ${cls}">${p.toFixed(0)}%</span>
-          <span class="caret">▼</span>
-        </span>
-      </div>
+          <span class="caret">▼</span></span></div>
       <div class="daybody">
         <div class="daybar"><i style="width:${p}%"></i></div>
         ${arr.map(t => `<div class="task ${t.done?'done':''}">
@@ -1312,35 +1227,20 @@ function openMonthDetail(ym){
             background:${t.done?'var(--grn)':'var(--p2)'};
             border:2px solid ${t.done?'var(--grn)':'var(--ln2)'};
             color:#fff;font-size:10px;font-weight:900">${t.done?'✓':''}</span>
-          <span class="tx">${esc(t.text)}</span>
-        </div>`).join('')}
-      </div>
-    </div>`;
+          <span class="tx">${esc(t.text)}</span></div>`).join('')}
+      </div></div>`;
   }
-
   $("#mdDays").innerHTML = anyDay ? html : '<div class="empty"><div class="big">No tasks this month</div></div>';
-
-  $$('.dayrow').forEach(r => r.querySelector('.dayhead').onclick = () => {
-    r.classList.toggle('open');
-  });
-
+  $$('.dayrow').forEach(r => r.querySelector('.dayhead').onclick = () => r.classList.toggle('open'));
   drawLineChart('cMonth', ym);
   showPage('pg-month-detail');
 }
 
 $("#backToMonths").addEventListener('click', () => showPage('pg-months'));
 
-const drawer = $("#drawer");
-const overlay = $("#overlay");
-
-function openDrawer(){
-  drawer.classList.add("open");
-  overlay.classList.add("open");
-}
-function closeDrawer(){
-  drawer.classList.remove("open");
-  overlay.classList.remove("open");
-}
+const drawer = $("#drawer"), overlay = $("#overlay");
+function openDrawer(){ drawer.classList.add("open"); overlay.classList.add("open"); }
+function closeDrawer(){ drawer.classList.remove("open"); overlay.classList.remove("open"); }
 $("#menuBtn").addEventListener("click", openDrawer);
 overlay.addEventListener("click", closeDrawer);
 
@@ -1349,12 +1249,10 @@ function showPage(pgId){
   const p = document.getElementById(pgId);
   if (p) p.classList.add('on');
   $$('.drawer-item').forEach(b => b.classList.toggle('on', b.dataset.pg === pgId));
-
   if (pgId === 'pg-dash') renderDash();
   if (pgId === 'pg-ch') renderCh();
   if (pgId === 'pg-tk') renderTasks();
   if (pgId === 'pg-months') renderMonths();
-
   window.scrollTo({top:0, behavior:'smooth'});
   closeDrawer();
 }
@@ -1394,8 +1292,7 @@ document.getElementById('expBtn').addEventListener('click', () => {
   const a = document.createElement('a');
   a.href = URL.createObjectURL(b);
   a.download = 'jee-tracker-backup-' + today() + '.json';
-  a.click();
-  URL.revokeObjectURL(a.href);
+  a.click(); URL.revokeObjectURL(a.href);
   toast("Backup downloaded");
 });
 document.getElementById('impBtn').addEventListener('click', () => document.getElementById('fileIn').click());
@@ -1440,7 +1337,16 @@ checkM();
 renderLegend();
 renderDash();
 
-console.log('✓ JEE Tracker Professional ready (with landscape)');
+/* ═════════ SPLASH SCREEN — hide after 2.6 sec ═════════ */
+setTimeout(() => {
+  const sp = document.getElementById('splash');
+  if (sp){
+    sp.classList.add('hide');
+    setTimeout(() => { sp.style.display = 'none'; }, 800);
+  }
+}, 2600);
+
+console.log('✓ JEE Tracker Professional ready');
 </script>
 </body>
 </html>
