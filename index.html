@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
 <title>JEE Tracker</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
@@ -34,35 +34,6 @@ body{
   padding:0 0 60px;max-width:1100px;margin:0 auto;
   transition:background .3s,color .3s;overflow-x:hidden;
 }
-/* ═════════ SPLASH ═════════ */
-#splash{
-  position:fixed;inset:0;z-index:99999;
-  background:radial-gradient(circle at 30% 20%,#f7eed9 0%,var(--bg) 55%);
-  display:grid;place-items:center;padding:24px;
-  transition:opacity .7s ease, visibility .7s;
-}
-body.dark #splash{background:radial-gradient(circle at 30% 20%,#1b2334 0%,var(--bg) 55%)}
-#splash.hide{opacity:0;visibility:hidden;pointer-events:none}
-#splash .wrap{text-align:center;animation:rise .8s cubic-bezier(.2,.9,.3,1)}
-@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-#splash .created{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:13px;font-weight:500;letter-spacing:5px;
-  color:var(--mut);text-transform:uppercase;margin-bottom:18px;
-}
-#splash .title{
-  font-family:Georgia,"Times New Roman",serif;
-  font-size:56px;font-weight:800;letter-spacing:-1.5px;line-height:1;
-  background:linear-gradient(135deg,#8b5a2b 0%,#b8860b 50%,#8b5a2b 100%);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-}
-body.dark #splash .title{background:linear-gradient(135deg,#d4a05a,#e0b060,#d4a05a);
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-#splash .sub{
-  margin-top:20px;font-size:12px;color:var(--mut2);
-  letter-spacing:2px;text-transform:uppercase;
-}
-@media(max-width:480px){#splash .title{font-size:42px}#splash .created{font-size:11px;letter-spacing:3px}}
 
 /* ═════════ HEADER ═════════ */
 header{
@@ -81,8 +52,8 @@ header h1{
   font-family:Georgia,serif;font-size:18px;font-weight:700;letter-spacing:-.2px;
   text-align:center;color:var(--ink);
 }
-header h1 span{color:var(--mut);font-weight:500;font-size:11px;display:block;letter-spacing:1.5px;
-  text-transform:uppercase;margin-top:1px}
+header h1 span{color:var(--mut);font-weight:500;font-size:11px;display:block;
+  letter-spacing:1.5px;text-transform:uppercase;margin-top:1px}
 .acts{display:flex;gap:5px}
 .iconbtn{
   width:34px;height:34px;border-radius:8px;border:1px solid var(--ln2);
@@ -107,13 +78,9 @@ header h1 span{color:var(--mut);font-weight:500;font-size:11px;display:block;let
   box-shadow:var(--shadow2);
 }
 #drawer.open{transform:translateX(0)}
-.drawer-head{
-  padding:20px 20px 16px;border-bottom:1px solid var(--ln);
-}
-.drawer-head h2{
-  font-family:Georgia,serif;font-size:19px;font-weight:800;
-  color:var(--ink);letter-spacing:-.3px;
-}
+.drawer-head{padding:20px 20px 16px;border-bottom:1px solid var(--ln)}
+.drawer-head h2{font-family:Georgia,serif;font-size:19px;font-weight:800;
+  color:var(--ink);letter-spacing:-.3px}
 .drawer-head p{font-size:11px;color:var(--mut);letter-spacing:1.5px;
   text-transform:uppercase;margin-top:3px}
 .drawer-nav{padding:12px 8px;flex:1;overflow-y:auto}
@@ -130,10 +97,8 @@ header h1 span{color:var(--mut);font-weight:500;font-size:11px;display:block;let
 .drawer-item:hover{background:var(--p2);color:var(--ink)}
 .drawer-item.on{background:var(--acc);color:#fff;font-weight:600}
 .drawer-item.on .ic{background:rgba(255,255,255,.2)}
-.drawer-foot{
-  padding:14px 20px;border-top:1px solid var(--ln);
-  font-size:11px;color:var(--mut);letter-spacing:.5px;
-}
+.drawer-foot{padding:14px 20px;border-top:1px solid var(--ln);
+  font-size:11px;color:var(--mut);letter-spacing:.5px}
 
 /* ═════════ PAGES ═════════ */
 main{padding:14px 12px}
@@ -195,7 +160,7 @@ main{padding:14px 12px}
 .cr .bar{flex:1;height:7px;margin:0}
 .cr .pct{width:48px;text-align:right;color:var(--mut);font-size:11px;font-weight:600}
 
-/* Legend for chapter metrics */
+/* Legend */
 .legend{
   display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
   gap:8px;margin-bottom:14px;padding:12px;
@@ -346,7 +311,47 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
   pointer-events:none;z-index:99999;font-weight:500;box-shadow:var(--shadow2)}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 
-/* Responsive */
+/* ═════════ LANDSCAPE MODE ═════════ */
+@media (orientation: landscape) and (max-height: 500px) {
+  header{padding:6px 10px}
+  header h1{font-size:15px}
+  header h1 span{display:none}
+  .menu-btn,.iconbtn{width:32px;height:32px;font-size:14px}
+  main{padding:10px 8px}
+  .card{padding:10px 12px;margin-bottom:8px}
+  .card h3{font-size:10.5px;margin-bottom:8px}
+  .stat{padding:8px 10px}
+  .stat .vl{font-size:17px}
+  .stat .lb{font-size:8.5px}
+  .chartbox{height:180px}
+  .rcard .rbox{height:150px}
+  .sprog{margin-bottom:10px}
+  .ch{padding:6px 9px;font-size:11.5px}
+  .met{padding:3px 6px;font-size:9px}
+  .task{padding:8px 10px;font-size:12px}
+  #pg-dash .stats{grid-template-columns:repeat(auto-fit,minmax(110px,1fr))}
+  #drawer{width:240px}
+  .mc{padding:10px 12px}
+  .mc .mh span:first-child{font-size:13px}
+  .dayhead{padding:9px 11px}
+  .dayhead .dl{font-size:12px}
+}
+@media (orientation: landscape) and (max-height: 380px) {
+  header h1{font-size:14px}
+  .chartbox{height:140px}
+  .rcard .rbox{height:130px}
+  main{padding:8px 6px}
+  .card{padding:8px 10px}
+}
+@media (orientation: landscape) and (min-width: 900px) and (max-width: 1400px) {
+  body{max-width:1200px}
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .chartbox{height:300px}
+  .rgrid{grid-template-columns:repeat(3,1fr)}
+  .rcard .rbox{height:220px}
+}
+
+/* Responsive portrait */
 @media(max-width:520px){
   header h1{font-size:16px}
   main{padding:12px 10px}
@@ -357,15 +362,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
 </style>
 </head>
 <body>
-
-<!-- ═════════ SPLASH ═════════ -->
-<div id="splash">
-  <div class="wrap">
-    <div class="created">Created by Viraj</div>
-    <div class="title">JEE Tracker</div>
-    <div class="sub">Study · Track · Conquer</div>
-  </div>
-</div>
 
 <!-- ═════════ HEADER ═════════ -->
 <header>
@@ -446,11 +442,10 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
         <button type="button" data-tier="monthly">Monthly</button>
       </div>
 
-      <!-- Daily -->
       <div id="ctrlDaily" class="tier-ctrl on">
         <div class="row" style="margin-bottom:10px">
           <input type="date" id="tdDaily" style="flex:1;min-width:140px">
-          <button type="button" class="btn pill" data-drange="day" style="background:var(--acc);color:#fff;border-color:var(--acc);font-weight:600" data-active="1">Today</button>
+          <button type="button" class="pill on" data-drange="day" style="background:var(--acc);color:#fff;border-color:var(--acc);font-weight:600">Today</button>
           <button type="button" class="pill" data-drange="week">Week</button>
           <button type="button" class="pill" data-drange="month">Month</button>
           <button type="button" class="pill" data-drange="all">All</button>
@@ -461,7 +456,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
         </div>
       </div>
 
-      <!-- Weekly -->
       <div id="ctrlWeekly" class="tier-ctrl">
         <div class="row" style="margin-bottom:10px">
           <button type="button" class="pill" id="wPrev">← Prev</button>
@@ -475,7 +469,6 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
         </div>
       </div>
 
-      <!-- Monthly -->
       <div id="ctrlMonthly" class="tier-ctrl">
         <div class="row" style="margin-bottom:10px">
           <button type="button" class="pill" id="mPrev">← Prev</button>
@@ -550,14 +543,13 @@ const SYL = {
   }
 };
 
-/* 6 metrics — added Test */
 const METRICS = [
   {k:'c', lbl:'D', full:'Done', desc:'Chapter Completed', color:'#5a7d3f'},
   {k:'r1',lbl:'R1',full:'Revision 1', desc:'Revised Once', color:'#4a6b8a'},
   {k:'r2',lbl:'R2',full:'Revision 2', desc:'Revised Twice', color:'#7a5aaa'},
-  {k:'q', lbl:'Q', full:'Questions',  desc:'Questions Practiced', color:'#b8860b'},
-  {k:'n', lbl:'N', full:'Notes',      desc:'Short Notes Made', color:'#a05a7a'},
-  {k:'t', lbl:'T', full:'Test',       desc:'Test Attempted', color:'#b04a4a'}
+  {k:'q', lbl:'Q', full:'Questions', desc:'Questions Practiced', color:'#b8860b'},
+  {k:'n', lbl:'N', full:'Notes', desc:'Short Notes Made', color:'#a05a7a'},
+  {k:'t', lbl:'T', full:'Test', desc:'Test Attempted', color:'#b04a4a'}
 ];
 
 const SUBS = Object.keys(SYL);
@@ -571,9 +563,6 @@ const SCLR = {
 const KEY = "jee-tracker-pro-v15";
 const MN = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 
-/* ═══════════════════════════════════════════════════════════
-   HELPERS
-   ═══════════════════════════════════════════════════════════ */
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const pad = n => String(n).padStart(2,'0');
@@ -587,7 +576,6 @@ const esc = s => s==null?'':String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
 function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("on");
   clearTimeout(t._); t._=setTimeout(()=>t.classList.remove("on"),2000); }
 
-/* ISO week */
 function isoWeek(d){
   const t=new Date(d); t.setHours(0,0,0,0);
   t.setDate(t.getDate()+3-((t.getDay()+6)%7));
@@ -615,9 +603,6 @@ const prevWeek = k => isoWeek(new Date(new Date(weekRange(k).start).getTime()-7*
 const nextMonth = k => { const[y,m]=k.split('-').map(Number); return mkKey(new Date(y,m,1)); };
 const prevMonth = k => { const[y,m]=k.split('-').map(Number); return mkKey(new Date(y,m-2,1)); };
 
-/* ═══════════════════════════════════════════════════════════
-   STATE
-   ═══════════════════════════════════════════════════════════ */
 let S = {};
 try { S = JSON.parse(localStorage.getItem(KEY)||'null') || {}; } catch(e){ S={}; }
 S.ch = S.ch || {};
@@ -631,12 +616,10 @@ const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch
 const chState = (s,c,n) => {
   const k = ckey(s,c,n);
   if (!S.ch[k]) S.ch[k] = {c:false,r1:false,r2:false,q:false,n:false,t:false};
-  /* Ensure new field exists for old data */
   if (S.ch[k].t === undefined) S.ch[k].t = false;
   return S.ch[k];
 };
 
-/* Migration */
 function migrate(){
   if (localStorage.getItem(KEY)) return;
   for (const src of ["study-tracker-v13","study-tracker-v12","study-tracker-v14","study-tracker-tracker-only"]){
@@ -649,16 +632,14 @@ function migrate(){
         ch: old.ch||{}, tk: old.tk||{}, wk: old.wk||{}, mk: old.mk||{},
         months: old.months||{}, currentMonth: old.currentMonth||todayM()
       };
-      /* Add t field to all chapters */
       Object.keys(ns.ch).forEach(k=>{ if (ns.ch[k].t === undefined) ns.ch[k].t = false; });
       localStorage.setItem(KEY, JSON.stringify(ns));
-      setTimeout(()=>toast("✓ Data migrated"), 800);
+      setTimeout(()=>toast("Data migrated"), 800);
       return;
     } catch(e){}
   }
 }
 
-/* Archive month permanently */
 function archM(ym){
   const daily = {};
   Object.keys(S.tk).forEach(k=>{ if (k.startsWith(ym)) daily[k] = S.tk[k]; });
@@ -694,9 +675,6 @@ function backfill(){
   ms.forEach(ym => { if (ym !== S.currentMonth && !S.months[ym]) archM(ym); });
 }
 
-/* ═══════════════════════════════════════════════════════════
-   STATS
-   ═══════════════════════════════════════════════════════════ */
 function cStats(sub,cls){
   const list = SYL[sub][cls]||[];
   const total = list.length;
@@ -778,9 +756,6 @@ function mSummary(ym){
   return { tasks:tot, done:dn, pct:tot?dn/tot*100:0, chapters:ch, live };
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CHARTS
-   ═══════════════════════════════════════════════════════════ */
 const charts = {};
 const HAS_CHART = typeof Chart !== 'undefined';
 if (HAS_CHART){
@@ -791,7 +766,6 @@ if (HAS_CHART){
 const gridC = { color: "#e5d9c0", drawBorder: false };
 const tickC = { color: "#8a7a62" };
 
-/* Main line chart (like the photo) — simple, clean */
 function drawLineChart(id, ym){
   if (!HAS_CHART) return;
   if (charts[id]) charts[id].destroy();
@@ -816,6 +790,7 @@ function drawLineChart(id, ym){
   const dark = document.body.classList.contains('dark');
   const lineColor = dark ? '#7ac8c8' : '#5fb8a4';
   const gridCol = dark ? '#2a2f3a' : '#e5d9c0';
+  const labelCol = dark ? '#7a7565' : '#8a7a62';
 
   charts[id] = new Chart(cv, {
     type: 'line',
@@ -857,12 +832,12 @@ function drawLineChart(id, ym){
           beginAtZero: true,
           max: 100,
           grid: { color: gridCol, drawBorder: false },
-          ticks: { color: dark ? '#7a7565' : '#8a7a62', callback: v => v + '%', stepSize: 25 }
+          ticks: { color: labelCol, callback: v => v + '%', stepSize: 25 }
         },
         x: {
           grid: { display: false },
           ticks: {
-            color: dark ? '#7a7565' : '#8a7a62',
+            color: labelCol,
             maxRotation: 0,
             autoSkipPadding: 12,
             callback: function(v, i) {
@@ -877,7 +852,6 @@ function drawLineChart(id, ym){
   });
 }
 
-/* Radar charts */
 function drawRadars(cls, gridId){
   const grid = document.getElementById(gridId);
   if (!grid) return;
@@ -966,9 +940,6 @@ function drawRadars(cls, gridId){
   });
 }
 
-/* ═══════════════════════════════════════════════════════════
-   DASHBOARD
-   ═══════════════════════════════════════════════════════════ */
 function renderDash(){
   const all = SUBS.map(s => sStats(s));
   const tCh = all.reduce((a,s)=>a+s.total,0);
@@ -1024,9 +995,6 @@ function renderDash(){
   drawRadars('12','radar12');
 }
 
-/* ═══════════════════════════════════════════════════════════
-   CHAPTERS
-   ═══════════════════════════════════════════════════════════ */
 let chF = 'all', clF = 'all';
 
 function renderLegend(){
@@ -1082,9 +1050,6 @@ document.addEventListener('click', e => {
   if (hdr) hdr.querySelector('.mini').textContent = `${s.cnt.c}/${s.total} done · ${s.overall.toFixed(0)}%`;
 });
 
-/* ═══════════════════════════════════════════════════════════
-   TASKS — 3 TIERS
-   ═══════════════════════════════════════════════════════════ */
 let currentTier = 'daily';
 let dRange = 'day';
 let wkSelected = currentWeekKey();
@@ -1106,10 +1071,15 @@ $$('#tierTabs button').forEach(b => {
   b.addEventListener('click', ev => { ev.stopPropagation(); switchTier(b.dataset.tier); });
 });
 
-/* Daily controls */
 $("#tdDaily").value = today();
 $$('[data-drange]').forEach(b => b.addEventListener('click', () => {
-  $$('[data-drange]').forEach(x => { x.classList.remove('on'); x.removeAttribute('data-active'); x.style.background=''; x.style.color=''; x.style.borderColor=''; x.style.fontWeight=''; });
+  $$('[data-drange]').forEach(x => {
+    x.classList.remove('on');
+    x.style.background = '';
+    x.style.color = '';
+    x.style.borderColor = '';
+    x.style.fontWeight = '';
+  });
   b.classList.add('on');
   b.style.background = 'var(--acc)';
   b.style.color = '#fff';
@@ -1130,7 +1100,6 @@ $("#addDaily").addEventListener('click', () => {
 });
 $("#tiDaily").addEventListener('keydown', e => { if (e.key === 'Enter') $("#addDaily").click(); });
 
-/* Weekly */
 $("#wPrev").addEventListener('click', () => { wkSelected = prevWeek(wkSelected); renderTasks(); });
 $("#wNext").addEventListener('click', () => { wkSelected = nextWeek(wkSelected); renderTasks(); });
 $("#wToday").addEventListener('click', () => { wkSelected = currentWeekKey(); renderTasks(); });
@@ -1145,7 +1114,6 @@ $("#addWeekly").addEventListener('click', () => {
 });
 $("#tiWeekly").addEventListener('keydown', e => { if (e.key === 'Enter') $("#addWeekly").click(); });
 
-/* Monthly */
 $("#mPrev").addEventListener('click', () => { mkSelected = prevMonth(mkSelected); renderTasks(); });
 $("#mNext").addEventListener('click', () => { mkSelected = nextMonth(mkSelected); renderTasks(); });
 $("#mToday").addEventListener('click', () => { mkSelected = todayM(); renderTasks(); });
@@ -1267,9 +1235,6 @@ $("#tlist").addEventListener('click', e => {
   }
 });
 
-/* ═══════════════════════════════════════════════════════════
-   MONTHS LIST + DETAIL
-   ═══════════════════════════════════════════════════════════ */
 function renderMonths(){
   const set = new Set(Object.keys(S.months));
   set.add(S.currentMonth);
@@ -1310,7 +1275,6 @@ function openMonthDetail(ym){
     <div class="stat"><span class="lb">Chapters</span>
       <span class="vl" style="color:var(--grn)">${s.chapters}</span></div>`;
 
-  /* Build day-by-day */
   const [y,m] = ym.split('-').map(Number);
   const dim = new Date(y,m,0).getDate();
   const live = ym === S.currentMonth;
@@ -1356,22 +1320,16 @@ function openMonthDetail(ym){
 
   $("#mdDays").innerHTML = anyDay ? html : '<div class="empty"><div class="big">No tasks this month</div></div>';
 
-  /* Expand toggle */
   $$('.dayrow').forEach(r => r.querySelector('.dayhead').onclick = () => {
     r.classList.toggle('open');
   });
 
   drawLineChart('cMonth', ym);
-
-  /* Navigate */
   showPage('pg-month-detail');
 }
 
 $("#backToMonths").addEventListener('click', () => showPage('pg-months'));
 
-/* ═══════════════════════════════════════════════════════════
-   NAVIGATION
-   ═══════════════════════════════════════════════════════════ */
 const drawer = $("#drawer");
 const overlay = $("#overlay");
 
@@ -1390,10 +1348,8 @@ function showPage(pgId){
   $$('.page').forEach(p => p.classList.remove('on'));
   const p = document.getElementById(pgId);
   if (p) p.classList.add('on');
-  /* Update drawer highlight */
   $$('.drawer-item').forEach(b => b.classList.toggle('on', b.dataset.pg === pgId));
 
-  /* Render on demand */
   if (pgId === 'pg-dash') renderDash();
   if (pgId === 'pg-ch') renderCh();
   if (pgId === 'pg-tk') renderTasks();
@@ -1404,7 +1360,6 @@ function showPage(pgId){
 }
 $$('.drawer-item').forEach(b => b.addEventListener('click', () => showPage(b.dataset.pg)));
 
-/* Chapter filters */
 $$('[data-fsub]').forEach(b => b.addEventListener('click', () => {
   $$('[data-fsub]').forEach(x => x.classList.remove('on'));
   b.classList.add('on');
@@ -1418,9 +1373,6 @@ $$('[data-fcls]').forEach(b => b.addEventListener('click', () => {
   renderCh();
 }));
 
-/* ═══════════════════════════════════════════════════════════
-   THEME
-   ═══════════════════════════════════════════════════════════ */
 function applyTheme(){
   const d = localStorage.getItem('theme') === 'dark';
   document.body.classList.toggle('dark', d);
@@ -1431,16 +1383,12 @@ document.getElementById('themeBtn').addEventListener('click', () => {
   const d = !document.body.classList.contains('dark');
   localStorage.setItem('theme', d ? 'dark' : 'light');
   applyTheme();
-  /* Redraw visible charts */
   if (document.getElementById('pg-dash').classList.contains('on')) renderDash();
   if (document.getElementById('pg-month-detail').classList.contains('on') && currentMD){
     drawLineChart('cMonth', currentMD);
   }
 });
 
-/* ═══════════════════════════════════════════════════════════
-   EXPORT / IMPORT
-   ═══════════════════════════════════════════════════════════ */
 document.getElementById('expBtn').addEventListener('click', () => {
   const b = new Blob([JSON.stringify(S,null,2)], {type:'application/json'});
   const a = document.createElement('a');
@@ -1471,9 +1419,6 @@ document.getElementById('fileIn').addEventListener('change', e => {
   e.target.value = '';
 });
 
-/* ═══════════════════════════════════════════════════════════
-   MONTHLY TICK + INIT
-   ═══════════════════════════════════════════════════════════ */
 function monthlyTick(){
   const changed = checkM();
   if (changed){
@@ -1488,7 +1433,6 @@ setInterval(() => {
   if (t && t.value < today()) t.value = today();
 }, 60000);
 
-/* ═══ INIT ═══ */
 applyTheme();
 migrate();
 backfill();
@@ -1496,14 +1440,7 @@ checkM();
 renderLegend();
 renderDash();
 
-/* Splash screen — hide after 2.6 sec */
-setTimeout(() => {
-  const sp = document.getElementById('splash');
-  sp.classList.add('hide');
-  setTimeout(() => { sp.style.display = 'none'; }, 800);
-}, 2600);
-
-console.log('✓ JEE Tracker Professional ready');
+console.log('✓ JEE Tracker Professional ready (with landscape)');
 </script>
 </body>
 </html>
