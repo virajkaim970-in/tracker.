@@ -245,8 +245,8 @@ footer a:hover{text-decoration:underline}
 
   <!-- Download -->
   <div class="dl-card">
-    <!-- YOUR CATBOX LINK IS INSERTED HERE -->
-    <a href="https://files.catbox.moe/2z8g0b.apk" download="JEE-Tracker.apk" class="dl-btn" id="dlBtn">
+    <!-- YOUR GOOGLE DRIVE LINK IS INSERTED HERE -->
+    <a href="https://drive.google.com/uc?export=download&id=1bSD3bSgDWWXMzFh12nNYlNTVWexuHzsx" download="JEE-Tracker.apk" class="dl-btn" id="dlBtn" target="_blank" rel="noopener">
       <span class="icon">⬇</span>
       <span class="txt">
         Download APK
@@ -405,7 +405,6 @@ footer a:hover{text-decoration:underline}
   function animate(){
     ctx.clearRect(0, 0, W, H);
 
-    /* Draw connections */
     for (let i = 0; i < particles.length; i++){
       for (let j = i + 1; j < particles.length; j++){
         const dx = particles[i].x - particles[j].x;
@@ -422,7 +421,6 @@ footer a:hover{text-decoration:underline}
         }
       }
 
-      /* Mouse interaction */
       if (mouse.x !== null){
         const dx = particles[i].x - mouse.x;
         const dy = particles[i].y - mouse.y;
@@ -439,7 +437,6 @@ footer a:hover{text-decoration:underline}
       }
     }
 
-    /* Draw particles */
     particles.forEach(p => {
       p.update();
       p.draw();
@@ -453,7 +450,7 @@ footer a:hover{text-decoration:underline}
 })();
 
 /* ═══════════════════════════════════════════════════════════
-   TOAST + DOWNLOAD
+   TOAST
    ═══════════════════════════════════════════════════════════ */
 function toast(msg){
   const t = document.getElementById('toast');
@@ -468,7 +465,6 @@ document.getElementById('dlBtn').addEventListener('click', () => {
   setTimeout(() => toast('Check your Downloads folder'), 2500);
 });
 
-/* Detect mobile for smooth scroll */
 const isAndroid = /android/i.test(navigator.userAgent);
 if (isAndroid){
   setTimeout(() => {
