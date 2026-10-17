@@ -247,9 +247,15 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
   padding:11px 20px;border-radius:10px;font-size:12.5px;opacity:0;transition:.3s;pointer-events:none;z-index:99999}
 
 /* MODALS (Onboarding & Motivation) */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:100000;
-  display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px);
-  opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay{
+  position:fixed;inset:0;
+  background:rgba(0,0,0,0.3); /* UPDATED: Lighter background so the app is visible */
+  z-index:100000;
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  backdrop-filter:blur(12px); /* UPDATED: Heavy blur */
+  -webkit-backdrop-filter:blur(12px); /* Safari Support */
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
 .modal-overlay.show{opacity:1;pointer-events:auto}
 .modal-box{background:var(--p);border:2px solid var(--acc);border-radius:16px;width:100%;max-width:400px;
   padding:24px;position:relative;box-shadow:0 10px 40px rgba(0,0,0,0.5);transform:translateY(20px);transition:.3s}
@@ -261,7 +267,8 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
   font-size:15px;font-weight:700;cursor:pointer}
 
 /* STICKMAN SVG */
-.stickman{width:120px;height:120px;margin:0 auto 10px;display:block}
+.stickman{width:140px;height:140px;margin:0 auto 15px;display:block;color:var(--ink)}
+.stickman.red{color:var(--red)}
 
 /* RESPONSIVE */
 @media (orientation: landscape) and (max-height: 500px) {
@@ -290,20 +297,17 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
 <div class="modal-overlay" id="onboardModal">
   <div class="modal-box" style="text-align:center">
     <svg class="stickman" viewBox="0 0 100 100">
-      <!-- Head -->
-      <circle cx="50" cy="25" r="10" stroke="var(--ink)" stroke-width="3" fill="none" />
-      <!-- Body -->
-      <line x1="50" y1="35" x2="50" y2="65" stroke="var(--ink)" stroke-width="3" />
-      <!-- Legs -->
-      <line x1="50" y1="65" x2="40" y2="85" stroke="var(--ink)" stroke-width="3" />
-      <line x1="50" y1="65" x2="60" y2="85" stroke="var(--ink)" stroke-width="3" />
-      <!-- Sword Arm -->
-      <line x1="50" y1="45" x2="75" y2="35" stroke="var(--ink)" stroke-width="3" />
-      <line x1="75" y1="35" x2="90" y2="20" stroke="var(--gold)" stroke-width="4" />
-      <!-- Shotgun Arm -->
-      <line x1="50" y1="45" x2="25" y2="50" stroke="var(--ink)" stroke-width="3" />
-      <polygon points="15,50 25,45 25,55 15,55" fill="var(--mut)" />
-      <line x1="25" y1="50" x2="35" y2="50" stroke="var(--mut)" stroke-width="5" />
+      <circle cx="45" cy="25" r="9" stroke="currentColor" stroke-width="2.5" fill="none" />
+      <path d="M 40 20 L 50 30 M 50 20 L 40 30" stroke="currentColor" stroke-width="2" />
+      <line x1="45" y1="34" x2="45" y2="65" stroke="currentColor" stroke-width="3" />
+      <polyline points="45,45 35,55 45,65" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" />
+      <polyline points="45,45 60,35 55,25" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" />
+      <line x1="45" y1="65" x2="35" y2="90" stroke="currentColor" stroke-width="3" />
+      <line x1="45" y1="65" x2="55" y2="90" stroke="currentColor" stroke-width="3" />
+      <line x1="35" y1="90" x2="28" y2="90" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+      <line x1="55" y1="90" x2="62" y2="90" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+      <line x1="75" y1="90" x2="30" y2="10" stroke="currentColor" stroke-width="3" />
+      <path d="M 30 10 Q 70 0 80 40 Q 50 20 30 10" fill="currentColor" opacity="0.8" />
     </svg>
     <h2 id="onboardTitle">Welcome to JEE Tracker!</h2>
     <p id="onboardText">I am your study guardian. Let's set your <b>Red Line</b>. This is the minimum percentage of tasks you MUST complete every day.</p>
@@ -314,21 +318,23 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
   </div>
 </div>
 
-<!-- MOTIVATION MODAL -->
+<!-- MOTIVATION / STREAK BROKEN MODAL -->
 <div class="modal-overlay" id="motivationModal">
   <div class="modal-box" style="text-align:center; border-color:var(--red)">
-    <svg class="stickman" viewBox="0 0 100 100">
-      <circle cx="50" cy="25" r="10" stroke="var(--red)" stroke-width="3" fill="none" />
-      <line x1="50" y1="35" x2="50" y2="65" stroke="var(--red)" stroke-width="3" />
-      <line x1="50" y1="65" x2="40" y2="85" stroke="var(--red)" stroke-width="3" />
-      <line x1="50" y1="65" x2="60" y2="85" stroke="var(--red)" stroke-width="3" />
-      <line x1="50" y1="45" x2="75" y2="35" stroke="var(--red)" stroke-width="3" />
-      <line x1="75" y1="35" x2="90" y2="20" stroke="var(--red)" stroke-width="4" />
-      <line x1="50" y1="45" x2="25" y2="50" stroke="var(--red)" stroke-width="3" />
-      <polygon points="15,50 25,45 25,55 15,55" fill="var(--red)" />
-      <line x1="25" y1="50" x2="35" y2="50" stroke="var(--red)" stroke-width="5" />
+    <svg class="stickman red" viewBox="0 0 100 100">
+      <circle cx="45" cy="25" r="9" stroke="currentColor" stroke-width="2.5" fill="none" />
+      <path d="M 40 20 L 50 30 M 50 20 L 40 30" stroke="currentColor" stroke-width="2" />
+      <line x1="45" y1="34" x2="45" y2="65" stroke="currentColor" stroke-width="3" />
+      <polyline points="45,45 35,55 45,65" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" />
+      <polyline points="45,45 60,35 55,25" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" />
+      <line x1="45" y1="65" x2="35" y2="90" stroke="currentColor" stroke-width="3" />
+      <line x1="45" y1="65" x2="55" y2="90" stroke="currentColor" stroke-width="3" />
+      <line x1="35" y1="90" x2="28" y2="90" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+      <line x1="55" y1="90" x2="62" y2="90" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+      <line x1="75" y1="90" x2="30" y2="10" stroke="currentColor" stroke-width="3" />
+      <path d="M 30 10 Q 70 0 80 40 Q 50 20 30 10" fill="currentColor" opacity="0.8" />
     </svg>
-    <h2 style="color:var(--red)">You dropped below the line!</h2>
+    <h2 id="motivationTitle" style="color:var(--red)">You dropped below the line!</h2>
     <p id="motivationText" style="font-size:15px;font-weight:600;font-style:italic;color:var(--ink)"></p>
     <button class="modal-btn" style="background:var(--red)" id="motivationBtn">I will do better</button>
   </div>
@@ -616,19 +622,42 @@ function checkDailyMotivation() {
   const yestStr = fmt(yesterday);
   
   if (S.settings.lastCheck && S.settings.lastCheck !== todayStr) {
-    // Evaluate yesterday's performance
     const tasks = S.tk[yestStr] || [];
+    let showMsg = false;
+    let title = "";
+    let text = "";
+    let isStreakBreak = false;
+
     if (tasks.length > 0) {
       const done = tasks.filter(t => t.done).length;
       const pct = (done / tasks.length) * 100;
-      if (pct < S.settings.redLine) {
-        // Show motivation
-        const msg = MOTIVATIONS[S.settings.motIndex % 20];
-        $("#motivationText").textContent = msg;
-        $("#motivationModal").classList.add("show");
-        S.settings.motIndex++;
-        save();
+      
+      if (pct === 0) {
+         isStreakBreak = true;
+         title = "Streak Broken!";
+         text = "You completed 0 tasks yesterday. The chain is broken. Start a new streak today!";
+         showMsg = true;
+      } else if (pct < S.settings.redLine) {
+         title = "You dropped below the line!";
+         text = MOTIVATIONS[S.settings.motIndex % 20];
+         S.settings.motIndex++;
+         showMsg = true;
       }
+    } else {
+         isStreakBreak = true;
+         title = "Streak Broken!";
+         text = "You missed yesterday. The chain is broken. Let's get back on track today.";
+         showMsg = true;
+    }
+
+    if (showMsg) {
+      $("#motivationTitle").textContent = title;
+      $("#motivationTitle").style.color = isStreakBreak ? "var(--red)" : "var(--acc)";
+      $("#motivationText").textContent = text;
+      $("#motivationModal").classList.add("show");
+      S.settings.lastCheck = todayStr;
+      save();
+      return;
     }
   }
   S.settings.lastCheck = todayStr;
@@ -766,7 +795,6 @@ function drawLineChart(id, ym){
   const gridCol = dark ? '#2a2f3a' : '#e5d9c0';
   const labelCol = dark ? '#7a7565' : '#8a7a62';
   
-  // The Red Line Dataset (constant)
   const redLineData = Array(dim).fill(S.settings.redLine);
 
   charts[id] = new Chart(cv, {
@@ -950,11 +978,9 @@ function renderDash(){
 
   $("#hdSub").textContent = `${dCh} chapters · ${stk}-day streak`;
   
-  // Chart Controls
   $("#dashMonthLabel").textContent = mLabel(dashMonth);
   drawLineChart('cMain', dashMonth);
 
-  // Dashboard Tabs
   $$('#dashClassTabs button').forEach(b => b.classList.toggle('on', b.dataset.cls === dashClass));
   
   if (dashClass === '11') {
@@ -1089,7 +1115,6 @@ function renderMonthlyTasks(box){
 /* ═══════════════════════════════════════════════════════════
    EVENT LISTENERS
    ═══════════════════════════════════════════════════════════ */
-$("#onboardModal").querySelector(".modal-btn").addEventListener("click", (e) => { /* handled in setupOnboarding */ });
 $("#motivationBtn").addEventListener("click", () => $("#motivationModal").classList.remove("show"));
 
 $("#menuBtn").addEventListener("click", () => { $("#drawer").classList.add("open"); $("#overlay").classList.add("open"); });
