@@ -43,7 +43,10 @@ body{
 body[data-exam="JEE"] .bg-jee{display:block;}
 body[data-exam="NEET"] .bg-neet{display:block;}
 body[data-exam="Class 10"] .bg-c10{display:block;}
-body[data-exam="Class 12"] .bg-c12{display:block;}
+body[data-exam="Class 12"][data-stream="PCM"] .bg-c12-pcm{display:block;}
+body[data-exam="Class 12"][data-stream="PCB"] .bg-c12-pcb{display:block;}
+body[data-exam="Class 12"][data-stream="Humanities"] .bg-c12-humanities{display:block;}
+body[data-exam="Class 12"][data-stream="Commerce"] .bg-c12-commerce{display:block;}
 body.dark .bg-svg{filter:brightness(1.9) saturate(0.7);opacity:.55;}
 
 #splash{
@@ -238,30 +241,85 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
 <body>
 
 <div class="bg-layer" aria-hidden="true">
+
+  <!-- JEE — Engineering blueprint with equations -->
   <svg class="bg-svg bg-jee" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <pattern id="p-jee-grid" width="25" height="25" patternUnits="userSpaceOnUse">
         <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#3d6b8c" stroke-width="0.5" opacity="0.35"/>
       </pattern>
-      <pattern id="p-jee-icons" width="300" height="300" patternUnits="userSpaceOnUse">
-        <g opacity="0.4" fill="none" stroke="#3d6b8c" stroke-width="1.5">
-          <circle cx="60" cy="60" r="18"/><circle cx="60" cy="60" r="7"/>
-          <path d="M 60 38 L 60 42 M 60 78 L 60 82 M 38 60 L 42 60 M 78 60 L 82 60 M 45 45 L 48 48 M 75 75 L 72 72 M 45 75 L 48 72 M 75 45 L 72 48"/>
-        </g>
-        <text x="130" y="90" font-family="Georgia,serif" font-size="16" fill="#3d6b8c" opacity="0.35" font-style="italic">∫f(x)dx</text>
-        <path d="M 200 60 L 220 90 L 180 90 Z" fill="none" stroke="#3d6b8c" stroke-width="1.5" opacity="0.4"/>
-        <g opacity="0.4" stroke="#3d6b8c" stroke-width="1.5" fill="none">
-          <path d="M 60 220 L 80 220 M 100 220 L 120 220"/><rect x="80" y="213" width="20" height="14"/>
-        </g>
+      <pattern id="p-jee-icons" width="400" height="400" patternUnits="userSpaceOnUse">
+        <!-- Gear -->
         <g opacity="0.35" fill="none" stroke="#3d6b8c" stroke-width="1.5">
-          <circle cx="230" cy="220" r="14"/><path d="M 230 206 L 230 234 M 216 220 L 244 220"/>
+          <circle cx="55" cy="55" r="18"/>
+          <circle cx="55" cy="55" r="7"/>
+          <path d="M 55 33 L 55 37 M 55 73 L 55 77 M 33 55 L 37 55 M 73 55 L 77 55 M 40 40 L 43 43 M 70 70 L 67 67 M 40 70 L 43 67 M 70 40 L 67 43"/>
         </g>
+        <!-- Projectile parabola -->
+        <g opacity="0.4" fill="none" stroke="#3d6b8c" stroke-width="1.4">
+          <path d="M 130 110 Q 175 30 220 110"/>
+          <line x1="130" y1="110" x2="220" y2="110" stroke-dasharray="3,3"/>
+          <text x="140" y="128" font-family="Georgia,serif" font-size="8.5" fill="#3d6b8c" font-style="italic">y = x·tanθ - gx²/(2u²cos²θ)</text>
+        </g>
+        <!-- Integrals -->
+        <g font-family="Georgia,serif" font-size="10" fill="#3d6b8c" opacity="0.5" font-style="italic">
+          <text x="252" y="38">∫x²dx = x³/3 + C</text>
+          <text x="252" y="54">∫e^x dx = e^x + C</text>
+          <text x="252" y="70">∫1/x dx = ln|x|</text>
+          <text x="252" y="86">∫sin x dx = -cos x</text>
+          <text x="252" y="102">∫dx/√(1-x²) = sin⁻¹x</text>
+        </g>
+        <!-- Differentiation -->
+        <g font-family="Georgia,serif" font-size="10" fill="#3d6b8c" opacity="0.5" font-style="italic">
+          <text x="15" y="168">d/dx(x^n) = n·x^(n-1)</text>
+          <text x="15" y="184">d/dx(sin x) = cos x</text>
+          <text x="15" y="200">d/dx(cos x) = -sin x</text>
+          <text x="15" y="216">d/dx(e^x) = e^x</text>
+          <text x="15" y="232">dy/dx = f'(x)</text>
+        </g>
+        <!-- Triangle -->
+        <g opacity="0.35" fill="none" stroke="#3d6b8c" stroke-width="1.4">
+          <path d="M 200 160 L 260 160 L 230 200 Z"/>
+          <text x="200" y="173" font-family="Georgia,serif" font-size="9" fill="#3d6b8c">a</text>
+          <text x="248" y="190" font-family="Georgia,serif" font-size="9" fill="#3d6b8c">b</text>
+          <text x="212" y="188" font-family="Georgia,serif" font-size="9" fill="#3d6b8c">c</text>
+        </g>
+        <!-- Quadratic formula -->
+        <g font-family="Georgia,serif" font-size="9.5" fill="#3d6b8c" opacity="0.5" font-style="italic">
+          <text x="280" y="165">x = (-b ± √(b²-4ac))</text>
+          <text x="280" y="178">       / 2a</text>
+        </g>
+        <!-- Resistor -->
+        <g opacity="0.35" fill="none" stroke="#3d6b8c" stroke-width="1.4">
+          <path d="M 30 295 L 60 295 M 120 295 L 150 295"/>
+          <rect x="60" y="288" width="60" height="14"/>
+          <text x="80" y="283" font-family="Georgia,serif" font-size="9" fill="#3d6b8c">R</text>
+        </g>
+        <text x="30" y="322" font-family="Georgia,serif" font-size="10" fill="#3d6b8c" opacity="0.5" font-style="italic">V = IR</text>
+        <!-- Atom -->
+        <g opacity="0.35" fill="none" stroke="#3d6b8c" stroke-width="1.4">
+          <ellipse cx="210" cy="305" rx="28" ry="11"/>
+          <ellipse cx="210" cy="305" rx="28" ry="11" transform="rotate(60 210 305)"/>
+          <ellipse cx="210" cy="305" rx="28" ry="11" transform="rotate(120 210 305)"/>
+          <circle cx="210" cy="305" r="3" fill="#3d6b8c"/>
+        </g>
+        <!-- Physics eqns -->
+        <g font-family="Georgia,serif" font-size="10" fill="#3d6b8c" opacity="0.4" font-style="italic">
+          <text x="280" y="240">E = mc²</text>
+          <text x="280" y="262">F = ma</text>
+          <text x="280" y="284">PV = nRT</text>
+          <text x="280" y="306">sin²θ + cos²θ = 1</text>
+          <text x="280" y="328">y = A·sin(ωt + φ)</text>
+        </g>
+        <!-- Euler -->
+        <text x="30" y="365" font-family="Georgia,serif" font-size="10.5" fill="#3d6b8c" opacity="0.5" font-style="italic">e^(iπ) + 1 = 0</text>
       </pattern>
     </defs>
     <rect width="100%" height="100%" fill="url(#p-jee-grid)"/>
     <rect width="100%" height="100%" fill="url(#p-jee-icons)"/>
   </svg>
 
+  <!-- NEET — Medical cross + DNA + heartbeat -->
   <svg class="bg-svg bg-neet" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <pattern id="p-neet-crosses" width="100" height="100" patternUnits="userSpaceOnUse">
@@ -272,8 +330,10 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
         <g opacity="0.4" stroke="#2d7a5f" stroke-width="1.5" fill="none">
           <path d="M 200 40 Q 220 60 200 80 Q 180 100 200 120 Q 220 140 200 160"/>
           <path d="M 210 40 Q 190 60 210 80 Q 230 100 210 120 Q 190 140 210 160"/>
-          <line x1="200" y1="55" x2="210" y2="55"/><line x1="200" y1="80" x2="210" y2="80"/>
-          <line x1="200" y1="105" x2="210" y2="105"/><line x1="200" y1="130" x2="210" y2="130"/>
+          <line x1="200" y1="55" x2="210" y2="55"/>
+          <line x1="200" y1="80" x2="210" y2="80"/>
+          <line x1="200" y1="105" x2="210" y2="105"/>
+          <line x1="200" y1="130" x2="210" y2="130"/>
         </g>
         <g fill="#2d7a5f" opacity="0.3">
           <path d="M 90 240 L 110 240 L 110 220 L 130 220 L 130 240 L 150 240 L 150 260 L 130 260 L 130 280 L 110 280 L 110 260 L 90 260 Z"/>
@@ -284,6 +344,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
     <rect width="100%" height="100%" fill="url(#p-neet-icons)"/>
   </svg>
 
+  <!-- Class 10 — Notebook lines + book/pencil/cap -->
   <svg class="bg-svg bg-c10" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <pattern id="p-c10-lines" width="300" height="30" patternUnits="userSpaceOnUse">
@@ -293,14 +354,17 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
         <g opacity="0.35" fill="none" stroke="#8b5a2b" stroke-width="2">
           <path d="M 40 60 L 40 20 L 70 20 L 70 60 L 55 52 Z"/>
           <path d="M 70 20 L 100 20 L 100 60 L 85 52 L 70 60"/>
-          <line x1="45" y1="30" x2="65" y2="30"/><line x1="45" y1="40" x2="65" y2="40"/>
+          <line x1="45" y1="30" x2="65" y2="30"/>
+          <line x1="45" y1="40" x2="65" y2="40"/>
         </g>
         <g opacity="0.35" fill="#8b5a2b" transform="translate(180,180) rotate(-30)">
-          <path d="M 0 0 L 10 -10 L 50 30 L 40 40 Z"/><path d="M 0 0 L -5 5 L 5 -5 Z" fill="#2a2a2a"/>
+          <path d="M 0 0 L 10 -10 L 50 30 L 40 40 Z"/>
+          <path d="M 0 0 L -5 5 L 5 -5 Z" fill="#2a2a2a"/>
         </g>
         <g opacity="0.3" fill="none" stroke="#8b5a2b" stroke-width="2" transform="translate(200,60)">
           <path d="M 0 0 L 20 -10 L 40 0 L 20 10 Z"/>
-          <path d="M 5 3 L 5 18 Q 20 25 35 18 L 35 3"/><path d="M 40 0 L 40 15"/>
+          <path d="M 5 3 L 5 18 Q 20 25 35 18 L 35 3"/>
+          <path d="M 40 0 L 40 15"/>
         </g>
       </pattern>
     </defs>
@@ -308,32 +372,290 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
     <rect width="100%" height="100%" fill="url(#p-c10-icons)"/>
   </svg>
 
-  <svg class="bg-svg bg-c12" xmlns="http://www.w3.org/2000/svg">
+  <!-- Class 12 PCM — Physics/Math/Chem atoms, benzene, projectile, waves -->
+  <svg class="bg-svg bg-c12-pcm" xmlns="http://www.w3.org/2000/svg">
     <defs>
-      <pattern id="p-c12-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <pattern id="p-pcm-grid" width="40" height="40" patternUnits="userSpaceOnUse">
         <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#5a4a8a" stroke-width="0.5" opacity="0.2"/>
       </pattern>
-      <pattern id="p-c12-icons" width="300" height="300" patternUnits="userSpaceOnUse">
+      <pattern id="p-pcm-icons" width="400" height="400" patternUnits="userSpaceOnUse">
+        <!-- Atom -->
         <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
-          <ellipse cx="70" cy="70" rx="25" ry="10"/>
-          <ellipse cx="70" cy="70" rx="25" ry="10" transform="rotate(60 70 70)"/>
-          <ellipse cx="70" cy="70" rx="25" ry="10" transform="rotate(120 70 70)"/>
-          <circle cx="70" cy="70" r="3" fill="#5a4a8a"/>
+          <ellipse cx="65" cy="65" rx="25" ry="10"/>
+          <ellipse cx="65" cy="65" rx="25" ry="10" transform="rotate(60 65 65)"/>
+          <ellipse cx="65" cy="65" rx="25" ry="10" transform="rotate(120 65 65)"/>
+          <circle cx="65" cy="65" r="3" fill="#5a4a8a"/>
         </g>
-        <g opacity="0.35" fill="none" stroke="#5a4a8a" stroke-width="2" transform="translate(180,180)">
-          <path d="M 0 0 L 20 -10 L 40 0 L 20 10 Z"/>
-          <path d="M 5 3 L 5 18 Q 20 25 35 18 L 35 3"/>
-          <path d="M 40 0 L 40 15"/><circle cx="40" cy="17" r="1.5" fill="#5a4a8a"/>
+        <!-- Benzene ring -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <path d="M 175 45 L 205 63 L 205 97 L 175 115 L 145 97 L 145 63 Z"/>
+          <circle cx="175" cy="80" r="13"/>
         </g>
-        <text x="180" y="70" font-family="Georgia,serif" font-size="14" fill="#5a4a8a" opacity="0.3" font-style="italic">y = mx + c</text>
-        <g opacity="0.3" fill="none" stroke="#5a4a8a" stroke-width="1.5" transform="translate(40,220)">
-          <path d="M 0 0 Q -8 0 -8 10 Q -8 20 0 20 L 50 20 Q 58 20 58 10 Q 58 0 50 0 Z"/>
-          <line x1="10" y1="8" x2="40" y2="8"/><line x1="10" y1="14" x2="35" y2="14"/>
+        <!-- Projectile parabola -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.4">
+          <path d="M 260 130 Q 330 40 400 130"/>
+          <line x1="260" y1="130" x2="400" y2="130" stroke-dasharray="3,3"/>
+        </g>
+        <!-- Formula text -->
+        <g font-family="Georgia,serif" font-size="11" fill="#5a4a8a" opacity="0.5" font-style="italic">
+          <text x="270" y="55">E = mc²</text>
+          <text x="270" y="80">∫x²dx = x³/3</text>
+          <text x="30" y="170">d/dx(sin x) = cos x</text>
+        </g>
+        <!-- Sine wave -->
+        <path d="M 30 250 Q 65 210 100 250 Q 135 290 170 250 Q 205 210 240 250 Q 275 290 310 250" fill="none" stroke="#5a4a8a" stroke-width="1.5" opacity="0.4"/>
+        <!-- Cosine wave -->
+        <path d="M 30 320 Q 65 290 100 320 Q 135 350 170 320 Q 205 290 240 320 Q 275 350 310 320" fill="none" stroke="#5a4a8a" stroke-width="1.5" opacity="0.35"/>
+        <!-- Resistor -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.4">
+          <path d="M 320 250 L 350 250 M 410 250 L 440 250"/>
+          <rect x="350" y="243" width="60" height="14"/>
+        </g>
+        <!-- Pythagoras -->
+        <text x="320" y="185" font-family="Georgia,serif" font-size="11" fill="#5a4a8a" opacity="0.5" font-style="italic">a² + b² = c²</text>
+        <!-- Molecule -->
+        <g opacity="0.35" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <circle cx="70" cy="340" r="8"/>
+          <circle cx="100" cy="340" r="8"/>
+          <circle cx="85" cy="365" r="8"/>
+          <line x1="70" y1="340" x2="100" y2="340"/>
+          <line x1="100" y1="340" x2="85" y2="365"/>
+          <line x1="85" y1="365" x2="70" y2="340"/>
         </g>
       </pattern>
     </defs>
-    <rect width="100%" height="100%" fill="url(#p-c12-grid)"/>
-    <rect width="100%" height="100%" fill="url(#p-c12-icons)"/>
+    <rect width="100%" height="100%" fill="url(#p-pcm-grid)"/>
+    <rect width="100%" height="100%" fill="url(#p-pcm-icons)"/>
+  </svg>
+
+  <!-- Class 12 PCB — DNA, heart/ECG, cell, leaf, beaker -->
+  <svg class="bg-svg bg-c12-pcb" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="p-pcb-grid" width="50" height="50" patternUnits="userSpaceOnUse">
+        <circle cx="50" cy="0" r="1" fill="#5a4a8a" opacity="0.2"/>
+        <circle cx="0" cy="50" r="1" fill="#5a4a8a" opacity="0.2"/>
+      </pattern>
+      <pattern id="p-pcb-icons" width="400" height="400" patternUnits="userSpaceOnUse">
+        <!-- DNA double helix -->
+        <g opacity="0.45" fill="none" stroke="#5a4a8a" stroke-width="1.8">
+          <path d="M 50 30 Q 80 60 50 90 Q 20 120 50 150 Q 80 180 50 210"/>
+          <path d="M 90 30 Q 60 60 90 90 Q 120 120 90 150 Q 60 180 90 210"/>
+          <line x1="50" y1="45" x2="90" y2="45"/>
+          <line x1="50" y1="75" x2="90" y2="75"/>
+          <line x1="50" y1="105" x2="90" y2="105"/>
+          <line x1="50" y1="135" x2="90" y2="135"/>
+          <line x1="50" y1="165" x2="90" y2="165"/>
+          <line x1="50" y1="195" x2="90" y2="195"/>
+        </g>
+        <!-- Heart + ECG -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <path d="M 175 100 Q 155 70 135 90 Q 115 110 145 140 L 175 165 L 205 140 Q 235 110 215 90 Q 195 70 175 100"/>
+          <path d="M 150 120 L 165 120 L 170 105 L 180 135 L 187 120 L 200 120" stroke-width="2"/>
+        </g>
+        <!-- Leaf -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <path d="M 300 60 Q 280 100 300 140 Q 340 130 350 90 Q 330 60 300 60 Z"/>
+          <path d="M 300 140 L 325 100"/>
+          <path d="M 300 60 L 325 100"/>
+        </g>
+        <!-- Cell -->
+        <g opacity="0.35" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <circle cx="90" cy="290" r="35"/>
+          <circle cx="90" cy="290" r="15"/>
+          <circle cx="75" cy="275" r="4"/>
+          <circle cx="105" cy="295" r="4"/>
+          <circle cx="80" cy="310" r="3"/>
+        </g>
+        <!-- Atom -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <ellipse cx="230" cy="270" rx="25" ry="10"/>
+          <ellipse cx="230" cy="270" rx="25" ry="10" transform="rotate(60 230 270)"/>
+          <ellipse cx="230" cy="270" rx="25" ry="10" transform="rotate(120 230 270)"/>
+        </g>
+        <!-- Formulas -->
+        <g font-family="Georgia,serif" font-size="11" fill="#5a4a8a" opacity="0.5" font-style="italic">
+          <text x="200" y="210">C₆H₁₂O₆</text>
+          <text x="320" y="200">ATP → ADP</text>
+        </g>
+        <!-- Chemistry beaker -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <path d="M 300 260 L 300 300 L 340 300 L 340 260"/>
+          <path d="M 300 280 L 340 280" stroke-dasharray="2,2"/>
+          <circle cx="315" cy="290" r="2" fill="#5a4a8a"/>
+          <circle cx="325" cy="295" r="2" fill="#5a4a8a"/>
+        </g>
+        <!-- Medical cross -->
+        <g fill="#5a4a8a" opacity="0.35">
+          <path d="M 140 340 L 155 340 L 155 325 L 170 325 L 170 340 L 185 340 L 185 355 L 170 355 L 170 370 L 155 370 L 155 355 L 140 355 Z"/>
+        </g>
+        <!-- Microscope -->
+        <g opacity="0.35" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <path d="M 300 340 L 300 360 M 320 340 L 320 360 M 290 360 L 330 360"/>
+          <path d="M 310 320 L 310 340 L 305 320 Z"/>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#p-pcb-grid)"/>
+    <rect width="100%" height="100%" fill="url(#p-pcb-icons)"/>
+  </svg>
+
+  <!-- Class 12 Humanities — Pillars, book, globe, quill, scroll, masks -->
+  <svg class="bg-svg bg-c12-humanities" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="p-hum-icons" width="400" height="400" patternUnits="userSpaceOnUse">
+        <!-- Classical pillars -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <rect x="60" y="60" width="15" height="100"/>
+          <rect x="90" y="60" width="15" height="100"/>
+          <rect x="120" y="60" width="15" height="100"/>
+          <path d="M 50 55 L 145 55 L 145 65 L 50 65 Z" fill="#5a4a8a" opacity="0.15"/>
+          <path d="M 50 160 L 145 160 L 145 170 L 50 170 Z" fill="#5a4a8a" opacity="0.15"/>
+        </g>
+        <!-- Open book -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <path d="M 180 80 Q 210 70 240 80 L 240 130 Q 210 120 180 130 Z"/>
+          <path d="M 240 80 Q 270 70 300 80 L 300 130 Q 270 120 240 130"/>
+          <line x1="240" y1="80" x2="240" y2="130"/>
+          <line x1="195" y1="95" x2="225" y2="90"/>
+          <line x1="195" y1="105" x2="225" y2="100"/>
+          <line x1="255" y1="90" x2="285" y2="95"/>
+          <line x1="255" y1="100" x2="285" y2="105"/>
+        </g>
+        <!-- Globe -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <circle cx="330" cy="100" r="30"/>
+          <ellipse cx="330" cy="100" rx="30" ry="12"/>
+          <line x1="330" y1="70" x2="330" y2="130"/>
+          <path d="M 310 85 Q 330 90 350 85"/>
+          <path d="M 310 115 Q 330 110 350 115"/>
+        </g>
+        <!-- Quill pen -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <path d="M 60 220 L 100 260 M 100 260 L 105 250 L 115 245 L 110 260 L 100 265 Z" fill="#5a4a8a" opacity="0.15"/>
+          <path d="M 110 245 Q 130 220 150 210" stroke-dasharray="2,3"/>
+        </g>
+        <!-- Scroll -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <path d="M 180 220 Q 170 220 170 230 Q 170 240 180 240 L 230 240 Q 240 240 240 230 Q 240 220 230 220 Z"/>
+          <line x1="185" y1="228" x2="225" y2="228"/>
+          <line x1="185" y1="234" x2="220" y2="234"/>
+          <ellipse cx="172" cy="230" rx="3" ry="10"/>
+          <ellipse cx="238" cy="230" rx="3" ry="10"/>
+        </g>
+        <!-- Compass rose -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <circle cx="330" cy="230" r="25"/>
+          <path d="M 330 205 L 335 230 L 330 255 L 325 230 Z" fill="#5a4a8a" opacity="0.15"/>
+          <path d="M 305 230 L 330 225 L 355 230 L 330 235 Z"/>
+        </g>
+        <!-- Hourglass -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <path d="M 100 300 L 100 320 L 140 320 L 140 300 Z"/>
+          <path d="M 100 300 L 140 300 L 120 310 L 100 300 Z" fill="#5a4a8a" opacity="0.15"/>
+          <path d="M 100 320 L 140 320 L 120 310 L 100 320 Z" fill="#5a4a8a" opacity="0.25"/>
+          <line x1="90" y1="300" x2="150" y2="300"/>
+          <line x1="90" y1="320" x2="150" y2="320"/>
+        </g>
+        <!-- Theatre masks -->
+        <g opacity="0.35" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <ellipse cx="200" cy="320" rx="15" ry="20"/>
+          <path d="M 195 315 L 200 320 L 205 315"/>
+          <path d="M 193 325 Q 200 330 207 325"/>
+          <ellipse cx="240" cy="320" rx="15" ry="20"/>
+          <path d="M 235 315 L 240 320 L 245 315"/>
+          <path d="M 233 328 Q 240 322 247 328"/>
+        </g>
+        <!-- Timeline -->
+        <g opacity="0.4" fill="#5a4a8a">
+          <line x1="290" y1="360" x2="380" y2="360" stroke="#5a4a8a" stroke-width="1.5"/>
+          <circle cx="300" cy="360" r="3"/>
+          <circle cx="325" cy="360" r="3"/>
+          <circle cx="350" cy="360" r="3"/>
+          <circle cx="375" cy="360" r="3"/>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#p-hum-icons)"/>
+  </svg>
+
+  <!-- Class 12 Commerce — Charts, coins, ledger, calculator, balance -->
+  <svg class="bg-svg bg-c12-commerce" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="p-com-grid" width="30" height="30" patternUnits="userSpaceOnUse">
+        <path d="M 30 0 L 0 0 0 30" fill="none" stroke="#5a4a8a" stroke-width="0.5" opacity="0.15"/>
+      </pattern>
+      <pattern id="p-com-icons" width="400" height="400" patternUnits="userSpaceOnUse">
+        <!-- Bar chart -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <line x1="50" y1="150" x2="50" y2="50"/>
+          <line x1="50" y1="150" x2="150" y2="150"/>
+          <rect x="60" y="110" width="12" height="40" fill="#5a4a8a" opacity="0.2"/>
+          <rect x="80" y="90" width="12" height="60" fill="#5a4a8a" opacity="0.2"/>
+          <rect x="100" y="70" width="12" height="80" fill="#5a4a8a" opacity="0.2"/>
+          <rect x="120" y="50" width="12" height="100" fill="#5a4a8a" opacity="0.2"/>
+        </g>
+        <!-- Currency symbols -->
+        <text x="180" y="100" font-family="Georgia,serif" font-size="40" fill="#5a4a8a" opacity="0.35">₹</text>
+        <text x="240" y="100" font-family="Georgia,serif" font-size="40" fill="#5a4a8a" opacity="0.35">$</text>
+        <!-- Ledger -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <rect x="290" y="50" width="70" height="90" rx="3"/>
+          <line x1="320" y1="50" x2="320" y2="140"/>
+          <line x1="300" y1="70" x2="315" y2="70"/>
+          <line x1="300" y1="85" x2="315" y2="85"/>
+          <line x1="300" y1="100" x2="315" y2="100"/>
+          <line x1="300" y1="115" x2="315" y2="115"/>
+          <line x1="325" y1="70" x2="355" y2="70"/>
+          <line x1="325" y1="85" x2="355" y2="85"/>
+          <line x1="325" y1="100" x2="355" y2="100"/>
+          <line x1="325" y1="115" x2="355" y2="115"/>
+        </g>
+        <!-- Calculator -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <rect x="60" y="200" width="80" height="100" rx="4"/>
+          <rect x="70" y="210" width="60" height="20" fill="#5a4a8a" opacity="0.15"/>
+          <rect x="70" y="240" width="12" height="10"/>
+          <rect x="88" y="240" width="12" height="10"/>
+          <rect x="106" y="240" width="12" height="10"/>
+          <rect x="70" y="258" width="12" height="10"/>
+          <rect x="88" y="258" width="12" height="10"/>
+          <rect x="106" y="258" width="12" height="10"/>
+          <rect x="70" y="276" width="12" height="10"/>
+          <rect x="88" y="276" width="12" height="10"/>
+          <rect x="106" y="276" width="12" height="10"/>
+        </g>
+        <!-- Coin stack -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <ellipse cx="200" cy="280" rx="25" ry="6" fill="#5a4a8a" opacity="0.2"/>
+          <ellipse cx="200" cy="270" rx="25" ry="6" fill="#5a4a8a" opacity="0.2"/>
+          <ellipse cx="200" cy="260" rx="25" ry="6" fill="#5a4a8a" opacity="0.2"/>
+          <ellipse cx="200" cy="250" rx="25" ry="6" fill="#5a4a8a" opacity="0.2"/>
+          <ellipse cx="200" cy="240" rx="25" ry="6" fill="#5a4a8a" opacity="0.2"/>
+        </g>
+        <!-- Balance scale -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <line x1="320" y1="230" x2="320" y2="300"/>
+          <line x1="290" y1="240" x2="350" y2="240"/>
+          <path d="M 285 240 Q 290 255 300 255 L 300 245 Q 295 245 290 240"/>
+          <path d="M 355 240 Q 350 255 340 255 L 340 245 Q 345 245 350 240"/>
+          <line x1="305" y1="300" x2="335" y2="300"/>
+          <circle cx="320" cy="225" r="5" fill="#5a4a8a" opacity="0.2"/>
+        </g>
+        <!-- Line graph rising -->
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="2">
+          <path d="M 60 380 L 100 360 L 140 370 L 180 340 L 220 345 L 260 310 L 300 320 L 340 280 L 380 290"/>
+          <circle cx="100" cy="360" r="2.5" fill="#5a4a8a"/>
+          <circle cx="180" cy="340" r="2.5" fill="#5a4a8a"/>
+          <circle cx="260" cy="310" r="2.5" fill="#5a4a8a"/>
+          <circle cx="340" cy="280" r="2.5" fill="#5a4a8a"/>
+        </g>
+        <!-- Text labels -->
+        <text x="270" y="200" font-family="Georgia,serif" font-size="14" fill="#5a4a8a" opacity="0.4" font-style="italic">GST</text>
+        <text x="200" y="380" font-family="Georgia,serif" font-size="12" fill="#5a4a8a" opacity="0.4">Dr = Cr</text>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#p-com-grid)"/>
+    <rect width="100%" height="100%" fill="url(#p-com-icons)"/>
   </svg>
 </div>
 
@@ -417,7 +739,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
     <button class="drawer-item" data-pg="pg-months"><span class="ic">📅</span>Monthly History</button>
     <button class="drawer-item" data-pg="pg-settings"><span class="ic">⚙️</span>Settings</button>
   </nav>
-  <div class="drawer-foot">v20 · Professional</div>
+  <div class="drawer-foot">v21 · Professional</div>
 </aside>
 
 <main>
@@ -569,9 +891,6 @@ setTimeout(function(){
   }
 }, 5000);
 
-/* ═══════════════════════════════════════════════════════════
-   EXAMS DATA
-   ═══════════════════════════════════════════════════════════ */
 const EXAMS = {
   JEE: {
     title: "JEE",
@@ -961,6 +1280,7 @@ function applyExamTheme(){
   root.dataset.darkMut   = t.mutDark;
   root.dataset.darkLn    = t.lineDark;
   document.body.dataset.exam = S.settings.exam;
+  document.body.dataset.stream = S.settings.stream || '';
   if (document.body.classList.contains('dark')) applyDarkExamTheme();
 }
 function applyDarkExamTheme(){
@@ -1046,6 +1366,7 @@ function setupOnboarding(){
             $$('[data-stream]').forEach(x => x.classList.remove('active'));
             b.classList.add('active');
             S.settings.stream = b.dataset.stream; save();
+            try { applyExamTheme(); } catch(e){}
             btn.style.display = 'block';
           };
         });
@@ -1133,9 +1454,9 @@ function tStatsDaily(f,t){
   const prefix = S.settings.exam + '|' + (S.settings.stream || '') + '|';
   let tot=0, dn=0;
   Object.keys(S.tk).forEach(k=>{
-    if (k.startsWith(prefix)) {
+    if (k.startsWith(prefix) && !k.includes('|wk|') && !k.includes('|mk|')) {
       const dk = k.split('|')[2];
-      if (dk>=f && dk<=t){ const a = S.tk[k]||[]; tot += a.length; dn += a.filter(x=>x.done).length; }
+      if (dk && dk>=f && dk<=t){ const a = S.tk[k]||[]; tot += a.length; dn += a.filter(x=>x.done).length; }
     }
   });
   return { total:tot, done:dn, pct: tot ? dn/tot*100 : 0 };
