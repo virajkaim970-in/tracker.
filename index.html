@@ -38,6 +38,14 @@ body{
   padding:0 0 60px;max-width:1100px;margin:0 auto;
   transition:background .3s,color .3s;overflow-x:hidden;
 }
+.bg-layer{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
+.bg-svg{position:absolute;inset:0;width:100%;height:100%;display:none;}
+body[data-exam="JEE"] .bg-jee{display:block;}
+body[data-exam="NEET"] .bg-neet{display:block;}
+body[data-exam="Class 10"] .bg-c10{display:block;}
+body[data-exam="Class 12"] .bg-c12{display:block;}
+body.dark .bg-svg{filter:brightness(1.9) saturate(0.7);opacity:.55;}
+
 #splash{
   position:fixed;inset:0;z-index:99999;
   background:radial-gradient(circle at 30% 20%,#f7eed9 0%,var(--bg) 55%);
@@ -56,6 +64,7 @@ body.dark #splash{background:radial-gradient(circle at 30% 20%,#1b2334 0%,var(--
 body.dark #splash .title{background:linear-gradient(135deg,#d4a05a,#e0b060,#d4a05a);
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 #splash .sub{margin-top:12px;font-size:11px;color:var(--mut);letter-spacing:3px;text-transform:uppercase;font-weight:600;}
+
 header{
   position:sticky;top:0;z-index:100;
   display:grid;grid-template-columns:1fr auto 1fr;
@@ -88,7 +97,7 @@ header h1 span{color:var(--mut);font-weight:500;font-size:11px;display:block;let
 .drawer-item.on{background:var(--acc);color:#fff;font-weight:600}
 .drawer-item.on .ic{background:rgba(255,255,255,.2)}
 .drawer-foot{padding:14px 20px;border-top:1px solid var(--ln);font-size:11px;color:var(--mut);}
-main{padding:14px 12px}
+main{padding:14px 12px;position:relative;z-index:1;}
 .page{display:none;animation:fade .3s}
 .page.on{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
@@ -147,12 +156,11 @@ main{padding:14px 12px}
 .ch .nm{flex:1;min-width:120px;font-weight:500}
 .mets{display:flex;gap:3px;flex-wrap:wrap}
 .met{font-size:10px;padding:4px 8px;border-radius:5px;cursor:pointer;font-weight:800;
-  background:var(--p);border:1px solid var(--ln);color:var(--mut);transition:.15s;font-family:inherit}
+  background:var(--p);border:1px solid var(--ln);color:var(--mut);transition:.15s;font-family:inherit;user-select:none}
 .met:hover{border-color:var(--acc);color:var(--acc);transform:translateY(-1px)}
 .met.on{color:#fff}
 .met[data-k="c"].on{background:var(--grn);border-color:var(--grn)}
-.met[data-k="r1"].on{background:var(--blu);border-color:var(--blu)}
-.met[data-k="r2"].on{background:var(--pur);border-color:var(--pur)}
+.met[data-k="r"].on{background:var(--blu);border-color:var(--blu)}
 .met[data-k="q"].on{background:var(--gold);border-color:var(--gold)}
 .met[data-k="n"].on{background:var(--pnk);border-color:var(--pnk)}
 .met[data-k="t"].on{background:var(--red);border-color:var(--red)}
@@ -228,6 +236,106 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
 </style>
 </head>
 <body>
+
+<div class="bg-layer" aria-hidden="true">
+  <svg class="bg-svg bg-jee" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="p-jee-grid" width="25" height="25" patternUnits="userSpaceOnUse">
+        <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#3d6b8c" stroke-width="0.5" opacity="0.35"/>
+      </pattern>
+      <pattern id="p-jee-icons" width="300" height="300" patternUnits="userSpaceOnUse">
+        <g opacity="0.4" fill="none" stroke="#3d6b8c" stroke-width="1.5">
+          <circle cx="60" cy="60" r="18"/><circle cx="60" cy="60" r="7"/>
+          <path d="M 60 38 L 60 42 M 60 78 L 60 82 M 38 60 L 42 60 M 78 60 L 82 60 M 45 45 L 48 48 M 75 75 L 72 72 M 45 75 L 48 72 M 75 45 L 72 48"/>
+        </g>
+        <text x="130" y="90" font-family="Georgia,serif" font-size="16" fill="#3d6b8c" opacity="0.35" font-style="italic">∫f(x)dx</text>
+        <path d="M 200 60 L 220 90 L 180 90 Z" fill="none" stroke="#3d6b8c" stroke-width="1.5" opacity="0.4"/>
+        <g opacity="0.4" stroke="#3d6b8c" stroke-width="1.5" fill="none">
+          <path d="M 60 220 L 80 220 M 100 220 L 120 220"/><rect x="80" y="213" width="20" height="14"/>
+        </g>
+        <g opacity="0.35" fill="none" stroke="#3d6b8c" stroke-width="1.5">
+          <circle cx="230" cy="220" r="14"/><path d="M 230 206 L 230 234 M 216 220 L 244 220"/>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#p-jee-grid)"/>
+    <rect width="100%" height="100%" fill="url(#p-jee-icons)"/>
+  </svg>
+
+  <svg class="bg-svg bg-neet" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="p-neet-crosses" width="100" height="100" patternUnits="userSpaceOnUse">
+        <path d="M 40 30 L 60 30 L 60 10 L 80 10 L 80 30 L 100 30 L 100 50 L 80 50 L 80 70 L 60 70 L 60 50 L 40 50 Z" fill="#2d7a5f" opacity="0.12"/>
+      </pattern>
+      <pattern id="p-neet-icons" width="300" height="300" patternUnits="userSpaceOnUse">
+        <path d="M 40 150 L 80 150 L 95 120 L 110 180 L 125 130 L 140 150 L 180 150" fill="none" stroke="#2d7a5f" stroke-width="2" opacity="0.5"/>
+        <g opacity="0.4" stroke="#2d7a5f" stroke-width="1.5" fill="none">
+          <path d="M 200 40 Q 220 60 200 80 Q 180 100 200 120 Q 220 140 200 160"/>
+          <path d="M 210 40 Q 190 60 210 80 Q 230 100 210 120 Q 190 140 210 160"/>
+          <line x1="200" y1="55" x2="210" y2="55"/><line x1="200" y1="80" x2="210" y2="80"/>
+          <line x1="200" y1="105" x2="210" y2="105"/><line x1="200" y1="130" x2="210" y2="130"/>
+        </g>
+        <g fill="#2d7a5f" opacity="0.3">
+          <path d="M 90 240 L 110 240 L 110 220 L 130 220 L 130 240 L 150 240 L 150 260 L 130 260 L 130 280 L 110 280 L 110 260 L 90 260 Z"/>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#p-neet-crosses)"/>
+    <rect width="100%" height="100%" fill="url(#p-neet-icons)"/>
+  </svg>
+
+  <svg class="bg-svg bg-c10" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="p-c10-lines" width="300" height="30" patternUnits="userSpaceOnUse">
+        <line x1="0" y1="30" x2="300" y2="30" stroke="#8b5a2b" stroke-width="1" opacity="0.15"/>
+      </pattern>
+      <pattern id="p-c10-icons" width="300" height="300" patternUnits="userSpaceOnUse">
+        <g opacity="0.35" fill="none" stroke="#8b5a2b" stroke-width="2">
+          <path d="M 40 60 L 40 20 L 70 20 L 70 60 L 55 52 Z"/>
+          <path d="M 70 20 L 100 20 L 100 60 L 85 52 L 70 60"/>
+          <line x1="45" y1="30" x2="65" y2="30"/><line x1="45" y1="40" x2="65" y2="40"/>
+        </g>
+        <g opacity="0.35" fill="#8b5a2b" transform="translate(180,180) rotate(-30)">
+          <path d="M 0 0 L 10 -10 L 50 30 L 40 40 Z"/><path d="M 0 0 L -5 5 L 5 -5 Z" fill="#2a2a2a"/>
+        </g>
+        <g opacity="0.3" fill="none" stroke="#8b5a2b" stroke-width="2" transform="translate(200,60)">
+          <path d="M 0 0 L 20 -10 L 40 0 L 20 10 Z"/>
+          <path d="M 5 3 L 5 18 Q 20 25 35 18 L 35 3"/><path d="M 40 0 L 40 15"/>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#p-c10-lines)"/>
+    <rect width="100%" height="100%" fill="url(#p-c10-icons)"/>
+  </svg>
+
+  <svg class="bg-svg bg-c12" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern id="p-c12-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#5a4a8a" stroke-width="0.5" opacity="0.2"/>
+      </pattern>
+      <pattern id="p-c12-icons" width="300" height="300" patternUnits="userSpaceOnUse">
+        <g opacity="0.4" fill="none" stroke="#5a4a8a" stroke-width="1.5">
+          <ellipse cx="70" cy="70" rx="25" ry="10"/>
+          <ellipse cx="70" cy="70" rx="25" ry="10" transform="rotate(60 70 70)"/>
+          <ellipse cx="70" cy="70" rx="25" ry="10" transform="rotate(120 70 70)"/>
+          <circle cx="70" cy="70" r="3" fill="#5a4a8a"/>
+        </g>
+        <g opacity="0.35" fill="none" stroke="#5a4a8a" stroke-width="2" transform="translate(180,180)">
+          <path d="M 0 0 L 20 -10 L 40 0 L 20 10 Z"/>
+          <path d="M 5 3 L 5 18 Q 20 25 35 18 L 35 3"/>
+          <path d="M 40 0 L 40 15"/><circle cx="40" cy="17" r="1.5" fill="#5a4a8a"/>
+        </g>
+        <text x="180" y="70" font-family="Georgia,serif" font-size="14" fill="#5a4a8a" opacity="0.3" font-style="italic">y = mx + c</text>
+        <g opacity="0.3" fill="none" stroke="#5a4a8a" stroke-width="1.5" transform="translate(40,220)">
+          <path d="M 0 0 Q -8 0 -8 10 Q -8 20 0 20 L 50 20 Q 58 20 58 10 Q 58 0 50 0 Z"/>
+          <line x1="10" y1="8" x2="40" y2="8"/><line x1="10" y1="14" x2="35" y2="14"/>
+        </g>
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#p-c12-grid)"/>
+    <rect width="100%" height="100%" fill="url(#p-c12-icons)"/>
+  </svg>
+</div>
 
 <div id="splash">
   <div class="wrap">
@@ -309,7 +417,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
     <button class="drawer-item" data-pg="pg-months"><span class="ic">📅</span>Monthly History</button>
     <button class="drawer-item" data-pg="pg-settings"><span class="ic">⚙️</span>Settings</button>
   </nav>
-  <div class="drawer-foot">v18 · Professional</div>
+  <div class="drawer-foot">v20 · Professional</div>
 </aside>
 
 <main>
@@ -431,6 +539,13 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
           <option value="Class 12">Class 12 Board</option>
         </select>
       </div>
+      <div class="set-row" id="streamRow" style="display:none">
+        <div>
+          <label>Stream</label>
+          <div style="font-size:11.5px;color:var(--mut);margin-top:2px">Subjects depend on your stream.</div>
+        </div>
+        <select id="settingsStream" style="background:var(--p2);border:1px solid var(--ln);border-radius:8px;padding:8px;color:var(--ink);font:inherit;font-size:13px;outline:none;"></select>
+      </div>
       <div style="margin-top:20px">
         <button class="modal-btn" id="saveSettingsBtn">Save & Reload App</button>
       </div>
@@ -441,14 +556,11 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
 <div id="toast"></div>
 
 <script>
-// ── Safety net: if JS errors, hide splash so user isn't stuck ──
 window.addEventListener('error', function(e){
   console.error('App error:', e.message);
   var sp = document.getElementById('splash');
   if (sp){ sp.classList.add('hide'); setTimeout(function(){ sp.style.display='none'; }, 400); }
 });
-
-// ── Hard fallback: hide splash after 5s no matter what ──
 setTimeout(function(){
   var sp = document.getElementById('splash');
   if (sp && !sp.classList.contains('hide')){
@@ -458,7 +570,7 @@ setTimeout(function(){
 }, 5000);
 
 /* ═══════════════════════════════════════════════════════════
-   EXAMS DATA — each exam has its own theme
+   EXAMS DATA
    ═══════════════════════════════════════════════════════════ */
 const EXAMS = {
   JEE: {
@@ -550,25 +662,16 @@ const EXAMS = {
         "Class 10": ["Rise of Nationalism in Europe","Nationalism in India","Resources and Development","Water Resources","Power Sharing","Federalism","Development","The Making of Global World","Print Culture","Minerals and Energy","Manufacturing Industries","Political Parties","Democracy & Diversity","Sectors of Indian Economy","Money and Credit"]
       },
       English: {
-        "Class 10": [
-          "A Letter to God","Nelson Mandela: Long Walk to Freedom","Two Stories About Flying (His First Flight / Black Aeroplane)","From the Diary of Anne Frank","Glimpses of India","Mijbil the Otter","Madam Rides the Bus","The Sermon at Benares","The Proposal (Play)",
-          "Dust of Snow","Fire and Ice","A Tiger in the Zoo","How to Tell Wild Animals","The Ball Poem","Amanda!","The Trees","Fog","The Tale of Custard the Dragon","For Anne Gregory",
-          "A Triumph of Surgery","The Thief's Story","The Midnight Visitor","A Question of Trust","Footprints Without Feet","The Making of a Scientist","The Necklace","Bholi","The Book that Saved the Earth"
-        ]
+        "Class 10": ["A Letter to God","Nelson Mandela: Long Walk to Freedom","Two Stories About Flying (His First Flight / Black Aeroplane)","From the Diary of Anne Frank","Glimpses of India","Mijbil the Otter","Madam Rides the Bus","The Sermon at Benares","The Proposal (Play)","Dust of Snow","Fire and Ice","A Tiger in the Zoo","How to Tell Wild Animals","The Ball Poem","Amanda!","The Trees","Fog","The Tale of Custard the Dragon","For Anne Gregory","A Triumph of Surgery","The Thief's Story","The Midnight Visitor","A Question of Trust","Footprints Without Feet","The Making of a Scientist","The Necklace","Bholi","The Book that Saved the Earth"]
       },
       Hindi: {
-        "Class 10": [
-          "सूरदास – पद","तुलसीदास – राम-लक्ष्मण-परशुराम संवाद","जयशंकर प्रसाद – आत्मकथ्य","सूर्यकांत त्रिपाठी 'निराला' – उत्साह / अट नहीं रही है","नागार्जुन – यह दंतुरित मुस्कान / फसल","मंगलेश डबराल – संगतकार",
-          "नेताजी का चश्मा","बालगोबिन भगत","लखनवी अंदाज़","एक कहानी यह भी","नौबतखाने में इबादत","संस्कृति",
-          "साखी (कबीर)","पद (मीरा)","मनुष्यता (मैथिलीशरण गुप्त)","पर्वत प्रदेश में पावस","तोप","कर चले हम फ़िदा","आत्मत्राण","बड़े भाई साहब","डायरी का एक पन्ना","तताँरा–वामीरो कथा","तीसरी कसम के शिल्पकार शैलेंद्र","अब कहाँ दूसरे के दुख से दुखी होने वाले","पतझर में टूटी पत्तियाँ","कारतूस","हरिहर काका","सपनों के-से दिन","टोपी शुक्ला","माता का अँचल","साना-साना हाथ जोड़ि","मैं क्यों लिखता हूँ?"
-        ]
+        "Class 10": ["सूरदास – पद","तुलसीदास – राम-लक्ष्मण-परशुराम संवाद","जयशंकर प्रसाद – आत्मकथ्य","सूर्यकांत त्रिपाठी 'निराला' – उत्साह / अट नहीं रही है","नागार्जुन – यह दंतुरित मुस्कान / फसल","मंगलेश डबराल – संगतकार","नेताजी का चश्मा","बालगोबिन भगत","लखनवी अंदाज़","एक कहानी यह भी","नौबतखाने में इबादत","संस्कृति","साखी (कबीर)","पद (मीरा)","मनुष्यता (मैथिलीशरण गुप्त)","पर्वत प्रदेश में पावस","तोप","कर चले हम फ़िदा","आत्मत्राण","बड़े भाई साहब","डायरी का एक पन्ना","तताँरा–वामीरो कथा","तीसरी कसम के शिल्पकार शैलेंद्र","अब कहाँ दूसरे के दुख से दुखी होने वाले","पतझर में टूटी पत्तियाँ","कारतूस","हरिहर काका","सपनों के-से दिन","टोपी शुक्ला","माता का अँचल","साना-साना हाथ जोड़ि","मैं क्यों लिखता हूँ?"]
       }
     }
   },
   "Class 12": {
     title: "Class 12 Board",
-    subs: ["Physics", "Chemistry", "Maths", "English"],
-    split: ["Class 11", "Class 12"],
+    streams: ["PCM", "PCB", "Humanities", "Commerce"],
     theme: {
       accent: "#5a4a8a", accentDark: "#8a7ab5",
       band1: "linear-gradient(135deg,#3a2e5a,#5a4a8a)",
@@ -579,24 +682,108 @@ const EXAMS = {
       ink: "#1e1a2a", inkDark: "#d8d4e0",
       mut: "#6a5a7a", mutDark: "#8a7a9a",
       line: "#d8d0e0", lineDark: "#2e2a3a",
-      colors: { Physics:"#5a4a8a", Chemistry:"#3a6b5a", Maths:"#8a6b3a", English:"#8a4a6a" }
+      colors: {}
     },
-    syl: {
-      Physics: {
-        "Class 11": ["Units & Measurements","Motion in Straight Line","Motion in Plane","Laws of Motion","Work Energy Power","Gravitation","Solids","Fluids","Thermal Properties","Thermodynamics","Kinetic Theory","Oscillations","Waves"],
-        "Class 12": ["Electric Charges & Fields","Electrostatic Potential & Capacitance","Current Electricity","Moving Charges & Magnetism","Magnetism & Matter","EM Induction","Alternating Current","EM Waves","Ray Optics & Optical Instruments","Wave Optics","Dual Nature of Radiation & Matter","Atoms & Nuclei","Semiconductor Electronics"]
+    streamData: {
+      "PCM": {
+        subs: ["Physics", "Chemistry", "Maths", "English"],
+        split: ["Class 11", "Class 12"],
+        colors: { Physics:"#5a4a8a", Chemistry:"#3a6b5a", Maths:"#8a6b3a", English:"#8a4a6a" },
+        syl: {
+          Physics: {
+            "Class 11": ["Units & Measurements","Motion in Straight Line","Motion in Plane","Laws of Motion","Work Energy Power","Gravitation","Solids","Fluids","Thermal Properties","Thermodynamics","Kinetic Theory","Oscillations","Waves"],
+            "Class 12": ["Electric Charges & Fields","Electrostatic Potential & Capacitance","Current Electricity","Moving Charges & Magnetism","Magnetism & Matter","EM Induction","Alternating Current","EM Waves","Ray Optics & Optical Instruments","Wave Optics","Dual Nature of Radiation & Matter","Atoms & Nuclei","Semiconductor Electronics"]
+          },
+          Chemistry: {
+            "Class 11": ["Basic Concepts","Structure of Atom","Periodicity","Chemical Bonding","States of Matter","Thermodynamics","Equilibrium","Redox","Hydrogen","s-Block","p-Block 13-14","Organic Basics","Hydrocarbons","Environmental"],
+            "Class 12": ["Solutions","Electrochemistry","Chemical Kinetics","d & f Block","Coordination Compounds","Haloalkanes & Haloarenes","Alcohols Phenols Ethers","Aldehydes Ketones Acids","Amines","Biomolecules"]
+          },
+          Maths: {
+            "Class 11": ["Sets","Relations & Functions","Trigonometry","Complex Numbers","Linear Inequalities","Permutations & Combinations","Binomial Theorem","Sequences & Series","Straight Lines","Conic Sections","3D Geometry","Limits & Derivatives","Statistics","Probability"],
+            "Class 12": ["Relations & Functions","Inverse Trigonometric Functions","Matrices","Determinants","Continuity & Differentiability","Application of Derivatives","Integrals","Application of Integrals","Differential Equations","Vector Algebra","Three Dimensional Geometry","Linear Programming","Probability"]
+          },
+          English: {
+            "Class 11": [],
+            "Class 12": ["The Last Lesson","Lost Spring","Deep Water","The Rattrap","Indigo","Poets and Pancakes","The Interview","Going Places","My Mother at Sixty-Six","Keeping Quiet","A Thing of Beauty","A Roadside Stand","Aunt Jennifer's Tigers","The Third Level","The Tiger King","Journey to the End of the Earth","The Enemy","On the Face of It","Memories of Childhood (The Cutting of My Long Hair / We Too are Human Beings)"]
+          }
+        }
       },
-      Chemistry: {
-        "Class 11": ["Basic Concepts","Structure of Atom","Periodicity","Chemical Bonding","States of Matter","Thermodynamics","Equilibrium","Redox","Hydrogen","s-Block","p-Block 13-14","Organic Basics","Hydrocarbons","Environmental"],
-        "Class 12": ["Solutions","Electrochemistry","Chemical Kinetics","d & f Block","Coordination Compounds","Haloalkanes & Haloarenes","Alcohols Phenols Ethers","Aldehydes Ketones Acids","Amines","Biomolecules"]
+      "PCB": {
+        subs: ["Physics", "Chemistry", "Biology", "English"],
+        split: ["Class 11", "Class 12"],
+        colors: { Physics:"#5a4a8a", Chemistry:"#3a6b5a", Biology:"#7a3f5a", English:"#8a4a6a" },
+        syl: {
+          Physics: {
+            "Class 11": ["Units & Measurements","Motion in Straight Line","Motion in Plane","Laws of Motion","Work Energy Power","Gravitation","Solids","Fluids","Thermal Properties","Thermodynamics","Kinetic Theory","Oscillations","Waves"],
+            "Class 12": ["Electric Charges & Fields","Electrostatic Potential & Capacitance","Current Electricity","Moving Charges & Magnetism","Magnetism & Matter","EM Induction","Alternating Current","EM Waves","Ray Optics & Optical Instruments","Wave Optics","Dual Nature of Radiation & Matter","Atoms & Nuclei","Semiconductor Electronics"]
+          },
+          Chemistry: {
+            "Class 11": ["Basic Concepts","Structure of Atom","Periodicity","Chemical Bonding","States of Matter","Thermodynamics","Equilibrium","Redox","Hydrogen","s-Block","p-Block 13-14","Organic Basics","Hydrocarbons","Environmental"],
+            "Class 12": ["Solutions","Electrochemistry","Chemical Kinetics","d & f Block","Coordination Compounds","Haloalkanes & Haloarenes","Alcohols Phenols Ethers","Aldehydes Ketones Acids","Amines","Biomolecules"]
+          },
+          Biology: {
+            "Class 11": ["The Living World","Biological Classification","Plant Kingdom","Animal Kingdom","Morphology of Plants","Anatomy of Plants","Structural Organisation in Animals","Cell: The Unit of Life","Biomolecules","Cell Cycle & Division","Transport in Plants","Mineral Nutrition","Photosynthesis","Respiration in Plants","Plant Growth","Digestion & Absorption","Breathing & Exchange","Body Fluids","Excretory Products","Locomotion & Movement","Neural Control","Chemical Coordination"],
+            "Class 12": ["Reproduction in Organisms","Sexual Reproduction in Plants","Human Reproduction","Reproductive Health","Principles of Inheritance","Molecular Basis of Inheritance","Evolution","Human Health & Disease","Strategies for Food Production","Microbes in Human Welfare","Biotechnology Principles","Biotechnology Applications","Organisms & Populations","Ecosystem","Biodiversity"]
+          },
+          English: {
+            "Class 11": [],
+            "Class 12": ["The Last Lesson","Lost Spring","Deep Water","The Rattrap","Indigo","Poets and Pancakes","The Interview","Going Places","My Mother at Sixty-Six","Keeping Quiet","A Thing of Beauty","A Roadside Stand","Aunt Jennifer's Tigers","The Third Level","The Tiger King","Journey to the End of the Earth","The Enemy","On the Face of It","Memories of Childhood (The Cutting of My Long Hair / We Too are Human Beings)"]
+          }
+        }
       },
-      Maths: {
-        "Class 11": ["Sets","Relations & Functions","Trigonometry","Complex Numbers","Linear Inequalities","Permutations & Combinations","Binomial Theorem","Sequences & Series","Straight Lines","Conic Sections","3D Geometry","Limits & Derivatives","Statistics","Probability"],
-        "Class 12": ["Relations & Functions","Inverse Trigonometric Functions","Matrices","Determinants","Continuity & Differentiability","Application of Derivatives","Integrals","Application of Integrals","Differential Equations","Vector Algebra","Three Dimensional Geometry","Linear Programming","Probability"]
+      "Humanities": {
+        subs: ["History", "PolSci", "Geography", "Economics", "English"],
+        split: ["Class 11", "Class 12"],
+        colors: { History:"#8a4a3a", PolSci:"#4a3a8a", Geography:"#3a7a5a", Economics:"#8a6b3a", English:"#8a4a6a" },
+        syl: {
+          History: {
+            "Class 11": ["Theme 1: From the Beginning of Time","Theme 2: Writing and City Life","Theme 3: An Empire Across Three Continents","Theme 4: The Central Islamic Lands","Theme 5: Nomadic Empires","Theme 6: The Three Orders","Theme 7: Changing Cultural Traditions","Theme 8: Confrontation of Cultures","Theme 9: The Industrial Revolution","Theme 10: Displacing Indigenous Peoples","Theme 11: Paths to Modernisation"],
+            "Class 12": ["Theme 1: Bricks, Beads and Bones","Theme 2: Kings, Farmers and Towns","Theme 3: Kinship, Caste and Class","Theme 4: Thinkers, Beliefs and Buildings","Theme 5: Through the Eyes of Travellers","Theme 6: Bhakti-Sufi Traditions","Theme 7: An Imperial Capital - Vijayanagara","Theme 8: Peasants, Zamindars and the State","Theme 9: Colonialism and the Countryside","Theme 10: Rebels and the Raj","Theme 11: Mahatma Gandhi and the Nationalist Movement","Theme 12: Framing the Constitution"]
+          },
+          PolSci: {
+            "Class 11": ["Constitution: Why and How?","Rights in the Indian Constitution","Election and Representation","Executive","Legislature","Judiciary","Federalism","Local Governments","Constitution as a Living Document","Political Theory: An Introduction","Freedom","Equality","Social Justice","Rights","Citizenship","Nationalism","Secularism","Peace","Development"],
+            "Class 12": ["The Cold War Era","The End of Bipolarity","US Hegemony in World Politics","Alternative Centres of Power","Contemporary South Asia","International Organisations","Security in Contemporary World","Environment and Natural Resources","Globalisation","Challenges of Nation Building","Era of One-Party Dominance","Politics of Planned Development","India's External Relations","Challenges to and Restoration of Congress System","The Crisis of Democratic Order","Rise of Popular Movements","Regional Aspirations","Recent Developments in Indian Politics"]
+          },
+          Geography: {
+            "Class 11": ["Geography as a Discipline","The Origin and Evolution of the Earth","Interior of the Earth","Distribution of Oceans and Continents","Minerals and Rocks","Geomorphic Processes","Landforms and their Evolution","Composition and Structure of Atmosphere","Solar Radiation, Heat Balance and Temperature","Atmospheric Circulation and Weather Systems","Water in the Atmosphere","World Climate and Climate Change","Water Oceans","Movements of Ocean Water","Life on the Earth","India: Location","Structure and Physiography","Drainage System","Climate","Natural Vegetation","Soils","Natural Hazards and Disasters"],
+            "Class 12": ["Human Geography: Nature and Scope","The World Population","Population Composition","Human Development","Primary Activities","Secondary Activities","Tertiary and Quaternary Activities","Transport and Communication","International Trade","Human Settlements","Population: Distribution, Density, Growth and Composition","Migration","Human Development (India)","Human Settlements (India)","Land Resources and Agriculture","Water Resources","Mineral and Energy Resources","Manufacturing Industries","Planning and Sustainable Development","Transport and Communication (India)","International Trade (India)","Geographical Perspective on Selected Issues"]
+          },
+          Economics: {
+            "Class 11": ["Indian Economy on the Eve of Independence","Indian Economy 1950-1990","Liberalisation, Privatisation and Globalisation","Poverty as a Challenge","Human Capital Formation","Rural Development","Employment","Infrastructure","Environment and Sustainable Development","Development Experience of India vs Neighbours","Introduction to Statistics","Collection of Data","Organisation of Data","Presentation of Data","Measures of Central Tendency","Measures of Dispersion","Correlation","Index Numbers"],
+            "Class 12": ["Introduction to Microeconomics","Theory of Consumer Behaviour","Production and Costs","Theory of Firm under Perfect Competition","Market Competition","Non-Competitive Markets","Introduction to Macroeconomics","National Income Accounting","Money and Banking","Determination of Income and Employment","Government Budget and Economy","Open Economy Macroeconomics"]
+          },
+          English: {
+            "Class 11": [],
+            "Class 12": ["The Last Lesson","Lost Spring","Deep Water","The Rattrap","Indigo","Poets and Pancakes","The Interview","Going Places","My Mother at Sixty-Six","Keeping Quiet","A Thing of Beauty","A Roadside Stand","Aunt Jennifer's Tigers","The Third Level","The Tiger King","Journey to the End of the Earth","The Enemy","On the Face of It","Memories of Childhood (The Cutting of My Long Hair / We Too are Human Beings)"]
+          }
+        }
       },
-      English: {
-        "Class 11": [],
-        "Class 12": ["The Last Lesson","Lost Spring","Deep Water","The Rattrap","Indigo","Poets and Pancakes","The Interview","Going Places","My Mother at Sixty-Six","Keeping Quiet","A Thing of Beauty","A Roadside Stand","Aunt Jennifer's Tigers","The Third Level","The Tiger King","Journey to the End of the Earth","The Enemy","On the Face of It","Memories of Childhood (The Cutting of My Long Hair / We Too are Human Beings)"]
+      "Commerce": {
+        subs: ["Accountancy", "Business Studies", "Economics", "Maths", "English"],
+        split: ["Class 11", "Class 12"],
+        colors: { Accountancy:"#8a6b3a", "Business Studies":"#3a5a8a", Economics:"#5a7a3a", Maths:"#6a4a8a", English:"#8a4a6a" },
+        syl: {
+          Accountancy: {
+            "Class 11": ["Introduction to Accounting","Theory Base of Accounting","Recording of Transactions I","Recording of Transactions II","Bank Reconciliation Statement","Trial Balance and Rectification of Errors","Depreciation, Provisions and Reserves","Bill of Exchange","Financial Statements I","Financial Statements II","Accounts from Incomplete Records","Accounting for Not-for-Profit Organisations","Computers in Accounting"],
+            "Class 12": ["Accounting for Partnership Firms","Reconstitution of Partnership","Admission of a Partner","Retirement/Death of a Partner","Dissolution of Partnership Firm","Accounting for Share Capital","Issue and Redemption of Debentures","Financial Statements of a Company","Analysis of Financial Statements","Accounting Ratios","Cash Flow Statement"]
+          },
+          "Business Studies": {
+            "Class 11": ["Nature and Significance of Management","Principles of Management","Business Environment","Planning","Organising","Staffing","Directing","Controlling","Financial Management"],
+            "Class 12": ["Financial Markets","Marketing Management","Consumer Protection","Entrepreneurship Development","International Business","Nature and Significance of Management (Advanced)","Principles of Management (Advanced)","Business Environment (Advanced)"]
+          },
+          Economics: {
+            "Class 11": ["Indian Economy on the Eve of Independence","Indian Economy 1950-1990","Liberalisation, Privatisation and Globalisation","Poverty as a Challenge","Human Capital Formation","Rural Development","Employment","Infrastructure","Environment and Sustainable Development","Development Experience of India vs Neighbours","Introduction to Statistics","Collection of Data","Organisation of Data","Presentation of Data","Measures of Central Tendency","Measures of Dispersion","Correlation","Index Numbers"],
+            "Class 12": ["Introduction to Microeconomics","Theory of Consumer Behaviour","Production and Costs","Theory of Firm under Perfect Competition","Market Competition","Non-Competitive Markets","Introduction to Macroeconomics","National Income Accounting","Money and Banking","Determination of Income and Employment","Government Budget and Economy","Open Economy Macroeconomics"]
+          },
+          Maths: {
+            "Class 11": ["Sets","Relations & Functions","Trigonometry","Complex Numbers","Linear Inequalities","Permutations & Combinations","Binomial Theorem","Sequences & Series","Straight Lines","Conic Sections","3D Geometry","Limits & Derivatives","Statistics","Probability"],
+            "Class 12": ["Relations & Functions","Inverse Trigonometric Functions","Matrices","Determinants","Continuity & Differentiability","Application of Derivatives","Integrals","Application of Integrals","Differential Equations","Vector Algebra","Three Dimensional Geometry","Linear Programming","Probability"]
+          },
+          English: {
+            "Class 11": [],
+            "Class 12": ["The Last Lesson","Lost Spring","Deep Water","The Rattrap","Indigo","Poets and Pancakes","The Interview","Going Places","My Mother at Sixty-Six","Keeping Quiet","A Thing of Beauty","A Roadside Stand","Aunt Jennifer's Tigers","The Third Level","The Tiger King","Journey to the End of the Earth","The Enemy","On the Face of It","Memories of Childhood (The Cutting of My Long Hair / We Too are Human Beings)"]
+          }
+        }
       }
     }
   }
@@ -604,12 +791,14 @@ const EXAMS = {
 
 const METRICS = [
   {k:'c', lbl:'D', full:'Done', desc:'Chapter Completed', color:'#5a7d3f'},
-  {k:'r1',lbl:'R1',full:'Revision 1', desc:'Revised Once', color:'#4a6b8a'},
-  {k:'r2',lbl:'R2',full:'Revision 2', desc:'Revised Twice', color:'#7a5aaa'},
+  {k:'r', lbl:'R', full:'Revision', desc:'Click +1, right-click/long-press reset', color:'#4a6b8a', isCount: true},
   {k:'q', lbl:'Q', full:'Questions', desc:'Questions Practiced', color:'#b8860b'},
   {k:'n', lbl:'N', full:'Notes', desc:'Short Notes Made', color:'#a05a7a'},
   {k:'t', lbl:'T', full:'Test', desc:'Test Attempted', color:'#b04a4a'}
 ];
+
+const SUBS = ['₀','₁','₂','₃','₄','₅','₆','₇','₈','₉'];
+const revLabel = n => n === 0 ? 'R' : 'R' + (SUBS[n] || '₉₊');
 
 const KEY = "tracker-locked-exam-v18";
 const MN = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -637,7 +826,6 @@ const MOTIVATIONS = [
   "You are building your future one day at a time. Don't let yesterday's brick be a weak one. Go hard today."
 ];
 
-/* HELPERS */
 const $ = s => document.querySelector(s);
 const $$ = s => [...document.querySelectorAll(s)];
 const pad = n => String(n).padStart(2,'0');
@@ -646,12 +834,11 @@ const today = () => fmt(new Date());
 const mkKey = d => d.getFullYear()+'-'+pad(d.getMonth()+1);
 const todayM = () => mkKey(new Date());
 const mLabel = ym => { const[y,m]=ym.split('-'); return MN[+m-1]+' '+y; };
-const ckey = (s,c,n) => S.settings.exam + '|' + s + '|' + c + '|' + n;
+const ckey = (s,c,n) => S.settings.exam + '|' + (S.settings.stream || '') + '|' + s + '|' + c + '|' + n;
 const esc = s => s==null?'':String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 function toast(m){ const t=$("#toast"); t.textContent=m; t.classList.add("on"); clearTimeout(t._); t._=setTimeout(()=>t.classList.remove("on"),2000); }
 
-/* COLOR HELPERS */
 function shade(hex, amt){
   try {
     const n = parseInt(hex.replace('#',''),16);
@@ -677,7 +864,6 @@ function hexToRgba(hex, alpha){
   } catch(e){ return `rgba(0,0,0,${alpha})`; }
 }
 
-/* DATE UTILS */
 function isoWeek(d){ const t=new Date(d); t.setHours(0,0,0,0); t.setDate(t.getDate()+3-((t.getDay()+6)%7)); const y=t.getFullYear(); const jan4=new Date(y,0,4); const w=Math.round(((t-jan4)/86400000 - 3 + ((jan4.getDay()+6)%7))/7)+1; return y+'-W'+pad(w); }
 function weekRange(k){ const[y,w]=k.split('-W').map(x=>parseInt(x)); const jan4=new Date(y,0,4); const mon=new Date(jan4); mon.setDate(jan4.getDate() - ((jan4.getDay()+6)%7) + (w-1)*7); const sun=new Date(mon); sun.setDate(mon.getDate()+6); return {start:mon, end:sun}; }
 function weekLabel(k){ const {start,end}=weekRange(k); const f=d=>d.toLocaleDateString('en-IN',{day:'numeric',month:'short'}); return `${f(start)} – ${f(end)}`; }
@@ -687,30 +873,65 @@ const prevWeek = k => isoWeek(new Date(new Date(weekRange(k).start).getTime()-7*
 const nextMonth = k => { const[y,m]=k.split('-').map(Number); return mkKey(new Date(y,m,1)); };
 const prevMonth = k => { const[y,m]=k.split('-').map(Number); return mkKey(new Date(y,m-2,1)); };
 
-/* STATE */
 let S = {};
 try { S = JSON.parse(localStorage.getItem(KEY)||'null') || {}; } catch(e){ S={}; }
 S.ch = S.ch || {}; S.tk = S.tk || {}; S.wk = S.wk || {}; S.mk = S.mk || {}; S.months = S.months || {};
-S.settings = S.settings || { redLine: 75, onboarded: false, lastCheck: null, motIndex: 0, exam: 'JEE' };
+S.settings = S.settings || { redLine: 75, onboarded: false, lastCheck: null, motIndex: 0, exam: 'JEE', stream: 'PCM' };
+if (!S.settings.stream) S.settings.stream = 'PCM';
 if (!S.currentMonth) S.currentMonth = todayM();
-
-// Migrate old exam values (from previous versions)
 if (S.settings.exam === 'Class 10 Board') S.settings.exam = 'Class 10';
 if (S.settings.exam === 'Class 12 Board') S.settings.exam = 'Class 12';
 if (!EXAMS[S.settings.exam]) S.settings.exam = 'JEE';
 
 const save = () => { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){ toast("Storage full"); } };
 
-const getExam = () => EXAMS[S.settings.exam] || EXAMS.JEE;
+const getExam = () => {
+  const ex = EXAMS[S.settings.exam] || EXAMS.JEE;
+  if (ex.streamData) {
+    const stream = S.settings.stream || ex.streams[0];
+    if (ex.streamData[stream]) {
+      const merged = { ...ex, ...ex.streamData[stream] };
+      if (ex.streamData[stream].colors) {
+        merged.theme = { ...ex.theme, colors: ex.streamData[stream].colors };
+      }
+      return merged;
+    }
+  }
+  return ex;
+};
 const getSubs = () => getExam().subs;
 const getSplit = () => getExam().split;
 const getSyl = (sub, cls) => {
   const ex = getExam();
   return (ex.syl[sub] && ex.syl[sub][cls]) || [];
 };
-const chState = (s,c,n) => { const k = ckey(s,c,n); if (!S.ch[k]) S.ch[k] = {c:false,r1:false,r2:false,q:false,n:false,t:false}; if (S.ch[k].t===undefined) S.ch[k].t=false; return S.ch[k]; };
 
-/* EXAM THEME ENGINE */
+const chState = (s,c,n) => {
+  const k = ckey(s,c,n);
+  if (!S.ch[k]) S.ch[k] = {c:false, r:0, q:false, n:false, t:false};
+  const st = S.ch[k];
+  if (st.r === undefined) st.r = 0;
+  if (st.t === undefined) st.t = false;
+  return st;
+};
+
+(function migrateOldRevState(){
+  let changed = false;
+  Object.keys(S.ch).forEach(k => {
+    const st = S.ch[k];
+    if (!st) return;
+    if (st.r1 !== undefined || st.r2 !== undefined) {
+      st.r = Math.max(st.r1 ? 1 : 0, st.r2 ? 2 : 0);
+      delete st.r1;
+      delete st.r2;
+      changed = true;
+    }
+    if (st.r === undefined) { st.r = 0; changed = true; }
+    if (st.t === undefined) { st.t = false; changed = true; }
+  });
+  if (changed) save();
+})();
+
 function applyExamTheme(){
   const t = getExam().theme;
   if (!t || !t.accent) return;
@@ -739,6 +960,7 @@ function applyExamTheme(){
   root.dataset.darkInk   = t.inkDark;
   root.dataset.darkMut   = t.mutDark;
   root.dataset.darkLn    = t.lineDark;
+  document.body.dataset.exam = S.settings.exam;
   if (document.body.classList.contains('dark')) applyDarkExamTheme();
 }
 function applyDarkExamTheme(){
@@ -760,22 +982,31 @@ function applyDarkExamTheme(){
   root.style.setProperty('--c2bg', hexToRgba(shade(root.dataset.darkAcc, -35), 0.15));
 }
 
-/* ARCHIVING */
 function archM(ym){
   const exam = S.settings.exam;
+  const stream = S.settings.stream || '';
+  const prefix = exam + '|' + stream + '|' + ym;
   const daily = {};
-  Object.keys(S.tk).forEach(k => { if (k.startsWith(exam + '|' + ym)) daily[k.split('|')[1]] = S.tk[k]; });
+  Object.keys(S.tk).forEach(k => { if (k.startsWith(prefix)) daily[k.split('|')[2]] = S.tk[k]; });
   const snap = {};
   getSubs().forEach(s => {
     snap[s] = {};
     getSplit().forEach(c => {
-      snap[s][c] = {c:0,r1:0,r2:0,q:0,n:0,t:0,total:0};
+      snap[s][c] = {c:0,r:0,q:0,n:0,t:0,total:0};
       const list = getSyl(s,c);
       snap[s][c].total = list.length;
-      list.forEach(n => { const st = S.ch[ckey(s,c,n)]; if (st) METRICS.forEach(m => { if (st[m.k]) snap[s][c][m.k]++; }); });
+      list.forEach(n => {
+        const st = S.ch[ckey(s,c,n)];
+        if (!st) return;
+        if (st.c) snap[s][c].c++;
+        if ((st.r || 0) >= 1) snap[s][c].r++;
+        if (st.q) snap[s][c].q++;
+        if (st.n) snap[s][c].n++;
+        if (st.t) snap[s][c].t++;
+      });
     });
   });
-  S.months[exam + '|' + ym] = { tasks: daily, chSnap: snap };
+  S.months[exam + '|' + stream + '|' + ym] = { tasks: daily, chSnap: snap };
 }
 function checkM(){
   const n = todayM();
@@ -789,29 +1020,49 @@ function checkM(){
   return false;
 }
 
-/* ONBOARDING */
 function setupOnboarding(){
   if (S.settings.onboarded) return;
   let step = 0, selectedExam = '';
   const btn = $("#onboardBtn"), title = $("#onboardTitle"), text = $("#onboardText"), examWrap = $("#examSelectWrap"), inputWrap = $("#onboardInputWrap");
-
   $("#onboardModal").classList.add("show");
-
   $$('.exam-btn').forEach(b => {
     b.onclick = () => { $$('.exam-btn').forEach(x => x.classList.remove('active')); b.classList.add('active'); selectedExam = b.dataset.exam; btn.style.display = 'block'; };
   });
-
   btn.onclick = () => {
     if (step === 0){
       if (!selectedExam) return;
       S.settings.exam = selectedExam; save();
       try { applyExamTheme(); } catch(e){}
-      step++; examWrap.style.display = "none"; inputWrap.style.display = "block";
+      if (EXAMS[selectedExam] && EXAMS[selectedExam].streams){
+        step = 0.5;
+        title.textContent = "Choose Your Stream";
+        text.innerHTML = "Each stream has different subjects and syllabus. Pick yours.";
+        examWrap.innerHTML = '<div class="exam-grid">' +
+          EXAMS[selectedExam].streams.map(s => `<div class="exam-btn" data-stream="${s}">${s}</div>`).join('') +
+          '</div>';
+        btn.style.display = 'none';
+        $$('[data-stream]').forEach(b => {
+          b.onclick = () => {
+            $$('[data-stream]').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            S.settings.stream = b.dataset.stream; save();
+            btn.style.display = 'block';
+          };
+        });
+        return;
+      }
+      step = 1;
+      examWrap.style.display = "none"; inputWrap.style.display = "block";
+      title.textContent = "Set Your Red Line"; text.innerHTML = "This is the minimum percentage of daily tasks you MUST complete. Fall below it, and I'll be waiting.";
+    } else if (step === 0.5){
+      if (!S.settings.stream) return;
+      step = 1;
+      examWrap.style.display = "none"; inputWrap.style.display = "block";
       title.textContent = "Set Your Red Line"; text.innerHTML = "This is the minimum percentage of daily tasks you MUST complete. Fall below it, and I'll be waiting.";
     } else if (step === 1){
       const val = parseInt($("#redLineInput").value); if (val >= 10 && val <= 100) S.settings.redLine = val;
       step++; inputWrap.style.display = "none";
-      title.textContent = "Master Your Chapters"; text.innerHTML = "Track every subject. Mark them as <b>D</b> (Done), <b>R1</b>, <b>R2</b>, <b>Q</b> (Questions), <b>N</b> (Notes), and <b>T</b> (Tests).";
+      title.textContent = "Master Your Chapters"; text.innerHTML = "Track every subject. Mark them as <b>D</b> (Done), <b>R</b> (Revision — click to +1, right-click/long-press to reset), <b>Q</b> (Questions), <b>N</b> (Notes), and <b>T</b> (Tests).";
     } else if (step === 2){
       step++; title.textContent = "Conquer Your Tasks"; text.innerHTML = "Add daily, weekly, and monthly goals. Check them off to build your streak. Stay above the red line.";
     } else if (step === 3){
@@ -824,14 +1075,14 @@ function setupOnboarding(){
   };
 }
 
-/* MOTIVATION */
 function checkDailyMotivation(){
   if (!S.settings.onboarded) return;
   const todayStr = today();
   const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
   const yestStr = fmt(yesterday);
+  const keyPrefix = S.settings.exam + '|' + (S.settings.stream || '') + '|' + yestStr;
   if (S.settings.lastCheck && S.settings.lastCheck !== todayStr){
-    const tasks = S.tk[S.settings.exam + '|' + yestStr] || [];
+    const tasks = S.tk[keyPrefix] || [];
     let showMsg = false, title = "", text = "", isStreakBreak = false;
     if (tasks.length > 0){
       const done = tasks.filter(t => t.done).length, pct = (done / tasks.length) * 100;
@@ -849,19 +1100,29 @@ function checkDailyMotivation(){
   S.settings.lastCheck = todayStr; save();
 }
 
-/* STATS */
 function cStats(sub,cls){
-  const list = getSyl(sub,cls), total = list.length, cnt = {c:0,r1:0,r2:0,q:0,n:0,t:0};
-  list.forEach(n=>{ const st = S.ch[ckey(sub,cls,n)]; if (!st) return; METRICS.forEach(m=>{ if (st[m.k]) cnt[m.k]++; }); });
-  const pct = {}; METRICS.forEach(m=> pct[m.k] = total ? cnt[m.k]/total*100 : 0);
-  const overall = total ? (cnt.c+cnt.r1+cnt.r2+cnt.q+cnt.n+cnt.t)/(total*METRICS.length)*100 : 0;
+  const list = getSyl(sub,cls), total = list.length;
+  const cnt = {c:0, r:0, q:0, n:0, t:0};
+  list.forEach(n=>{
+    const st = S.ch[ckey(sub,cls,n)];
+    if (!st) return;
+    if (st.c) cnt.c++;
+    if ((st.r || 0) >= 1) cnt.r++;
+    if (st.q) cnt.q++;
+    if (st.n) cnt.n++;
+    if (st.t) cnt.t++;
+  });
+  const pct = {};
+  METRICS.forEach(m => pct[m.k] = total ? cnt[m.k]/total*100 : 0);
+  const overall = total ? (cnt.c + cnt.r + cnt.q + cnt.n + cnt.t) / (total * 5) * 100 : 0;
   return { total, cnt, pct, overall };
 }
 function sStats(sub){
-  const classes = getSplit(); let total = 0, cnt = {c:0,r1:0,r2:0,q:0,n:0,t:0};
+  const classes = getSplit(); let total = 0;
+  const cnt = {c:0, r:0, q:0, n:0, t:0};
   classes.forEach(c => { const st = cStats(sub, c); total += st.total; METRICS.forEach(m => cnt[m.k] += st.cnt[m.k]); });
   const pct = {}; METRICS.forEach(m=> pct[m.k] = total ? cnt[m.k]/total*100 : 0);
-  const overall = total ? (cnt.c+cnt.r1+cnt.r2+cnt.q+cnt.n+cnt.t)/(total*METRICS.length)*100 : 0;
+  const overall = total ? (cnt.c+cnt.r+cnt.q+cnt.n+cnt.t)/(total*5)*100 : 0;
   return { total, cnt, pct, overall };
 }
 function cOv(cls){
@@ -869,21 +1130,47 @@ function cOv(cls){
   return { total:tot, pct: tot ? sum/tot : 0 };
 }
 function tStatsDaily(f,t){
+  const prefix = S.settings.exam + '|' + (S.settings.stream || '') + '|';
   let tot=0, dn=0;
-  Object.keys(S.tk).forEach(k=>{ if (k.startsWith(S.settings.exam + '|')) { const dk = k.split('|')[1]; if (dk>=f && dk<=t){ const a = S.tk[k]||[]; tot += a.length; dn += a.filter(x=>x.done).length; } } });
+  Object.keys(S.tk).forEach(k=>{
+    if (k.startsWith(prefix)) {
+      const dk = k.split('|')[2];
+      if (dk>=f && dk<=t){ const a = S.tk[k]||[]; tot += a.length; dn += a.filter(x=>x.done).length; }
+    }
+  });
   return { total:tot, done:dn, pct: tot ? dn/tot*100 : 0 };
 }
 function dailyStreak(){
-  const has = k => (S.tk[S.settings.exam + '|' + k]||[]).some(t=>t.done);
+  const prefix = S.settings.exam + '|' + (S.settings.stream || '') + '|';
+  const has = k => (S.tk[prefix + k]||[]).some(t=>t.done);
   const d = new Date(); if (!has(fmt(d))) d.setDate(d.getDate()-1); let n=0;
   while (has(fmt(d))){ n++; d.setDate(d.getDate()-1); } return n;
 }
-function weekStats(wk){ const a = S.wk[S.settings.exam + '|' + wk]||[]; const dn = a.filter(x=>x.done).length; return {total:a.length, done:dn, pct:a.length?dn/a.length*100:0}; }
-function monthStatsTasks(mk){ const a = S.mk[S.settings.exam + '|' + mk]||[]; const dn = a.filter(x=>x.done).length; return {total:a.length, done:dn, pct:a.length?dn/a.length*100:0}; }
+function weekStats(wk){
+  const key = S.settings.exam + '|' + (S.settings.stream || '') + '|wk|' + wk;
+  const a = S.wk[key]||[]; const dn = a.filter(x=>x.done).length;
+  return {total:a.length, done:dn, pct:a.length?dn/a.length*100:0};
+}
+function monthStatsTasks(mk){
+  const key = S.settings.exam + '|' + (S.settings.stream || '') + '|mk|' + mk;
+  const a = S.mk[key]||[]; const dn = a.filter(x=>x.done).length;
+  return {total:a.length, done:dn, pct:a.length?dn/a.length*100:0};
+}
 function mSummary(ym){
-  const live = ym === S.currentMonth; let tasks = {}, snap = null;
-  if (live){ Object.keys(S.tk).forEach(k=>{ if (k.startsWith(S.settings.exam + '|' + ym)) tasks[k.split('|')[1]] = S.tk[k]; }); }
-  else if (S.months[S.settings.exam + '|' + ym]){ tasks = S.months[S.settings.exam + '|' + ym].tasks || {}; snap = S.months[S.settings.exam + '|' + ym].chSnap || null; }
+  const exam = S.settings.exam, stream = S.settings.stream || '';
+  const live = ym === S.currentMonth;
+  let tasks = {}, snap = null;
+  const monthKey = exam + '|' + stream + '|' + ym;
+  const prefix = exam + '|' + stream + '|';
+  if (live){
+    Object.keys(S.tk).forEach(k=>{
+      if (k.startsWith(prefix) && !k.includes('|wk|') && !k.includes('|mk|')) {
+        const dk = k.split('|')[2];
+        if (dk && dk.startsWith(ym)) tasks[dk] = S.tk[k];
+      }
+    });
+  }
+  else if (S.months[monthKey]){ tasks = S.months[monthKey].tasks || {}; snap = S.months[monthKey].chSnap || null; }
   else return null;
   let tot=0, dn=0; Object.values(tasks).forEach(a=>{ tot += a.length; dn += a.filter(x=>x.done).length; });
   let ch = 0;
@@ -892,7 +1179,6 @@ function mSummary(ym){
   return { tasks:tot, done:dn, pct:tot?dn/tot*100:0, chapters:ch, live };
 }
 
-/* CHARTS */
 const charts = {};
 const HAS_CHART = typeof Chart !== 'undefined';
 if (HAS_CHART){ Chart.defaults.color = "#8a7a62"; Chart.defaults.font.family = "Georgia, serif"; Chart.defaults.font.size = 10; }
@@ -904,9 +1190,10 @@ function drawLineChart(id, ym){
   const cv = document.getElementById(id); if (!cv) return;
   const [y,m] = ym.split('-').map(Number), dim = new Date(y,m,0).getDate(), live = ym === S.currentMonth;
   const labels = [], data = [];
+  const prefix = S.settings.exam + '|' + (S.settings.stream || '') + '|';
   for (let d=1; d<=dim; d++){
     const k = ym + '-' + pad(d);
-    let arr = live ? (S.tk[S.settings.exam + '|' + k]||[]) : (S.months[S.settings.exam + '|' + ym] && S.months[S.settings.exam + '|' + ym].tasks[k] ? S.months[S.settings.exam + '|' + ym].tasks[k] : []);
+    let arr = live ? (S.tk[prefix + k]||[]) : (S.months[S.settings.exam + '|' + (S.settings.stream || '') + '|' + ym] && S.months[S.settings.exam + '|' + (S.settings.stream || '') + '|' + ym].tasks[k] ? S.months[S.settings.exam + '|' + (S.settings.stream || '') + '|' + ym].tasks[k] : []);
     labels.push(d); data.push(arr.length ? arr.filter(t=>t.done).length/arr.length*100 : 0);
   }
   const dark = document.body.classList.contains('dark');
@@ -964,7 +1251,13 @@ function drawRadars(clsIdx, gridId){
   });
 }
 
-/* RENDER */
+function renderLegend(){
+  const box = $("#legendBox"); if (!box) return;
+  box.innerHTML = METRICS.map(m =>
+    `<div class="item"><span class="dot" style="background:${m.color}">${m.lbl}</span><div><b>${m.full}</b><span>${m.desc}</span></div></div>`
+  ).join('');
+}
+
 function renderDash(){
   const all = getSubs().map(s => sStats(s));
   const tCh = all.reduce((a,s)=>a+s.total,0), dCh = all.reduce((a,s)=>a+s.cnt.c,0);
@@ -979,7 +1272,8 @@ function renderDash(){
     <div class="stat"><span class="lb">This Week</span><span class="vl">${wt.done}<small>/${wt.total}</small></span><div class="bar"><i style="width:${wt.pct}%;background:var(--grn)"></i></div></div>
     <div class="stat"><span class="lb">This Month</span><span class="vl">${mt.done}<small>/${mt.total}</small></span><div class="bar"><i style="width:${mt.pct}%;background:var(--gold)"></i></div></div>`;
 
-  $("#hdSub").textContent = `${getExam().title} · ${dCh} chapters · ${stk}-day streak`;
+  const streamLabel = S.settings.stream && EXAMS[S.settings.exam].streams ? ' · ' + S.settings.stream : '';
+  $("#hdSub").textContent = `${getExam().title}${streamLabel} · ${dCh} chapters · ${stk}-day streak`;
   $("#dashMonthLabel").textContent = mLabel(dashMonth);
   drawLineChart('cMain', dashMonth);
 
@@ -1022,7 +1316,15 @@ function renderCh(){
       h += `<div class="shdr ${c===getSplit()[0]?'c1':'c2'}" data-sub="${esc(s)}" data-cls="${esc(c)}"><span style="color:${colors[s]}">${esc(s)} <span style="font-family:-apple-system,system-ui,sans-serif;font-size:10.5px;background:${c===getSplit()[0]?'var(--c1)':'var(--c2)'};color:#fff;padding:2px 8px;border-radius:99px;margin-left:6px">${c}</span></span><span class="mini">${st.cnt.c}/${st.total} done · ${st.overall.toFixed(0)}%</span></div>`;
       list.forEach(n=>{
         const st2 = chState(s,c,n);
-        h += `<div class="ch"><span class="nm">${esc(n)}</span><div class="mets">${METRICS.map(m=>`<button class="met ${st2[m.k]?'on':''}" data-sub="${esc(s)}" data-cls="${esc(c)}" data-ch="${esc(n)}" data-k="${m.k}" title="${m.full}">${m.lbl}</button>`).join('')}</div></div>`;
+        const btns = METRICS.map(m => {
+          if (m.isCount) {
+            const val = st2[m.k] || 0;
+            const active = val > 0;
+            return `<button class="met ${active?'on':''}" data-sub="${esc(s)}" data-cls="${esc(c)}" data-ch="${esc(n)}" data-k="${m.k}" title="${m.full} — ${val} time(s) (click +1, right-click/long-press reset)">${revLabel(val)}</button>`;
+          }
+          return `<button class="met ${st2[m.k]?'on':''}" data-sub="${esc(s)}" data-cls="${esc(c)}" data-ch="${esc(n)}" data-k="${m.k}" title="${m.full}">${m.lbl}</button>`;
+        }).join('');
+        h += `<div class="ch"><span class="nm">${esc(n)}</span><div class="mets">${btns}</div></div>`;
       });
     });
   });
@@ -1030,6 +1332,14 @@ function renderCh(){
 }
 
 let currentTier = 'daily', dRange = 'day', wkSelected = currentWeekKey(), mkSelected = todayM();
+
+function getTaskKey(which, extra){
+  const base = S.settings.exam + '|' + (S.settings.stream || '');
+  if (which === 'daily') return base + '|' + extra;
+  if (which === 'weekly') return base + '|wk|' + (extra || wkSelected);
+  return base + '|mk|' + (extra || mkSelected);
+}
+
 function renderTasks(){
   const box = $("#tlist");
   if (currentTier === 'daily') renderDailyTasks(box);
@@ -1041,11 +1351,12 @@ function renderDailyTasks(box){
   if (dRange === 'week'){ const dy = d.getDay()||7; f.setDate(d.getDate()-dy+1); t.setDate(f.getDate()+6); }
   else if (dRange === 'month'){ f = new Date(d.getFullYear(),d.getMonth(),1); t = new Date(d.getFullYear(),d.getMonth()+1,0); }
   else if (dRange === 'all'){ f = new Date(2000,0,1); t = new Date(2100,0,1); }
-  const ds = Object.keys(S.tk).filter(k => k.startsWith(S.settings.exam+'|')).map(k => k.split('|')[1]).filter(k => k>=fmt(f) && k<=fmt(t) && S.tk[S.settings.exam+'|'+k].length).sort();
+  const prefix = S.settings.exam + '|' + (S.settings.stream || '') + '|';
+  const ds = Object.keys(S.tk).filter(k => k.startsWith(prefix) && !k.includes('|wk|') && !k.includes('|mk|')).map(k => k.split('|')[2]).filter(k => k && k>=fmt(f) && k<=fmt(t) && S.tk[prefix+k].length).sort();
   if (!ds.length){ box.innerHTML = '<div class="empty">📝<br>No tasks</div>'; return; }
   let h = '';
   ds.forEach(k => {
-    const a = S.tk[S.settings.exam+'|'+k], dn = a.filter(t=>t.done).length, p = a.length ? dn/a.length*100 : 0;
+    const a = S.tk[prefix+k], dn = a.filter(t=>t.done).length, p = a.length ? dn/a.length*100 : 0;
     const lbl = new Date(k+'T00:00:00').toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});
     h += `<div class="dh">${k===today()?'TODAY · ':''}${lbl} · ${dn}/${a.length} (${p.toFixed(0)}%)</div>`;
     a.forEach(t => { h += `<div class="task ${t.done?'done':''}"><button class="chk" data-task-tier="daily" data-k="${k}" data-id="${esc(t.id)}">✓</button><span class="tx">${esc(t.text)}</span><button class="del" data-task-tier="daily" data-k="${k}" data-id="${esc(t.id)}">×</button></div>`; });
@@ -1053,7 +1364,7 @@ function renderDailyTasks(box){
   box.innerHTML = h;
 }
 function renderWeeklyTasks(box){
-  const key = S.settings.exam + '|' + wkSelected, a = S.wk[key]||[], dn = a.filter(t=>t.done).length, p = a.length ? dn/a.length*100 : 0;
+  const key = getTaskKey('weekly'), a = S.wk[key]||[], dn = a.filter(t=>t.done).length, p = a.length ? dn/a.length*100 : 0;
   $("#wLabel").textContent = (wkSelected===currentWeekKey()?'This Week · ':'') + weekLabel(wkSelected);
   if (!a.length){ box.innerHTML = '<div class="empty">🗓️<br>No tasks</div>'; return; }
   let h = `<div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--mut);margin:6px 2px 8px"><span>${dn} of ${a.length} done</span><span>${p.toFixed(0)}%</span></div><div class="bar" style="margin-bottom:14px"><i style="width:${p}%;background:var(--grn)"></i></div>`;
@@ -1061,7 +1372,7 @@ function renderWeeklyTasks(box){
   box.innerHTML = h;
 }
 function renderMonthlyTasks(box){
-  const key = S.settings.exam + '|' + mkSelected, a = S.mk[key]||[], dn = a.filter(t=>t.done).length, p = a.length ? dn/a.length*100 : 0;
+  const key = getTaskKey('monthly'), a = S.mk[key]||[], dn = a.filter(t=>t.done).length, p = a.length ? dn/a.length*100 : 0;
   $("#mLabel").textContent = (mkSelected===todayM()?'This Month · ':'') + mLabel(mkSelected);
   if (!a.length){ box.innerHTML = '<div class="empty">📆<br>No tasks</div>'; return; }
   let h = `<div style="display:flex;justify-content:space-between;font-size:12.5px;color:var(--mut);margin:6px 2px 8px"><span>${dn} of ${a.length} done</span><span>${p.toFixed(0)}%</span></div><div class="bar" style="margin-bottom:14px"><i style="width:${p}%;background:var(--gold)"></i></div>`;
@@ -1075,10 +1386,12 @@ function openMonthDetail(ym){
   $("#mdTitle").textContent = mLabel(ym) + (ym === S.currentMonth ? ' · Current' : ' · Archived');
   $("#mdStats").innerHTML = `<div class="stat"><span class="lb">Tasks Done</span><span class="vl">${s.done}<small>/${s.tasks}</small></span><div class="bar"><i style="width:${s.pct}%"></i></div></div><div class="stat"><span class="lb">Completion</span><span class="vl">${s.pct.toFixed(1)}<small>%</small></span></div><div class="stat"><span class="lb">Chapters</span><span class="vl" style="color:var(--grn)">${s.chapters}</span></div>`;
   const [y,m] = ym.split('-').map(Number), dim = new Date(y,m,0).getDate(), live = ym === S.currentMonth;
+  const prefix = S.settings.exam + '|' + (S.settings.stream || '') + '|';
+  const monthKey = S.settings.exam + '|' + (S.settings.stream || '') + '|' + ym;
   let html = '', anyDay = false;
   for (let d = 1; d <= dim; d++){
     const k = ym + '-' + pad(d);
-    let arr = live ? (S.tk[S.settings.exam+'|'+k]||[]) : (S.months[S.settings.exam+'|'+ym] && S.months[S.settings.exam+'|'+ym].tasks[k] ? S.months[S.settings.exam+'|'+ym].tasks[k] : []);
+    let arr = live ? (S.tk[prefix+k]||[]) : (S.months[monthKey] && S.months[monthKey].tasks[k] ? S.months[monthKey].tasks[k] : []);
     if (!arr.length) continue; anyDay = true;
     const dn = arr.filter(t=>t.done).length, p = arr.length ? dn/arr.length*100 : 0;
     const lbl = new Date(k+'T00:00:00').toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'});
@@ -1098,10 +1411,11 @@ function showPage(pgId){
   const navBtn = document.querySelector(`.drawer-item[data-pg="${pgId}"]`); if (navBtn) navBtn.classList.add('on');
 
   if (pgId === 'pg-dash') renderDash();
-  if (pgId === 'pg-ch') renderCh();
+  if (pgId === 'pg-ch') { renderLegend(); renderCh(); }
   if (pgId === 'pg-tk') renderTasks();
   if (pgId === 'pg-months'){
-    const set = new Set(Object.keys(S.months).filter(k=>k.startsWith(S.settings.exam+'|')).map(k=>k.split('|')[1]));
+    const prefix = S.settings.exam + '|' + (S.settings.stream || '') + '|';
+    const set = new Set(Object.keys(S.months).filter(k=>k.startsWith(prefix)).map(k=>k.split('|')[2]));
     set.add(S.currentMonth);
     const arr = [...set].sort().reverse();
     $("#monthList").innerHTML = arr.map(ym => {
@@ -1110,7 +1424,17 @@ function showPage(pgId){
     }).join('');
     $$('.mc').forEach(c => c.onclick = () => openMonthDetail(c.dataset.m));
   }
-  if (pgId === 'pg-settings'){ $("#settingsExam").value = S.settings.exam; }
+  if (pgId === 'pg-settings'){
+    $("#settingsExam").value = S.settings.exam;
+    const ex = EXAMS[S.settings.exam];
+    if (ex && ex.streams) {
+      $("#streamRow").style.display = "flex";
+      $("#settingsStream").innerHTML = ex.streams.map(s => `<option value="${s}">${s}</option>`).join('');
+      $("#settingsStream").value = S.settings.stream || ex.streams[0];
+    } else {
+      $("#streamRow").style.display = "none";
+    }
+  }
   window.scrollTo({top:0, behavior:'smooth'});
   $("#drawer").classList.remove("open"); $("#overlay").classList.remove("open");
 }
@@ -1122,21 +1446,20 @@ function applyTheme(){
   document.body.classList.toggle('dark', d);
   $("#themeBtn").textContent = d ? '☀️' : '🌙';
   if (HAS_CHART) Chart.defaults.color = d ? '#b8a890' : '#8a7a62';
-  if (d) applyDarkExamTheme();
+  if (d) applyDarkExamTheme(); else applyExamTheme();
 }
 
 function initApp(){
-  // Hide splash first (so even if something below fails, user sees the app)
   $("#splash").classList.add("hide");
   setTimeout(() => { const sp = $("#splash"); if (sp) sp.style.display = "none"; }, 800);
-
   checkM();
   applyExamTheme();
   applyTheme();
 
   const exam = getExam();
-  $("#drawerTitle").textContent = exam.title + " Tracker";
-  document.title = exam.title + " Tracker";
+  const streamLabel = S.settings.stream && EXAMS[S.settings.exam].streams ? ' · ' + S.settings.stream : '';
+  $("#drawerTitle").textContent = exam.title + streamLabel + " Tracker";
+  document.title = exam.title + streamLabel + " Tracker";
   if (!$("#tdDaily").value) $("#tdDaily").value = today();
 
   const tabs = $("#dashClassTabs");
@@ -1153,19 +1476,15 @@ function initApp(){
   setTimeout(checkDailyMotivation, 1500);
 }
 
-/* ═══════════════════════════════════════════════════════════
-   EVENT LISTENERS
-   ═══════════════════════════════════════════════════════════ */
 $$('.drawer-item').forEach(b => b.addEventListener('click', () => showPage(b.dataset.pg)));
 document.getElementById('backToMonths').addEventListener('click', () => showPage('pg-months'));
 
 document.getElementById('dashPrevM').onclick = () => { dashMonth = prevMonth(dashMonth); renderDash(); };
 document.getElementById('dashNextM').onclick = () => { dashMonth = nextMonth(dashMonth); renderDash(); };
 
-document.addEventListener('click', e => {
-  const b = e.target.closest && e.target.closest('.met'); if (!b) return;
-  const { sub, cls, ch, k } = b.dataset;
-  const st = chState(sub, cls, ch); st[k] = !st[k]; save(); b.classList.toggle('on', st[k]);
+let lpTimer = null, lpTriggered = false;
+
+function refreshAfterRevChange(sub, cls){
   const hdr = document.querySelector(`.shdr[data-sub="${CSS.escape(sub)}"][data-cls="${CSS.escape(cls)}"]`);
   if (hdr) { const s = cStats(sub, cls); hdr.querySelector('.mini').textContent = `${s.cnt.c}/${s.total} done · ${s.overall.toFixed(0)}%`; }
   if ($("#pg-dash").classList.contains("on")){
@@ -1175,7 +1494,58 @@ document.addEventListener('click', e => {
     const el = document.getElementById('cSum');
     if (el) el.textContent = `${a.pct.toFixed(1)}% · ${a.total} chapters`;
   }
+}
+
+function resetRevision(btn){
+  const { sub, cls, ch } = btn.dataset;
+  const st = chState(sub, cls, ch);
+  st.r = 0;
+  save();
+  btn.textContent = 'R';
+  btn.classList.remove('on');
+  btn.title = 'Revision — 0 time(s) (click +1, right-click/long-press reset)';
+  refreshAfterRevChange(sub, cls);
+}
+
+document.addEventListener('click', e => {
+  if (lpTriggered) { lpTriggered = false; return; }
+  const b = e.target.closest && e.target.closest('.met'); if (!b) return;
+  const { sub, cls, ch, k } = b.dataset;
+  const st = chState(sub, cls, ch);
+  const metric = METRICS.find(m => m.k === k);
+  if (metric && metric.isCount){
+    st[k] = (st[k] || 0) + 1;
+    const val = st[k];
+    b.textContent = revLabel(val);
+    b.classList.toggle('on', val > 0);
+    b.title = `${metric.full} — ${val} time(s) (click +1, right-click/long-press reset)`;
+  } else {
+    st[k] = !st[k];
+    b.classList.toggle('on', st[k]);
+  }
+  save();
+  refreshAfterRevChange(sub, cls);
 });
+
+document.addEventListener('contextmenu', e => {
+  const b = e.target.closest && e.target.closest('.met[data-k="r"]');
+  if (!b) return;
+  e.preventDefault();
+  resetRevision(b);
+});
+
+document.addEventListener('touchstart', e => {
+  const b = e.target.closest && e.target.closest('.met[data-k="r"]');
+  if (!b) return;
+  lpTriggered = false;
+  lpTimer = setTimeout(() => {
+    lpTriggered = true;
+    try { if (navigator.vibrate) navigator.vibrate(30); } catch(_){}
+    resetRevision(b);
+  }, 600);
+}, {passive: true});
+document.addEventListener('touchend', () => { clearTimeout(lpTimer); }, {passive: true});
+document.addEventListener('touchmove', () => { clearTimeout(lpTimer); }, {passive: true});
 
 $$('#tierTabs button').forEach(b => b.addEventListener('click', () => {
   currentTier = b.dataset.tier;
@@ -1197,19 +1567,19 @@ $$('[data-drange]').forEach(b => b.addEventListener('click', () => {
 $("#addDaily").onclick = () => {
   const x = $("#tiDaily").value.trim(); if (!x) return;
   const k = $("#tdDaily").value || today();
-  const key = S.settings.exam + '|' + k;
+  const key = getTaskKey('daily', k);
   (S.tk[key] = S.tk[key] || []).push({id: Date.now().toString(36)+Math.random().toString(36).slice(2,5), text: x, done: false});
   save(); $("#tiDaily").value = ''; renderTasks();
 };
 $("#addWeekly").onclick = () => {
   const x = $("#tiWeekly").value.trim(); if (!x) return;
-  const key = S.settings.exam + '|' + wkSelected;
+  const key = getTaskKey('weekly');
   (S.wk[key] = S.wk[key] || []).push({id: Date.now().toString(36)+Math.random().toString(36).slice(2,5), text: x, done: false});
   save(); $("#tiWeekly").value = ''; renderTasks();
 };
 $("#addMonthly").onclick = () => {
   const x = $("#tiMonthly").value.trim(); if (!x) return;
-  const key = S.settings.exam + '|' + mkSelected;
+  const key = getTaskKey('monthly');
   (S.mk[key] = S.mk[key] || []).push({id: Date.now().toString(36)+Math.random().toString(36).slice(2,5), text: x, done: false});
   save(); $("#tiMonthly").value = ''; renderTasks();
 };
@@ -1224,7 +1594,7 @@ $("#tlist").addEventListener('click', e => {
   const chk = e.target.closest('.chk');
   if (chk && chk.dataset.taskTier){
     const id = chk.dataset.id, which = chk.dataset.taskTier;
-    const key = which === 'daily' ? S.settings.exam + '|' + chk.dataset.k : which === 'weekly' ? S.settings.exam + '|' + wkSelected : S.settings.exam + '|' + mkSelected;
+    const key = which === 'daily' ? getTaskKey('daily', chk.dataset.k) : which === 'weekly' ? getTaskKey('weekly') : getTaskKey('monthly');
     const arr = which === 'daily' ? (S.tk[key]||[]) : which === 'weekly' ? (S.wk[key]||[]) : (S.mk[key]||[]);
     const t = arr.find(x=>x.id===id); if (t){ t.done = !t.done; save(); renderTasks(); }
     return;
@@ -1233,7 +1603,7 @@ $("#tlist").addEventListener('click', e => {
   if (del && del.dataset.taskTier){
     if (!confirm('Delete this task?')) return;
     const which = del.dataset.taskTier, id = del.dataset.id;
-    const key = which === 'daily' ? S.settings.exam + '|' + del.dataset.k : which === 'weekly' ? S.settings.exam + '|' + wkSelected : S.settings.exam + '|' + mkSelected;
+    const key = which === 'daily' ? getTaskKey('daily', del.dataset.k) : which === 'weekly' ? getTaskKey('weekly') : getTaskKey('monthly');
     if (which === 'daily'){ S.tk[key] = (S.tk[key]||[]).filter(x=>x.id!==id); if (!S.tk[key].length) delete S.tk[key]; }
     else if (which === 'weekly'){ S.wk[key] = (S.wk[key]||[]).filter(x=>x.id!==id); if (!S.wk[key].length) delete S.wk[key]; }
     else { S.mk[key] = (S.mk[key]||[]).filter(x=>x.id!==id); if (!S.mk[key].length) delete S.mk[key]; }
@@ -1244,11 +1614,26 @@ $("#tlist").addEventListener('click', e => {
 $("#fsub").onchange = e => { chF = e.target.value; renderCh(); };
 $("#fcls").onchange = e => { clF = e.target.value; renderCh(); };
 
+$("#settingsExam").onchange = () => {
+  const ex = EXAMS[$("#settingsExam").value];
+  if (ex && ex.streams) {
+    $("#streamRow").style.display = "flex";
+    $("#settingsStream").innerHTML = ex.streams.map(s => `<option value="${s}">${s}</option>`).join('');
+  } else {
+    $("#streamRow").style.display = "none";
+  }
+};
+
 $("#saveSettingsBtn").onclick = () => {
   const newEx = $("#settingsExam").value;
-  if (newEx !== S.settings.exam){
-    if (confirm("Changing your exam will load a completely different UI. Your current progress is safely saved. Proceed?")){
-      S.settings.exam = newEx; save(); location.reload();
+  const ex = EXAMS[newEx];
+  const newStream = (ex && ex.streams) ? $("#settingsStream").value : S.settings.stream;
+  if (newEx !== S.settings.exam || newStream !== S.settings.stream){
+    if (confirm("Changing this will load a different UI. Your current progress is safely saved. Proceed?")){
+      S.settings.exam = newEx;
+      S.settings.stream = newStream;
+      save();
+      location.reload();
     }
   } else { toast("No changes made."); }
 };
@@ -1279,9 +1664,6 @@ $("#fileIn").onchange = (e) => {
   }; r.readAsText(f);
 };
 
-/* ═══════════════════════════════════════════════════════════
-   BOOT
-   ═══════════════════════════════════════════════════════════ */
 try { applyExamTheme(); applyTheme(); } catch(e){ console.error('Theme init failed:', e); }
 
 setTimeout(() => {
