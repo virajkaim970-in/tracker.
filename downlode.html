@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Download JEE Tracker</title>
+<title>Download Study Tracker</title>
+<meta name="description" content="The offline study progress tracker for JEE, NEET, Class 10 & Class 12. Track chapters, tasks, streaks — no internet needed.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>">
 <style>
 :root{
@@ -37,7 +38,7 @@ body{
   display:block;font-size:12px;font-weight:500;letter-spacing:6px;
   color:var(--mut);text-transform:uppercase;margin-bottom:14px;-webkit-text-fill-color:var(--mut);
 }
-.hero p{font-size:15px;color:var(--mut);max-width:520px;margin:0 auto;line-height:1.7}
+.hero p{font-size:15px;color:var(--mut);max-width:540px;margin:0 auto;line-height:1.7}
 .pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:24px}
 .pill{background:var(--glass);border:1px solid var(--glass-border);border-radius:99px;padding:7px 16px;font-size:12px;font-weight:600;color:var(--cream);backdrop-filter:blur(10px)}
 
@@ -60,6 +61,8 @@ body{
 .dl-btn .txt small{font-size:11.5px;font-weight:500;opacity:.9;letter-spacing:0;font-family:-apple-system,system-ui,sans-serif}
 .meta{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:18px;font-size:12.5px;color:var(--mut)}
 .meta b{color:var(--cream);font-weight:700}
+.trial-note{text-align:center;margin-top:16px;font-size:12px;color:var(--mut);padding:10px 14px;background:rgba(212,160,90,0.06);border:1px solid rgba(212,160,90,0.15);border-radius:10px;line-height:1.5}
+.trial-note b{color:var(--gold)}
 .alt{text-align:center;margin-top:16px;font-size:12.5px;color:var(--mut)}
 .alt a{color:var(--gold);font-weight:700;text-decoration:none}
 
@@ -70,6 +73,56 @@ body{
 }
 .section h2{font-family:Georgia,serif;font-size:19px;font-weight:800;margin-bottom:18px;letter-spacing:-.2px;display:flex;align-items:center;gap:10px}
 .section h2::before{content:'';width:3px;height:18px;background:linear-gradient(180deg,#d4a05a,#8b5a2b);border-radius:2px}
+.section-sub{font-size:13px;color:var(--mut);margin:-10px 0 18px 13px;line-height:1.6}
+
+/* Exam badges row */
+.exams-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:6px}
+.exam-badge{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  background:rgba(212,160,90,0.06);border:1px solid rgba(212,160,90,0.2);
+  border-radius:12px;padding:14px 18px;min-width:100px;flex:1;max-width:160px;
+  transition:.2s;
+}
+.exam-badge:hover{background:rgba(212,160,90,0.12);border-color:rgba(212,160,90,0.4);transform:translateY(-2px)}
+.exam-badge .e-ic{font-size:22px}
+.exam-badge .e-name{font-family:Georgia,serif;font-weight:800;font-size:13px;color:var(--cream);letter-spacing:-.2px}
+.exam-badge .e-sub{font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px}
+
+/* Screenshots */
+.shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:6px}
+.phone{
+  background:linear-gradient(180deg,#1a1f2e,#131826);
+  border:6px solid #000;
+  border-radius:28px;
+  padding:8px;
+  aspect-ratio:9/17;
+  box-shadow:0 8px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+  position:relative;
+  overflow:hidden;
+}
+.phone::before{
+  content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);
+  width:60px;height:14px;background:#000;border-radius:99px;z-index:2;
+}
+.phone-screen{
+  width:100%;height:100%;border-radius:22px;overflow:hidden;
+  background:linear-gradient(180deg,#0f1520,#0a0e17);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px 14px;text-align:center;gap:12px;
+  position:relative;
+}
+.phone-screen .emoji{font-size:44px;line-height:1}
+.phone-screen .title{font-family:Georgia,serif;font-size:14px;font-weight:700;color:var(--gold);letter-spacing:-.2px}
+.phone-screen .desc{font-size:10.5px;color:var(--mut);line-height:1.4}
+.phone-screen .fake-stat{
+  width:100%;display:flex;gap:6px;justify-content:center;margin-top:4px;
+}
+.phone-screen .fake-stat span{
+  background:rgba(212,160,90,0.12);border:1px solid rgba(212,160,90,0.2);
+  border-radius:6px;padding:4px 8px;font-size:9px;color:var(--gold);font-weight:700;
+}
+
+/* Benefits */
 .benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
 .benefit{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:16px;transition:.2s}
 .benefit:hover{background:rgba(212,160,90,0.06);border-color:rgba(212,160,90,0.2);transform:translateY(-2px)}
@@ -77,12 +130,68 @@ body{
 .benefit b{font-family:Georgia,serif;font-size:14px;display:block;margin-bottom:6px;color:var(--cream)}
 .benefit p{font-size:12.5px;color:var(--mut);line-height:1.6}
 
+/* Install Steps */
+.steps{display:flex;flex-direction:column;gap:14px}
+.step{display:flex;gap:14px;align-items:flex-start;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:12px;padding:14px 16px}
+.step-num{
+  flex:none;width:32px;height:32px;border-radius:50%;
+  background:linear-gradient(135deg,#8b5a2b,#b8860b);
+  display:grid;place-items:center;font-weight:800;font-size:14px;color:#fff;
+  box-shadow:0 4px 12px rgba(184,134,11,0.3);
+}
+.step-body{flex:1;padding-top:4px}
+.step-body b{display:block;font-family:Georgia,serif;font-size:14px;color:var(--cream);margin-bottom:4px}
+.step-body p{font-size:12.5px;color:var(--mut);line-height:1.6}
+.step-body code{background:rgba(212,160,90,0.12);color:var(--gold);padding:1px 6px;border-radius:4px;font-size:11.5px;font-family:monospace}
+.warn-box{background:rgba(212,160,90,0.08);border:1px solid rgba(212,160,90,0.25);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:12.5px;color:var(--cream);line-height:1.6}
+.warn-box b{color:var(--gold)}
+
+/* What's New */
+.changelog{display:flex;flex-direction:column;gap:10px}
+.cl-item{display:flex;gap:10px;font-size:13px;color:var(--cream);line-height:1.6}
+.cl-item::before{content:'✓';color:var(--grn);font-weight:800;flex:none}
+.cl-item b{color:var(--cream);font-weight:700}
+.cl-item span{color:var(--mut)}
+
+/* FAQ */
+.faq{display:flex;flex-direction:column;gap:8px}
+.faq-item{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:10px;overflow:hidden}
+.faq-item summary{
+  padding:14px 16px;font-weight:700;font-size:13.5px;cursor:pointer;color:var(--cream);
+  list-style:none;display:flex;justify-content:space-between;align-items:center;
+  font-family:Georgia,serif;letter-spacing:-.2px;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';color:var(--gold);font-size:18px;font-weight:400;transition:.2s}
+.faq-item[open] summary::after{content:'−'}
+.faq-item[open] summary{border-bottom:1px solid rgba(255,255,255,0.05);color:var(--gold)}
+.faq-item p{padding:12px 16px 14px;font-size:12.5px;color:var(--mut);line-height:1.7}
+
+/* Footer */
+.footer{
+  text-align:center;padding:30px 20px;font-size:12px;color:var(--mut);
+  border-top:1px solid rgba(255,255,255,0.05);margin-top:20px;
+}
+.footer .brand{font-family:Georgia,serif;font-size:14px;color:var(--cream);font-weight:700;margin-bottom:6px}
+.footer a{color:var(--gold);text-decoration:none;font-weight:600}
+
 @media(max-width:520px){
   .hero h1{font-size:26px}
   .logo{width:76px;height:76px;font-size:38px}
   .dl-btn{font-size:15px;padding:18px 20px}
   .section{padding:20px 18px}
   .content{padding:30px 14px 60px}
+  .shots{grid-template-columns:repeat(3,1fr);gap:8px}
+  .phone{border-width:4px;padding:5px;border-radius:20px}
+  .phone::before{width:40px;height:10px;top:5px}
+  .phone-screen{padding:14px 8px;gap:8px;border-radius:16px}
+  .phone-screen .emoji{font-size:28px}
+  .phone-screen .title{font-size:10px}
+  .phone-screen .desc{font-size:8px}
+  .phone-screen .fake-stat span{font-size:7px;padding:2px 4px}
+  .exam-badge{min-width:80px;padding:10px 12px;flex:1}
+  .exam-badge .e-ic{font-size:18px}
+  .exam-badge .e-name{font-size:11px}
 }
 </style>
 </head>
@@ -91,23 +200,24 @@ body{
 <canvas id="particles"></canvas>
 
 <div class="content">
+  <!-- HERO -->
   <div class="hero">
     <div class="logo">📚</div>
     <h1>
       <span class="created">Created by Viraj</span>
-      JEE Tracker
+      Study Tracker
     </h1>
-    <p>The offline progress tracker built by a student, for JEE aspirants. Track chapters, daily tasks, weekly goals & monthly milestones — all on your phone.</p>
+    <p>The offline progress tracker built by a student, for students. Track chapters, daily tasks, weekly goals & monthly milestones — for JEE, NEET, Class 10, and Class 12.</p>
     <div class="pills">
       <span class="pill">📱 Android</span>
       <span class="pill">🔒 Offline</span>
       <span class="pill">🚫 No Ads</span>
-      <span class="pill">💯 Free</span>
+      <span class="pill">⚡ Fast</span>
     </div>
   </div>
 
+  <!-- DOWNLOAD CARD -->
   <div class="dl-card">
-    <!-- ✅ UPDATED: Your new GitHub release link -->
     <a href="https://github.com/virajkaim970-in/tracker./releases/download/v1.0/Study_Tracker_v1.0_1792348828672.apk" class="dl-btn">
       <span class="icon">⬇</span>
       <span class="txt">
@@ -120,17 +230,202 @@ body{
       <span>🔖 <b>v1.0</b></span>
       <span>🤖 <b>Android 7+</b></span>
     </div>
+    <div class="trial-note">
+      <b>Try free for 3 days</b> · Unlock permanently for <b>₹30</b>
+    </div>
     <p class="alt">Prefer the browser? <a href="index.html">Open web version →</a></p>
   </div>
 
+  <!-- SUPPORTED EXAMS -->
   <div class="section">
-    <h2>Why JEE Students Love It</h2>
-    <div class="benefits-grid">
-      <div class="benefit"><span class="ic">📖</span><b>Never Lose Track</b><p>Mark every chapter as Done, Revised, Questions, Notes, or Test Attempted.</p></div>
-      <div class="benefit"><span class="ic">📅</span><b>3-Tier Tasks</b><p>Separate task systems for Daily, Weekly, and Monthly goals.</p></div>
-      <div class="benefit"><span class="ic">📊</span><b>Radar Charts</b><p>Per-subject strength shown as radar graphs to spot weak areas.</p></div>
-      <div class="benefit"><span class="ic">🔥</span><b>Streak System</b><p>Daily streaks keep you accountable. Watch your streak grow.</p></div>
+    <h2>Works For Your Exam</h2>
+    <p class="section-sub">One app, four syllabi. Switch your exam anytime from Settings — your progress is saved separately for each.</p>
+    <div class="exams-row">
+      <div class="exam-badge">
+        <div class="e-ic">⚛️</div>
+        <div class="e-name">JEE</div>
+        <div class="e-sub">Physics · Chem · Maths</div>
+      </div>
+      <div class="exam-badge">
+        <div class="e-ic">🩺</div>
+        <div class="e-name">NEET</div>
+        <div class="e-sub">Physics · Chem · Bio</div>
+      </div>
+      <div class="exam-badge">
+        <div class="e-ic">🎓</div>
+        <div class="e-name">Class 10</div>
+        <div class="e-sub">All 5 subjects</div>
+      </div>
+      <div class="exam-badge">
+        <div class="e-ic">📘</div>
+        <div class="e-name">Class 12</div>
+        <div class="e-sub">PCM · PCB · Others</div>
+      </div>
     </div>
+  </div>
+
+  <!-- SCREENSHOTS -->
+  <div class="section">
+    <h2>A Look Inside</h2>
+    <p class="section-sub">Clean, focused, distraction-free — designed to help you study, not to sell you ads.</p>
+    <div class="shots">
+      <!-- Replace inner .phone-screen content with <img src="screenshot1.png" style="width:100%;height:100%;object-fit:cover"> when ready -->
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="emoji">📊</div>
+          <div class="title">Dashboard</div>
+          <div class="desc">Live stats, streaks<br>& progress charts</div>
+          <div class="fake-stat"><span>45%</span><span>12/38</span><span>7🔥</span></div>
+        </div>
+      </div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="emoji">📖</div>
+          <div class="title">Chapters</div>
+          <div class="desc">Mark D · R · Q · N · T<br>for every chapter</div>
+          <div class="fake-stat"><span>Done</span><span>R₂</span><span>Notes</span></div>
+        </div>
+      </div>
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="emoji">📝</div>
+          <div class="title">Tasks</div>
+          <div class="desc">Daily, weekly<br>& monthly goals</div>
+          <div class="fake-stat"><span>3 done</span><span>2 left</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section">
+    <h2>Why Students Love It</h2>
+    <div class="benefits-grid">
+      <div class="benefit"><span class="ic">📖</span><b>Never Lose Track</b><p>Mark every chapter as Done, Revised (with counter), Questions practiced, Notes made, or Test attempted.</p></div>
+      <div class="benefit"><span class="ic">📅</span><b>3-Tier Task System</b><p>Separate daily, weekly, and monthly task lists. Check them off and build momentum day after day.</p></div>
+      <div class="benefit"><span class="ic">📊</span><b>Radar Charts</b><p>Per-subject radar graphs instantly show which subjects need more attention.</p></div>
+      <div class="benefit"><span class="ic">🔥</span><b>Streak System</b><p>Complete your daily tasks to grow your streak. Miss a day and watch it break — a constant reminder to stay consistent.</p></div>
+      <div class="benefit"><span class="ic">🎯</span><b>Red Line Goal</b><p>Set a minimum daily completion %. Fall below it and get a motivational nudge. Stay above it and build confidence.</p></div>
+      <div class="benefit"><span class="ic">📅</span><b>Monthly Archive</b><p>Every month is archived automatically. Look back at your progress over the entire preparation journey.</p></div>
+      <div class="benefit"><span class="ic">🌙</span><b>Dark Mode</b><p>Light theme for daytime, dark theme for late-night grind sessions. Easy on the eyes.</p></div>
+      <div class="benefit"><span class="ic">🔒</span><b>Fully Offline</b><p>No internet required. Your data lives only on your phone. No accounts, no tracking, no ads.</p></div>
+    </div>
+  </div>
+
+  <!-- INSTALL GUIDE -->
+  <div class="section">
+    <h2>How to Install</h2>
+    <p class="section-sub">The app isn't on the Play Store yet — that's why Android will warn you when installing. Don't worry, it's safe.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <b>Tap "Download APK"</b>
+          <p>Above. The download starts immediately — no sign-up, no waiting, no redirects.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <b>Open the downloaded file</b>
+          <p>Check your notification bar or open the <code>Downloads</code> app on your phone. Tap the <code>Study_Tracker.apk</code> file.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <b>Allow "Install unknown apps"</b>
+          <p>Android will say <em>"For your security, your phone is not allowed to install unknown apps from this source."</em> Tap <b>Settings</b> → enable the toggle → go back. This is normal for any app not on the Play Store.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <b>Tap "Install"</b>
+          <p>Wait 5–10 seconds. The app appears on your home screen with the 📚 icon.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <b>Open and set up</b>
+          <p>Choose your exam (JEE / NEET / Class 10 / Class 12), set your daily Red Line goal, and start tracking. Done!</p>
+        </div>
+      </div>
+    </div>
+    <div class="warn-box">
+      <b>⚠️ Why the warning?</b> Android flags every app not distributed through the Play Store — even totally safe ones. This app was built from source and shared publicly on GitHub. You can verify everything at <b>github.com/virajkaim970-in</b>.
+    </div>
+  </div>
+
+  <!-- WHAT'S NEW -->
+  <div class="section">
+    <h2>What's New in v1.0</h2>
+    <div class="changelog">
+      <div class="cl-item"><div><b>All 4 exams supported</b> <span>— JEE, NEET, Class 10 & Class 12 (with PCM, PCB, Humanities, Commerce streams)</span></div></div>
+      <div class="cl-item"><div><b>Radar charts per subject</b> <span>— spot your weak areas at a glance</span></div></div>
+      <div class="cl-item"><div><b>Revision counter</b> <span>— click once for R₁, twice for R₂, right-click to reset</span></div></div>
+      <div class="cl-item"><div><b>Monthly auto-archive</b> <span>— old months are saved automatically</span></div></div>
+      <div class="cl-item"><div><b>Dark mode</b> <span>— because most studying happens at night</span></div></div>
+      <div class="cl-item"><div><b>Backup & restore</b> <span>— export your data to a file anytime</span></div></div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq">
+      <details class="faq-item">
+        <summary>Is the app really free?</summary>
+        <p>Yes — you get a <b>3-day free trial</b> with the entire app unlocked. After the trial, you can unlock it permanently for a one-time ₹30. No subscription, no hidden fees.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Which exams does it support?</summary>
+        <p>Four: <b>JEE</b> (Physics, Chemistry, Maths), <b>NEET</b> (Physics, Chemistry, Biology), <b>Class 10</b> (all subjects), and <b>Class 12</b> (with PCM, PCB, Humanities, and Commerce streams). You can switch exams anytime from Settings — your progress is saved separately for each.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do I need internet to use it?</summary>
+        <p>No. Once installed, the app works 100% offline. Your study data is stored locally on your phone and never uploaded anywhere.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Where is my data stored?</summary>
+        <p>Only on your phone, in the app's private storage. Nothing is sent to any server. No accounts, no analytics, no tracking.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Will I lose my progress if I update the app?</summary>
+        <p>No. Updates preserve all your existing data. That said, it's always smart to use the built-in <b>Export</b> button to back up your progress before a major update.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Which Android versions are supported?</summary>
+        <p>Android 7.0 (Nougat) and newer. This covers 98% of all Android phones in use today.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Why does Android show a warning when installing?</summary>
+        <p>Any APK not distributed through the Play Store triggers this warning — it's Android being cautious. The app is safe, built from source, and shared publicly on GitHub.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I use it on multiple devices?</summary>
+        <p>Each phone gets its own separate data (no sync between devices). For a single-device user, this is ideal — your data stays private. To move data between phones, use Export on the old phone and Import on the new one.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How do I unlock after the 3-day trial?</summary>
+        <p>After 3 days, the app shows your unique Device ID. Show it to Viraj in school along with ₹30, and he'll give you a personalized unlock code. Enter the code once — the app is unlocked forever on that device.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Something's not working — who do I contact?</summary>
+        <p>Reach out to Viraj directly on WhatsApp or in school. Bug reports and feature ideas are always welcome — this app was built for you.</p>
+      </details>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="brand">Study Tracker · v1.0</div>
+    <p>Made with ☕ and 🎯 by Viraj</p>
+    <p style="margin-top:8px">
+      <a href="https://github.com/virajkaim970-in">GitHub</a> ·
+      <a href="index.html">Web Version</a>
+    </p>
   </div>
 </div>
 
