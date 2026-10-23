@@ -298,7 +298,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
     <button class="drawer-item" data-pg="pg-leaderboard"><span class="ic">🏆</span>Leaderboard</button>
     <button class="drawer-item" data-pg="pg-settings"><span class="ic">⚙️</span>Settings</button>
   </nav>
-  <div class="drawer-foot">v26 · Professional</div>
+  <div class="drawer-foot">v27 · Professional</div>
 </aside>
 
 <main>
@@ -844,14 +844,12 @@ $("#fileIn").onchange=(e)=>{ const f=e.target.files[0]; if(!f) return; const r=n
 
 const FIREBASE_URL = 'https://studytracker1-e4937-default-rtdb.asia-southeast1.firebasedatabase.app';
 
-// Player identity (created once, persisted forever)
 S.settings.playerName = S.settings.playerName || 'You';
 if (!S.settings.playerId) {
   S.settings.playerId = 'P' + Math.random().toString(36).substring(2, 8).toUpperCase();
   save();
 }
 
-/* ─── Level curve ─── */
 const LEVEL = {
   xpPerLevel(lvl) { return Math.floor(100 * Math.pow(lvl, 1.5)); },
   calcXp() {
@@ -885,7 +883,6 @@ const LEVEL = {
   }
 };
 
-/* ─── Longest streak ─── */
 function longestStreak() {
   const prefix = S.settings.exam + '|' + streamKey() + '|';
   const dates = new Set();
@@ -907,7 +904,6 @@ function longestStreak() {
   return longest;
 }
 
-/* ─── My current profile snapshot ─── */
 function getMyProfile() {
   const lv = LEVEL.calc();
   const all = getSubs().map(s => sStats(s));
@@ -926,7 +922,6 @@ function getMyProfile() {
   };
 }
 
-/* ─── Firebase path per exam+stream ─── */
 function fbPath() {
   const stream = streamKey();
   const exam = S.settings.exam;
@@ -936,7 +931,6 @@ function fbPath() {
 let fbConnected = null;
 let fbLastSync = 0;
 
-/* ─── WRITE my profile to Firebase (using XMLHttpRequest) ─── */
 function fbSync() {
   if (!FIREBASE_URL || FIREBASE_URL.includes('YOUR-PROJECT')) return;
   const p = getMyProfile();
@@ -956,16 +950,17 @@ function fbSync() {
   xhr.send(JSON.stringify(p));
 }
 
-/* ─── Debounced sync (fires 3s after last change) ─── */
 let fbSyncTimer = null;
 function scheduleSync() {
   if (fbSyncTimer) clearTimeout(fbSyncTimer);
   fbSyncTimer = setTimeout(() => fbSync(), 3000);
 }
 
-/* ─── READ all players for my exam (using XMLHttpRequest) ─── */
 function fbFetchAll() {
   return new Promise((resolve) => {
+    const listEl = document.getElementById('lbList');
+    listEl.innerHTML = '<div class="empty">Connecting to Firebase...<br><small style="font-size:10px">Wait up to 8 seconds</small></div>';
+
     if (!FIREBASE_URL || FIREBASE_URL.includes('YOUR-PROJECT')) return resolve(null);
     
     const url = `${FIREBASE_URL}/leaderboard/${encodeURIComponent(fbPath())}.json`;
@@ -984,17 +979,29 @@ function fbFetchAll() {
       } else {
         fbConnected = false;
         updateConnectionDot();
+        listEl.innerHTML = `<div class="empty" style="color:var(--red)">❌ Server Error: ${xhr.status}<br><small>Firebase rejected the request.</small></div>`;
         resolve(null);
       }
     };
     
-    xhr.onerror = function() { fbConnected = false; updateConnectionDot(); resolve(null); };
-    xhr.ontimeout = function() { fbConnected = false; updateConnectionDot(); resolve(null); };
+    xhr.onerror = function() { 
+      fbConnected = false; 
+      updateConnectionDot(); 
+      listEl.innerHTML = `<div class="empty" style="color:var(--red)">❌ Network Error<br><small>AppMint is blocking the internet permission.</small></div>`;
+      resolve(null); 
+    };
+    
+    xhr.ontimeout = function() { 
+      fbConnected = false; 
+      updateConnectionDot(); 
+      listEl.innerHTML = `<div class="empty" style="color:var(--red)">❌ Connection Timeout<br><small>Your internet is too slow.</small></div>`;
+      resolve(null); 
+    };
+    
     xhr.send();
   });
 }
 
-/* ─── Connection dot ─── */
 function updateConnectionDot() {
   const el = document.getElementById('lbConnection');
   if (!el) return;
@@ -1003,7 +1010,6 @@ function updateConnectionDot() {
   else { el.style.color = 'var(--mut)'; el.textContent = '● Connecting…'; }
 }
 
-/* ─── Render rank banner on dashboard ─── */
 function renderRankBanner() {
   const el = document.getElementById('rankBanner'); if (!el) return;
   const lv = LEVEL.calc();
@@ -1023,7 +1029,6 @@ function renderRankBanner() {
   `;
 }
 
-/* ─── Render leaderboard page ─── */
 async function renderLeaderboard() {
   const self = getMyProfile();
   const lv = LEVEL.calc();
@@ -1052,20 +1057,17 @@ async function renderLeaderboard() {
   // Push my latest snapshot first
   fbSync();
 
-  const listEl = document.getElementById('lbList');
-  listEl.innerHTML = '<div class="empty">Loading leaderboard…</div>';
   const players = await fbFetchAll();
 
+  const listEl = document.getElementById('lbList');
   if (players === null) {
-    listEl.innerHTML = '<div class="empty">⚠️ WebView Network Block<br><small>Your APK is blocking the connection to Firebase. Check AppMint internet permissions.</small></div>';
-    return;
+    return; // error message already displayed
   }
   if (!players.length) {
     listEl.innerHTML = '<div class="empty">No players yet<br><small>Tell your friends to open the app!</small></div>';
     return;
   }
 
-  // Merge self (in case of stale fetch) and sort by XP
   const merged = {};
   players.forEach(p => { merged[p.id] = p; });
   merged[self.id] = { ...self, ts: Date.now() };
@@ -1094,7 +1096,6 @@ async function renderLeaderboard() {
   }).join('');
 }
 
-/* ─── Auto-refresh every 15s while on the page ─── */
 let lbTimer = null;
 function startLbRefresh() {
   stopLbRefresh();
@@ -1110,19 +1111,16 @@ function stopLbRefresh() {
   if (lbTimer) { clearInterval(lbTimer); lbTimer = null; }
 }
 
-/* ─── Refresh button ─── */
 document.addEventListener('click', e => {
   if (e.target.id === 'lbRefreshBtn') { renderLeaderboard(); }
 });
 
-/* ─── AUTO-SYNC: intercept every localStorage save of the app state ─── */
 const _origSetItem = Storage.prototype.setItem;
 Storage.prototype.setItem = function(k, v) {
   _origSetItem.call(this, k, v);
   if (k === KEY) scheduleSync();  // fire debounced sync on every progress change
 };
 
-/* ─── Heartbeat: sync every 60s in case of missed events ─── */
 setInterval(() => { if (S.settings.onboarded) fbSync(); }, 60000);
 
 try{ applyExamTheme(); applyTheme(); }catch(e){ console.error('Theme init failed:',e); }
