@@ -298,7 +298,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
     <button class="drawer-item" data-pg="pg-leaderboard"><span class="ic">🏆</span>Leaderboard</button>
     <button class="drawer-item" data-pg="pg-settings"><span class="ic">⚙️</span>Settings</button>
   </nav>
-  <div class="drawer-foot">v24 · Professional</div>
+  <div class="drawer-foot">v25 · Professional</div>
 </aside>
 
 <main>
@@ -842,11 +842,7 @@ $("#fileIn").onchange=(e)=>{ const f=e.target.files[0]; if(!f) return; const r=n
    LIVE LEADERBOARD — Firebase Realtime Database (REST API)
    ═══════════════════════════════════════════════════════════════ */
 
-// ═══════════════════════════════════════════════════════
-//   CHANGE THIS ONE LINE → paste your Firebase URL
-// ═══════════════════════════════════════════════════════
-const FIREBASE_URL = 'https://YOUR-PROJECT-default-rtdb.firebaseio.com';
-// ═══════════════════════════════════════════════════════
+const FIREBASE_URL = 'https://studytracker1-e4937-default-rtdb.asia-southeast1.firebasedatabase.app';
 
 // Player identity (created once, persisted forever)
 S.settings.playerName = S.settings.playerName || 'You';
