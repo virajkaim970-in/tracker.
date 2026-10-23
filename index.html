@@ -298,7 +298,7 @@ input:focus,textarea:focus,select:focus{border-color:var(--acc)}
     <button class="drawer-item" data-pg="pg-leaderboard"><span class="ic">🏆</span>Leaderboard</button>
     <button class="drawer-item" data-pg="pg-settings"><span class="ic">⚙️</span>Settings</button>
   </nav>
-  <div class="drawer-foot">v25 · Professional</div>
+  <div class="drawer-foot">v26 · Professional</div>
 </aside>
 
 <main>
@@ -839,7 +839,7 @@ $("#impBtn").onclick=()=>$("#fileIn").click();
 $("#fileIn").onchange=(e)=>{ const f=e.target.files[0]; if(!f) return; const r=new FileReader(); r.onload=(ev)=>{ try{ const d=JSON.parse(ev.target.result); if(!confirm("Overwrite all data?")) return; localStorage.setItem(KEY,JSON.stringify(d)); location.reload(); } catch(ex){ alert("Invalid file"); } }; r.readAsText(f); };
 
 /* ═══════════════════════════════════════════════════════════════
-   LIVE LEADERBOARD — Firebase Realtime Database (REST API)
+   LIVE LEADERBOARD — XMLHttpRequest (Works in AppMint APK)
    ═══════════════════════════════════════════════════════════════ */
 
 const FIREBASE_URL = 'https://studytracker1-e4937-default-rtdb.asia-southeast1.firebasedatabase.app';
@@ -936,18 +936,24 @@ function fbPath() {
 let fbConnected = null;
 let fbLastSync = 0;
 
-/* ─── WRITE my profile to Firebase ─── */
+/* ─── WRITE my profile to Firebase (using XMLHttpRequest) ─── */
 function fbSync() {
   if (!FIREBASE_URL || FIREBASE_URL.includes('YOUR-PROJECT')) return;
   const p = getMyProfile();
   const url = `${FIREBASE_URL}/leaderboard/${encodeURIComponent(fbPath())}/${p.id}.json`;
-  fetch(url, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(p)
-  })
-  .then(r => { fbConnected = r.ok; fbLastSync = Date.now(); updateConnectionDot(); })
-  .catch(() => { fbConnected = false; updateConnectionDot(); });
+  
+  const xhr = new XMLHttpRequest();
+  xhr.open("PUT", url, true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.timeout = 8000;
+  
+  xhr.onload = function() {
+    fbConnected = (xhr.status >= 200 && xhr.status < 300);
+    updateConnectionDot();
+  };
+  xhr.onerror = function() { fbConnected = false; updateConnectionDot(); };
+  xhr.ontimeout = function() { fbConnected = false; updateConnectionDot(); };
+  xhr.send(JSON.stringify(p));
 }
 
 /* ─── Debounced sync (fires 3s after last change) ─── */
@@ -957,22 +963,35 @@ function scheduleSync() {
   fbSyncTimer = setTimeout(() => fbSync(), 3000);
 }
 
-/* ─── READ all players for my exam ─── */
-async function fbFetchAll() {
-  if (!FIREBASE_URL || FIREBASE_URL.includes('YOUR-PROJECT')) return null;
-  const url = `${FIREBASE_URL}/leaderboard/${encodeURIComponent(fbPath())}.json`;
-  try {
-    const r = await fetch(url);
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    const data = await r.json();
-    fbConnected = true;
-    updateConnectionDot();
-    return data ? Object.values(data).filter(p => p && p.id) : [];
-  } catch(e) {
-    fbConnected = false;
-    updateConnectionDot();
-    return null;
-  }
+/* ─── READ all players for my exam (using XMLHttpRequest) ─── */
+function fbFetchAll() {
+  return new Promise((resolve) => {
+    if (!FIREBASE_URL || FIREBASE_URL.includes('YOUR-PROJECT')) return resolve(null);
+    
+    const url = `${FIREBASE_URL}/leaderboard/${encodeURIComponent(fbPath())}.json`;
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.timeout = 8000;
+    
+    xhr.onload = function() {
+      if (xhr.status === 200) {
+        fbConnected = true;
+        updateConnectionDot();
+        try {
+          const data = JSON.parse(xhr.responseText);
+          resolve(data ? Object.values(data).filter(p => p && p.id) : []);
+        } catch(e) { resolve([]); }
+      } else {
+        fbConnected = false;
+        updateConnectionDot();
+        resolve(null);
+      }
+    };
+    
+    xhr.onerror = function() { fbConnected = false; updateConnectionDot(); resolve(null); };
+    xhr.ontimeout = function() { fbConnected = false; updateConnectionDot(); resolve(null); };
+    xhr.send();
+  });
 }
 
 /* ─── Connection dot ─── */
@@ -1038,7 +1057,7 @@ async function renderLeaderboard() {
   const players = await fbFetchAll();
 
   if (players === null) {
-    listEl.innerHTML = '<div class="empty">⚠️ Can\'t connect<br><small>Check internet and Firebase URL</small></div>';
+    listEl.innerHTML = '<div class="empty">⚠️ WebView Network Block<br><small>Your APK is blocking the connection to Firebase. Check AppMint internet permissions.</small></div>';
     return;
   }
   if (!players.length) {
